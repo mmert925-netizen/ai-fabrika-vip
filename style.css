@@ -1,0 +1,131 @@
+```css
+body {
+    font-family: sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #222;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #663399; /* Mor çizgi */
+}
+
+header h1 {
+    color: #4444ff; /* Neon Mavi */
+    margin: 0;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #663399; /* Mor çerçeve */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    background-color: #663399;
+    color: #fff;
+}
+
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: #333;
+    border-radius: 8px;
+}
+
+section h2 {
+    color: #4444ff;
+    border-bottom: 1px solid #663399;
+    padding-bottom: 10px;
+}
+
+/* Galeri Stilleri */
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.gallery-item {
+    width: 300px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #663399;
+    border-radius: 5px;
+}
+
+.gallery-item p {
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+/* Form Stilleri */
+#contact-form label {
+    display: block;
+    margin-top: 10px;
+    color: #ddd;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #663399;
+    background-color: #444;
+    color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box; /* padding kutunun boyutuna dahil olsun */
+}
+
+#contact-form button[type="submit"] {
+    background-color: #4444ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#contact-form button[type="submit"]:hover {
+    background-color: #663399;
+}
+
+#form-message {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+footer {
+    background-color: #222;
+    text-align: center;
+    padding: 10px;
+    border-top: 2px solid #663399;
+}
+```

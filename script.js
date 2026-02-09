@@ -4,17 +4,14 @@ function scrollProjects() {
     if(gallery) gallery.scrollIntoView({ behavior: 'smooth' });
 }
 
-// 2. ÖMER.AI Asistan (Basit Bot)
+// 2. ÖMER.AI Asistan
 function sendMessage() {
     const input = document.getElementById('user-input');
     const box = document.getElementById('chat-box');
     if(input && input.value.trim() !== "") {
         box.innerHTML += `<p style="color: #38bdf8; margin-bottom: 8px;"><b>Sen:</b> ${input.value}</p>`;
-        let botResponse = "Şu an üretim laboratuvarındayım patron, emrindeyim!";
-        if(input.value.toLowerCase().includes("selam")) botResponse = "Merhaba patron! Fabrika emrinde.";
-        
         setTimeout(() => {
-            box.innerHTML += `<p style="color: #f8fafc; margin-bottom: 8px;"><b>🤖 Bot:</b> ${botResponse}</p>`;
+            box.innerHTML += `<p style="color: #f8fafc; margin-bottom: 8px;"><b>🤖 Bot:</b> Üretim laboratuvarı emrinde patron!</p>`;
             box.scrollTop = box.scrollHeight;
         }, 800);
         input.value = '';
@@ -42,7 +39,8 @@ function toggleTheme() {
 }
 
 // 5. 🚀 GERÇEK AI ÜRETİM MOTORU (OpenAI DALL-E)
-const OPENAI_API_KEY = 'AIzaSyDjQBSVaHFerUBPoizDqhOqCpRTVAuGrwM'; // Anahtar mühürlendi!
+// DİKKAT: Bu anahtarı kimseyle paylaşma patron!
+const OPENAI_API_KEY = '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';
 
 document.addEventListener("DOMContentLoaded", function() {
     const generateBtn = document.getElementById('generate-image-btn');
@@ -55,19 +53,17 @@ document.addEventListener("DOMContentLoaded", function() {
         generateBtn.addEventListener('click', async () => {
             const prompt = promptInput.value.trim();
             if (!prompt) {
-                alert('Ne üretmemi istersin patron? Bir şeyler yazmalısın.');
+                alert('Ne üretmemi istersin patron?');
                 return;
             }
 
-            // Arayüz Hazırlığı
             loadingIndicator.style.display = 'block';
             generateBtn.disabled = true;
-            generateBtn.innerText = "Sanat Üretiliyor...";
+            generateBtn.innerText = "Üretiliyor...";
             generatedImage.style.display = 'none';
             imagePlaceholder.style.display = 'none';
 
             try {
-                // OpenAI API Çağrısı
                 const response = await fetch('https://api.openai.com/v1/images/generations', {
                     method: 'POST',
                     headers: {
@@ -75,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         'Authorization': `Bearer ${OPENAI_API_KEY}`
                     },
                     body: JSON.stringify({
-                        model: "dall-e-2", // DALL-E 2 hızlı ve ucuzdur
+                        model: "dall-e-2", // Hızlı ve kararlı sürüm
                         prompt: prompt,
                         n: 1,
                         size: "1024x1024"
@@ -91,20 +87,13 @@ document.addEventListener("DOMContentLoaded", function() {
                         generatedImage.style.display = 'block';
                         generateBtn.disabled = false;
                         generateBtn.innerText = "Görseli Mühürle (Üret)";
-                        alert('Eser mühürlendi patron! 🎨');
+                        alert('Eser mühürlendi patron! 🍎');
                     };
                 } else {
-                    throw new Error(data.error.message || "Bilinmeyen hata");
+                    // OpenAI hata verirse burası çalışır (Bakiye bitmiş olabilir)
+                    throw new Error(data.error.message);
                 }
 
             } catch (error) {
                 console.error('Hata:', error);
-                alert('Hata: ' + error.message);
-                loadingIndicator.style.display = 'none';
-                generateBtn.disabled = false;
-                generateBtn.innerText = "Görseli Mühürle (Üret)";
-                imagePlaceholder.style.display = 'block';
-            }
-        });
-    }
-});
+                alert('Üretim dur

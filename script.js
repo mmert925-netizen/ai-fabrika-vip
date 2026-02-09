@@ -41,7 +41,7 @@ function toggleTheme() {
 // 5. 🚀 GİZLİ AI ÜRETİM MOTORU
 // GitHub engellemesin diye anahtarı buraya yazmıyoruz patron!
 // Bu değişkeni Vercel panelinden "Environment Variables" kısmına ekleyeceğiz.
-const OPENAI_API_KEY = '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'; 
+const OPENAI_API_KEY = ''; 
 
 document.addEventListener("DOMContentLoaded", function() {
     const generateBtn = document.getElementById('generate-image-btn');

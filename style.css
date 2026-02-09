@@ -91,7 +91,7 @@ h1 { font-size: 3.5rem; color: var(--accent-color); margin-bottom: 10px; }
 }
 
 .slide {
-    min-width: 100%;
+    min-width: 100%; /* Her resim tam genişlik kaplasın */
     box-sizing: border-box;
 }
 

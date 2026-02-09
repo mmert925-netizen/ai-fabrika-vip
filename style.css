@@ -13,7 +13,7 @@
 html { scroll-behavior: smooth; }
 body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', sans-serif; margin: 0; transition: 0.3s; overflow-x: hidden; }
 
-/* 2. BÖLÜMLERİ HİZALA (DAĞILMAYI ÖNLEYEN KISIM) */
+/* 2. BÖLÜMLERİ HİZALA */
 section {
     position: relative;
     width: 100%;
@@ -39,15 +39,63 @@ nav a { color: var(--text-color); text-decoration: none; font-weight: 500; }
 .hero { height: 80vh; justify-content: center; background: radial-gradient(circle at center, var(--input-bg) 0%, var(--bg-color) 100%); }
 h1 { font-size: 3.5rem; color: var(--accent-color); text-align: center; margin-bottom: 10px; }
 
-/* 5. SLIDER VE LABORATUVAR */
-.slider-container, .image-output-container { 
-    position: relative; width: 100%; max-width: 900px; 
-    overflow: hidden; border-radius: 20px; border: 2px solid var(--accent-color); 
-    background: var(--card-bg); margin: 20px 0;
+/* 5. SLIDER VE OKLAR (KÖŞELERE MÜHÜRLENDİ) */
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid var(--accent-color);
+    background: var(--card-bg);
 }
+
 .slider-track { display: flex; transition: 0.5s; }
 .slide { min-width: 100%; }
-.slide img, #generated-image { width: 100%; height: auto; display: block; object-fit: cover; }
+.slide img { width: 100%; height: auto; display: block; object-fit: cover; }
+
+/* OK BUTONLARI - TAM SAGA VE SOLA */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 23, 42, 0.9); /* Arka planı biraz daha belirgin yaptım */
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 100;
+    transition: 0.3s;
+    font-size: 1.5rem;
+}
+
+.slider-btn:hover { 
+    background: var(--accent-color); 
+    color: #fff; 
+    box-shadow: 0 0 20px var(--accent-color);
+}
+
+.prev { 
+    left: 10px; /* Sol duvar dibi */
+}
+
+.next { 
+    right: 10px; /* Sağ duvar dibi */
+}
+
+/* 6. LABORATUVAR VE HİZMETLER */
+.image-output-container {
+    position: relative; width: 100%; max-width: 900px; 
+    overflow: hidden; border-radius: 20px; border: 2px solid var(--accent-color); 
+    background: var(--card-bg); margin: 20px 0; min-height: 200px;
+}
+#generated-image { width: 100%; height: auto; display: block; }
 
 .lab-form-container { 
     width: 100%; max-width: 800px; display: flex; flex-direction: column; 
@@ -55,7 +103,6 @@ h1 { font-size: 3.5rem; color: var(--accent-color); text-align: center; margin-b
     border: 1px solid var(--accent-color); box-sizing: border-box;
 }
 
-/* 6. HİZMETLER VE DİĞERLERİ */
 .services-grid { 
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 20px; width: 100%; max-width: 1100px; margin-top: 30px;
@@ -94,6 +141,7 @@ input, textarea, #prompt-input {
     h1 { font-size: 2.2rem; }
     nav ul { display: none; }
     .hero { height: 60vh; }
+    .slider-btn { width: 40px; height: 40px; font-size: 1.2rem; }
 }
 
 footer { padding: 40px; text-align: center; opacity: 0.6; }

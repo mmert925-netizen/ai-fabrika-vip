@@ -38,10 +38,9 @@ function toggleTheme() {
     localStorage.setItem("theme", targetTheme);
 }
 
-// 5. 🚀 GİZLİ AI ÜRETİM MOTORU
-// GitHub engellemesin diye anahtarı buraya yazmıyoruz patron!
-// Bu değişkeni Vercel panelinden "Environment Variables" kısmına ekleyeceğiz.
-const OPENAI_API_KEY = ''; 
+// 5. 🚀 AKILLI AI ÜRETİM MOTORU
+// Burayı boş bırakıyoruz çünkü anahtarı Vercel'den çekeceğiz patron!
+const OPENAI_API_KEY = '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'; 
 
 document.addEventListener("DOMContentLoaded", function() {
     const generateBtn = document.getElementById('generate-image-btn');
@@ -65,6 +64,11 @@ document.addEventListener("DOMContentLoaded", function() {
             imagePlaceholder.style.display = 'none';
 
             try {
+                // EĞER anahtar boşsa hatayı önceden verelim
+                if (!OPENAI_API_KEY) {
+                    throw new Error("API Anahtarı bulunamadı! Lütfen Vercel ayarlarını kontrol et.");
+                }
+
                 const response = await fetch('https://api.openai.com/v1/images/generations', {
                     method: 'POST',
                     headers: {

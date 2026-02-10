@@ -45,33 +45,35 @@ function moveSlider(direction) {
     }
 }
 
-// 🚀 EKLEME: Otonom Slider (5 saniyede bir kendi kayar)
+// Otonom Slider Başlatıcı
 setInterval(() => {
     moveSlider(1);
 }, 5000);
 
-// 4. Tema (Karanlık/Aydınlık) Yönetimi
+// 4. Tema (Karanlık/Aydınlık) Yönetimi - FİXED
 function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute("data-theme") || "dark";
     const targetTheme = currentTheme === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", targetTheme);
+    
+    html.setAttribute("data-theme", targetTheme);
     localStorage.setItem("theme", targetTheme);
 }
 
-// 5. TELEGRAM MESAJ HATTI 🚀
-const TELEGRAM_BOT_TOKEN = '8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis'; 
-const TELEGRAM_CHAT_ID = '7076964315'; 
-
+// 5. ANA MOTOR (TÜM OLAYLAR TEK ÇATIDA)
 document.addEventListener("DOMContentLoaded", function() {
+    // Kayıtlı Temayı Uygula
     const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
+
+    // Telegram Hattı
+    const TELEGRAM_BOT_TOKEN = '8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis'; 
+    const TELEGRAM_CHAT_ID = '7076964315'; 
 
     const form = document.getElementById("contact-form");
     if (form) {
         form.addEventListener("submit", function(event) {
             event.preventDefault();
-            
-            // Butonu geçici olarak devre dışı bırak (Çift gönderimi önler)
             const submitBtn = form.querySelector('button');
             submitBtn.disabled = true;
             submitBtn.innerText = "Mühürleniyor...";
@@ -80,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const email = form.querySelector('input[type="email"]').value;
             const message = form.querySelector('textarea').value;
 
-            const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name}\n📧 *E-posta:* ${email}\n📝 *Mesaj:* ${message}`;
+            const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name}\n📧 *E-posta:* ${email}\n📝 *Messaj:* ${message}`;
 
             fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
@@ -96,13 +98,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     alert("Mührün Telegram hattına fırlatıldı patron! 🚀");
                     form.reset();
                 } else {
-                    alert("Hata: Mesaj iletilemedi. Token veya ID kontrolü gerek.");
+                    alert("Hata: Mesaj iletilemedi.");
                 }
             })
-            .catch(error => {
-                console.error('Hata:', error);
-                alert("Bağlantı hatası oluştu!");
-            })
+            .catch(error => alert("Bağlantı hatası!"))
             .finally(() => {
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Mührü Gönder";
@@ -110,68 +109,44 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Chat Giriş Kontrolü
     const chatInput = document.getElementById('user-input');
     if(chatInput) {
         chatInput.addEventListener("keypress", function(event) {
             if (event.key === "Enter") sendMessage();
         });
     }
-});// script.js dosyasının sonuna (DOMContentLoaded dışına) ekle
-document.addEventListener("DOMContentLoaded", function() {
-    // ... mevcut kodların ...
 
-    // Yapay Zeka Görsel Üretim Laboratuvarı
+    // AI Görsel Üretim Laboratuvarı
     const generateBtn = document.getElementById('generate-image-btn');
-    const promptInput = document.getElementById('prompt-input');
-    const loadingIndicator = document.getElementById('loading-indicator');
-    const generatedImage = document.getElementById('generated-image');
-    const imagePlaceholder = document.getElementById('image-placeholder');
-
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
+            const promptInput = document.getElementById('prompt-input');
+            const generatedImage = document.getElementById('generated-image');
+            const imagePlaceholder = document.getElementById('image-placeholder');
+            
             const prompt = promptInput.value.trim();
-            if (!prompt) {
-                alert('Lütfen bir görsel açıklaması girin patron!');
-                return;
-            }
+            if (!prompt) return alert('Lütfen bir görsel açıklaması girin patron!');
 
-            // Yükleme animasyonunu göster
-            loadingIndicator.style.display = 'block';
             generateBtn.disabled = true;
+            generateBtn.innerText = "Mühürleniyor...";
             generatedImage.style.display = 'none';
-            imagePlaceholder.style.display = 'none';
+            imagePlaceholder.style.display = 'block';
+            imagePlaceholder.innerText = 'AI hattı çalışıyor...';
 
-            // Burası için gerçek bir API anahtarı ve endpoint gerekecek.
-            // Örnek olarak bir AI görsel API'ı kullanacağız (örneğin DALL-E, Midjourney veya özel bir Imagen API'ı)
-            // Bu örnekte, bir placeholder veya örnek bir API çağrısı yapacağız.
-            // **GERÇEK KULLANIMDA BURAYA GEÇERLİ BİR AI GÖRSEL ÜRETİM API'I GELECEK.**
-            // Örneğin: Stable Diffusion'ın Hugging Face API'ı veya benzeri.
-
-            // ŞİMDİLİK BİR ÖRNEK VE YER TUTUCU:
             try {
-                // Burada gerçek bir API çağrısı yapılacak.
-                // const API_KEY = 'SENİN_AI_API_ANAHTARIN_BURAYA_GELECEK'; // GİZLİ TUTULMALI!
-                // const API_ENDPOINT = 'https://api.example.com/generate-image'; // KULLANDIĞIN API'IN ENDPOINT'İ
-
-                // Gerçek bir API olana kadar sahte bir yükleme ve sonuç gösterelim
-                await new Promise(resolve => setTimeout(resolve, 3000)); // 3 saniye bekleme
-
-                // Sahte bir resim URL'si
-                const dummyImageUrl = 'https://picsum.photos/800/600?' + new Date().getTime(); // Her seferinde farklı resim
+                // Pollinations AI Motoru (Daha hızlı ve ücretsiz)
+                const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random()*9999)}`;
                 
-                generatedImage.src = dummyImageUrl;
-                generatedImage.style.display = 'block';
-                imagePlaceholder.style.display = 'none';
-
-                alert('Görsel başarıyla üretildi patron!');
-
+                generatedImage.src = url;
+                generatedImage.onload = () => {
+                    generatedImage.style.display = 'block';
+                    imagePlaceholder.style.display = 'none';
+                    generateBtn.disabled = false;
+                    generateBtn.innerText = "Görseli Mühürle (Üret)";
+                };
             } catch (error) {
-                console.error('Görsel üretme hatası:', error);
-                alert('Görsel üretiminde bir sorun oluştu patron. API bağlantısını kontrol et!');
-                imagePlaceholder.innerText = 'Görsel üretiminde hata oluştu.';
-                imagePlaceholder.style.display = 'block';
-            } finally {
-                loadingIndicator.style.display = 'none';
+                alert('Üretim hattında hata!');
                 generateBtn.disabled = false;
             }
         });

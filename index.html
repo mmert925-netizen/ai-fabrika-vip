@@ -3,32 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÖMER.AI | Fabrika</title>
+    <title>ÖMER.AI | V49 FABRİKA</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav>
-        <div class="logo">ÖMER.AI</div>
-        <button onclick="toggleTheme()">MOD DEĞİŞTİR</button>
+        <div class="logo">ÖMER.AI V49</div>
+        <ul>
+            <li><a href="#home">Ana Üs</a></li>
+            <li><a href="#ai-lab">AI Laboratuvarı</a></li>
+            <li><a href="#terminal-section">Terminal</a></li>
+            <li><a href="#iletisim">İletişim</a></li>
+        </ul>
+        <button class="neon-button" onclick="toggleTheme()">🌓 MOD</button>
     </nav>
 
-    <section id="stats">
-        <div>ANALİZ: <b id="stat-data">1.20 TB</b></div>
-        <div>MÜHÜR: <b id="stat-projects">142</b></div>
+    <section id="home" class="hero">
+        <h1>YAZILIM FABRİKASI</h1>
+        <div class="factory-stats">
+            <div class="stat-item"><span>ANALİZ</span><br><b id="stat-data">1.40 TB</b></div>
+            <div class="stat-item"><span>MÜHÜR</span><br><b id="stat-projects">156</b></div>
+            <div class="stat-item"><span>DURUM</span><br><b style="color: #22c55e;">ONLINE</b></div>
+        </div>
     </section>
 
     <section id="ai-lab">
-        <textarea id="prompt-input" placeholder="Hayalini yaz..."></textarea>
-        <button onclick="generateImage()">ÜRET</button>
-        <div id="out"><img id="gen-img" style="display:none; width:100%;"></div>
+        <h2 class="neon-text">AI ÜRETİM HATTI</h2>
+        <div class="lab-form-container">
+            <textarea id="prompt-input" placeholder="Hayalini Türkçe yaz patron..."></textarea>
+            <button id="generate-image-btn" class="neon-button" onclick="generateImage()">MÜHÜRLE VE ÜRET</button>
+        </div>
+        <div class="image-output-container">
+            <img id="generated-image" style="display:none;">
+            <p id="image-placeholder">Emir Bekleniyor...</p>
+        </div>
+    </section>
+
+    <section id="terminal-section">
+        <h2 class="neon-text">SİSTEM TERMİNALİ</h2>
+        <div class="matrix-terminal">
+            <div id="terminal-output">ÖMER.AI OS [V49] INITIALIZED...</div>
+            <div class="terminal-input-line"><span>></span><input type="text" id="terminal-input"></div>
+        </div>
     </section>
 
     <section id="iletisim">
+        <h2 class="neon-text">İLETİŞİM</h2>
         <form id="contact-form">
-            <input type="text" id="name" placeholder="Ad" required>
-            <input type="email" id="email" placeholder="E-posta" required>
-            <textarea id="message" placeholder="Mesaj" required></textarea>
-            <button type="submit">GÖNDER</button>
+            <input type="text" id="contact-name" placeholder="Adınız" required>
+            <input type="email" id="contact-email" placeholder="E-posta" required>
+            <textarea id="contact-message" placeholder="Mesajınız..." required></textarea>
+            <button type="submit" class="neon-button">MÜHRÜ GÖNDER</button>
         </form>
     </section>
 

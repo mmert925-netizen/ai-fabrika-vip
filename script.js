@@ -120,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
     // ... mevcut kodların ...
 
-    // Yapay Zeka Görsel Üretim Laboratuvarı
+   // 🚀 ÜCRETSİZ VE GERÇEK AI GÖRSEL ÜRETİM MOTORU (Imagen 4.0 Simülasyonu)
+document.addEventListener("DOMContentLoaded", function() {
     const generateBtn = document.getElementById('generate-image-btn');
     const promptInput = document.getElementById('prompt-input');
     const loadingIndicator = document.getElementById('loading-indicator');
@@ -135,44 +136,44 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // Yükleme animasyonunu göster
+            // Üretim Başlıyor...
             loadingIndicator.style.display = 'block';
             generateBtn.disabled = true;
+            generateBtn.innerText = "Mühürleniyor...";
             generatedImage.style.display = 'none';
             imagePlaceholder.style.display = 'none';
 
-            // Burası için gerçek bir API anahtarı ve endpoint gerekecek.
-            // Örnek olarak bir AI görsel API'ı kullanacağız (örneğin DALL-E, Midjourney veya özel bir Imagen API'ı)
-            // Bu örnekte, bir placeholder veya örnek bir API çağrısı yapacağız.
-            // **GERÇEK KULLANIMDA BURAYA GEÇERLİ BİR AI GÖRSEL ÜRETİM API'I GELECEK.**
-            // Örneğin: Stable Diffusion'ın Hugging Face API'ı veya benzeri.
-
-            // ŞİMDİLİK BİR ÖRNEK VE YER TUTUCU:
             try {
-                // Burada gerçek bir API çağrısı yapılacak.
-                // const API_KEY = 'SENİN_AI_API_ANAHTARIN_BURAYA_GELECEK'; // GİZLİ TUTULMALI!
-                // const API_ENDPOINT = 'https://api.example.com/generate-image'; // KULLANDIĞIN API'IN ENDPOINT'İ
+                // Ücretsiz Pollinations AI Motoru (API Key gerektirmez)
+                // Patronun yazdığı promptu URL'ye güvenli şekilde ekliyoruz
+                const encodedPrompt = encodeURIComponent(prompt);
+                const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=600&model=flux&nologo=true`;
 
-                // Gerçek bir API olana kadar sahte bir yükleme ve sonuç gösterelim
-                await new Promise(resolve => setTimeout(resolve, 3000)); // 3 saniye bekleme
-
-                // Sahte bir resim URL'si
-                const dummyImageUrl = 'https://picsum.photos/800/600?' + new Date().getTime(); // Her seferinde farklı resim
+                // Görselin yüklenmesini bekle
+                const img = new Image();
+                img.src = imageUrl;
                 
-                generatedImage.src = dummyImageUrl;
-                generatedImage.style.display = 'block';
-                imagePlaceholder.style.display = 'none';
+                img.onload = function() {
+                    generatedImage.src = imageUrl;
+                    generatedImage.style.display = 'block';
+                    loadingIndicator.style.display = 'none';
+                    generateBtn.disabled = false;
+                    generateBtn.innerText = "Görseli Mühürle (Üret)";
+                    alert('Eser başarıyla mühürlendi patron! 🎨');
+                };
 
-                alert('Görsel başarıyla üretildi patron!');
+                img.onerror = function() {
+                    throw new Error("Görsel yüklenemedi");
+                };
 
             } catch (error) {
-                console.error('Görsel üretme hatası:', error);
-                alert('Görsel üretiminde bir sorun oluştu patron. API bağlantısını kontrol et!');
-                imagePlaceholder.innerText = 'Görsel üretiminde hata oluştu.';
-                imagePlaceholder.style.display = 'block';
-            } finally {
+                console.error('Üretim hatası:', error);
+                alert('Fabrikada kısa devre oluştu! Tekrar dene patron.');
                 loadingIndicator.style.display = 'none';
                 generateBtn.disabled = false;
+                generateBtn.innerText = "Görseli Mühürle (Üret)";
+                imagePlaceholder.style.display = 'block';
+                imagePlaceholder.innerText = 'Üretim başarısız oldu.';
             }
         });
     }

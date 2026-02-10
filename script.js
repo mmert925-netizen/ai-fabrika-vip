@@ -1,37 +1,78 @@
 // ==========================================
-// ÖMER.AI FABRİKA KONTROL MERKEZİ - V100 (FULL)
-// TÜRKÇE AI ENTEGRASYONU + TELEGRAM + CHAT
+// ÖMER.AI FABRİKA KONTROL MERKEZİ - V115
+// TÜM SİSTEMLER TEK PARÇA - FULL ENTEGRE
 // ==========================================
 
 // 1. OTOMATİK TERCÜMAN SİSTEMİ (Türkçe -> AI Dili)
 function translatePrompt(text) {
     const dict = {
-        "karadelik": "black hole, event horizon, singularity, space nebula, cinematic",
-        "araba": "luxury supercar, futuristic racing car, 8k",
-        "kedi": "cyberpunk neon cat, high detail fur, 4k",
-        "deniz": "dramatic ocean waves, sunset, hyper-realistic",
-        "orman": "mystical ancient forest, volumetric lighting, photorealistic",
-        "robot": "advanced humanoid robot, glowing parts, intricate mechanical detail",
-        "ev": "modern glass villa on a cliff, architecture masterpiece",
-        "uzay": "deep space, galaxies, stars and planets, high resolution",
-        "aslan": "majestic lion, golden lighting, sharp focus",
-        "kurt": "white wolf in snow, cinematic lighting, 8k"
+        "karadelik": "black hole, event horizon, singularity, space nebula, cinematic lighting, 8k",
+        "araba": "luxury supercar, futuristic racing car, hyper-realistic, 8k",
+        "kedi": "cyberpunk neon cat, high detail fur, 4k resolution",
+        "deniz": "dramatic ocean waves, sunset, hyper-realistic, 8k",
+        "orman": "mystical ancient forest, volumetric lighting, photorealistic, cinematic",
+        "robot": "advanced humanoid robot, glowing blue parts, intricate mechanical detail, masterpiece",
+        "ev": "modern glass villa on a cliff, architecture masterpiece, cinematic lighting",
+        "uzay": "deep space, galaxies, stars and planets, high resolution, 8k",
+        "aslan": "majestic lion, golden lighting, sharp focus, 8k",
+        "kurt": "white wolf in snow, cinematic lighting, sharp focus, masterpiece"
     };
-    
     let processed = text.toLowerCase();
     for (let key in dict) {
         if (processed.includes(key)) return dict[key];
     }
-    return processed; // Sözlükte yoksa olduğu gibi gönder
+    return processed;
 }
 
-// 2. PROJELERE KAYDIRMA
+// 2. İSTATİSTİK SAYACI (Canlı Veri Akışı)
+function updateStats() {
+    const dataStat = document.getElementById('stat-data');
+    const projectStat = document.getElementById('stat-projects');
+    if(dataStat && projectStat) {
+        let currentData = 1.2;
+        let currentProjects = 142;
+        setInterval(() => {
+            currentData += Math.random() * 0.05;
+            currentProjects += Math.floor(Math.random() * 2);
+            dataStat.innerText = currentData.toFixed(2) + " TB";
+            projectStat.innerText = currentProjects;
+        }, 3000);
+    }
+}
+
+// 3. MATRIX TERMİNALİ
+function initTerminal() {
+    const input = document.getElementById('terminal-input');
+    const output = document.getElementById('terminal-output');
+    if(!input || !output) return;
+
+    input.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            const cmd = input.value.toLowerCase().trim();
+            let response = `> ${cmd}\n`;
+            
+            if(cmd === 'help') response += "Komutlar: status, projects, clear, factory, whoami";
+            else if(cmd === 'status') response += "Sistem: %100 Stabil\nÇekirdek: Imagen 4.0 Online\nLimit: API Meşgul.";
+            else if(cmd === 'projects') response += "1. Siberpunk Web\n2. AI Görüntü İşleme\n3. Otonom Botlar";
+            else if(cmd === 'factory') response += "Fabrika Sahibi: ÖMER PATRON\nDurum: Üretime Hazır.";
+            else if(cmd === 'whoami') response += "Siz, fabrikada bir misafirsiniz. Patronun gözü üzerinizde.";
+            else if(cmd === 'clear') { output.innerText = "Temizlendi..."; input.value = ''; return; }
+            else response += "Hata: Komut bulunamadı. 'help' yazın.";
+
+            output.innerText += "\n" + response;
+            output.scrollTop = output.scrollHeight;
+            input.value = '';
+        }
+    });
+}
+
+// 4. PROJELERE KAYDIRMA
 function scrollProjects() {
     const gallery = document.getElementById('ai-gallery');
     if(gallery) gallery.scrollIntoView({ behavior: 'smooth' });
 }
 
-// 3. SLIDER MEKANİZMASI
+// 5. SLIDER MEKANİZMASI
 let currentSlide = 0;
 function moveSlider(direction) {
     const track = document.getElementById('slider-track');
@@ -43,7 +84,7 @@ function moveSlider(direction) {
 }
 setInterval(() => moveSlider(1), 5000);
 
-// 4. TEMA DEĞİŞTİRME
+// 6. TEMA YÖNETİMİ
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const targetTheme = currentTheme === "light" ? "dark" : "light";
@@ -51,19 +92,17 @@ function toggleTheme() {
     localStorage.setItem("theme", targetTheme);
 }
 
-// 5. ASİSTAN CHAT SİSTEMİ
+// 7. ASİSTAN CHAT SİSTEMİ
 function sendMessage() {
     const input = document.getElementById('user-input');
     const box = document.getElementById('chat-box');
     if(input && input.value.trim() !== "") {
         const userMsg = input.value.toLowerCase();
         box.innerHTML += `<p style="color: #38bdf8; margin-bottom: 8px;"><b>Sen:</b> ${input.value}</p>`;
-        
         let botResponse = "Üretim bandındayım patron, her şey kontrolümde!";
         if(userMsg.includes("selam") || userMsg.includes("merhaba")) botResponse = "Merhaba patron! Fabrikaya hoş geldin.";
-        else if(userMsg.includes("proje")) botResponse = "AI ve yazılım projelerimiz jilet gibi hazır!";
-        else if(userMsg.includes("iletişim")) botResponse = "Mesajın Telegram üzerinden bana ulaşacak.";
-
+        else if(userMsg.includes("proje")) botResponse = "AI projelerimiz sergide hazır bekliyor!";
+        
         setTimeout(() => {
             box.innerHTML += `<p style="color: #f8fafc; margin-bottom: 8px;"><b>🤖 Bot:</b> ${botResponse}</p>`;
             box.scrollTop = box.scrollHeight;
@@ -76,8 +115,11 @@ function sendMessage() {
 document.addEventListener("DOMContentLoaded", function() {
     const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
+    
+    updateStats();
+    initTerminal();
 
-    // 6. TELEGRAM MESAJ HATTI
+    // 8. TELEGRAM MESAJ HATTI
     const form = document.getElementById("contact-form");
     if (form) {
         form.addEventListener("submit", function(event) {
@@ -89,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const name = form.querySelector('input[type="text"]').value;
             const email = form.querySelector('input[type="email"]').value;
             const message = form.querySelector('textarea').value;
-
             const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name}\n📧 *E-posta:* ${email}\n📝 *Mesaj:* ${message}`;
 
             fetch(`https://api.telegram.org/bot8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis/sendMessage`, {
@@ -106,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 7. ULTRA KALİTE AI ÜRETİM HATTI (TÜRKÇE DESTEKLİ)
+    // 9. ULTRA KALİTE AI ÜRETİM HATTI
     const generateBtn = document.getElementById('generate-image-btn');
     const promptInput = document.getElementById('prompt-input');
     const generatedImage = document.getElementById('generated-image');
@@ -122,13 +163,11 @@ document.addEventListener("DOMContentLoaded", function() {
             imagePlaceholder.innerText = "Tercüme ediliyor ve yüksek kalite üretiliyor...";
             generatedImage.style.display = "none";
 
-            // Çeviri ve Kalite Arttırma
             const translated = translatePrompt(rawPrompt);
             const qualityTags = "photorealistic, masterpiece, 8k resolution, highly detailed, cinematic lighting, sharp focus";
             const finalPrompt = encodeURIComponent(translated + ", " + qualityTags);
             const seed = Math.floor(Math.random() * 999999);
             
-            // Flux Kalite Motoru
             const imageUrl = `https://image.pollinations.ai/prompt/${finalPrompt}?width=1024&height=1024&model=flux&seed=${seed}&nologo=true`;
 
             const img = new Image();
@@ -141,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 generateBtn.innerText = "Görseli Mühürle (Üret)";
             };
             img.onerror = function() {
-                alert("Üretim bandı durdu, tekrar deneyin!");
+                alert("Üretim bandı limit doldu veya hata oluştu!");
                 generateBtn.disabled = false;
                 generateBtn.innerText = "Görseli Mühürle (Üret)";
             };

@@ -1,13 +1,13 @@
 /* 1. RENK MÜHÜRLERİ (DEĞİŞKENLER) */
 :root {
-    /* Karanlık Mod (Varsayılan) */
-    --bg-color: #0f172a;
+    /* Karanlık Mod (Varsayılan) – Biraz daha açık tonlar */
+    --bg-color: #1e293b;
     --text-color: #f8fafc;
-    --accent-color: #38bdf8;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --nav-bg: rgba(15, 23, 42, 0.9);
-    --border-color: #334155;
-    --input-bg: #1e293b;
+    --accent-color: #7dd3fc;
+    --card-bg: rgba(30, 41, 59, 0.85);
+    --nav-bg: rgba(30, 41, 59, 0.95);
+    --border-color: #475569;
+    --input-bg: #334155;
 }
 
 [data-theme="light"] {
@@ -222,8 +222,7 @@ input:focus, textarea:focus {
 .neon-button:active { transform: scale(0.98); }
 
 /* 8. SOHBET KUTUSU – Açılır kapanır */
-.chat-wrapper .chat-wrapper { position: fixed; bottom: 20px; left: auto; right: 20px; z-index: 1000; }
-.chat-toggle-btn {
+.chat-wrapper { position: fixed; bottom: 20px; left: auto; right: 20px; z-index: 1000; }
 .chat-toggle-btn {
     display: none;
     align-items: center;

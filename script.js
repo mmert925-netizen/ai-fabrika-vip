@@ -50,7 +50,26 @@ setInterval(() => {
     moveSlider(1);
 }, 5000);
 
-// 4. Tema (Karanlık/Aydınlık) Yönetimi
+// 4. Sohbet kutusu aç/kapa
+function toggleChat() {
+    const chat = document.getElementById("ai-chat-widget");
+    const toggleBtn = document.getElementById("chat-toggle-btn");
+    if (!chat || !toggleBtn) return;
+    const isOpen = chat.classList.contains("chat-open");
+    if (isOpen) {
+        chat.classList.remove("chat-open");
+        chat.classList.add("chat-closed");
+        toggleBtn.classList.add("visible");
+        localStorage.setItem("chatOpen", "false");
+    } else {
+        chat.classList.add("chat-open");
+        chat.classList.remove("chat-closed");
+        toggleBtn.classList.remove("visible");
+        localStorage.setItem("chatOpen", "true");
+    }
+}
+
+// 4b. Tema (Karanlık/Aydınlık) Yönetimi
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const targetTheme = currentTheme === "light" ? "dark" : "light";
@@ -65,6 +84,19 @@ const TELEGRAM_CHAT_ID = '7076964315';
 document.addEventListener("DOMContentLoaded", function() {
     const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
+
+    const chatOpen = localStorage.getItem("chatOpen");
+    const chat = document.getElementById("ai-chat-widget");
+    const toggleBtn = document.getElementById("chat-toggle-btn");
+    if (chat && toggleBtn) {
+        if (chatOpen === "false") {
+            chat.classList.add("chat-closed");
+            toggleBtn.classList.add("visible");
+        } else {
+            chat.classList.add("chat-open");
+            chat.classList.remove("chat-closed");
+        }
+    }
 
     const form = document.getElementById("contact-form");
     if (form) {

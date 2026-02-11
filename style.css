@@ -222,7 +222,8 @@ input:focus, textarea:focus {
 .neon-button:active { transform: scale(0.98); }
 
 /* 8. SOHBET KUTUSU – Açılır kapanır */
-.chat-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+.chat-wrapper .chat-wrapper { position: fixed; bottom: 20px; left: auto; right: 20px; z-index: 1000; }
+.chat-toggle-btn {
 .chat-toggle-btn {
     display: none;
     align-items: center;

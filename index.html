@@ -87,12 +87,18 @@
         </form>
     </section>
 
-    <div id="ai-chat-widget" class="chat-container">
-        <div class="chat-header">🤖 ÖMER.AI Asistan</div>
-        <div id="chat-box" class="chat-messages"></div>
-        <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Patrona yaz...">
-            <button onclick="sendMessage()">Gönder</button>
+    <div class="chat-wrapper">
+        <button class="chat-toggle-btn" id="chat-toggle-btn" onclick="toggleChat()" title="Sohbeti aç">🤖 Sohbet</button>
+        <div id="ai-chat-widget" class="chat-container">
+            <div class="chat-header">
+                <span>🤖 ÖMER.AI Asistan</span>
+                <button class="chat-close-btn" onclick="toggleChat()" title="Kapat">✕</button>
+            </div>
+            <div id="chat-box" class="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Patrona yaz...">
+                <button onclick="sendMessage()">Gönder</button>
+            </div>
         </div>
     </div>
 

@@ -18,11 +18,13 @@ function openProjectDetail(id) {
     document.getElementById("project-modal-title").textContent = p.title[currentLang] || p.title.tr;
     document.getElementById("project-modal-desc").textContent = p.desc[currentLang] || p.desc.tr;
     modal.classList.add("modal-open");
+    modal.classList.remove("modal-fullscreen");
     document.body.style.overflow = "hidden";
 }
 function closeProjectDetail(e) {
     if (e && e.target !== e.currentTarget) return;
-    document.getElementById("project-modal").classList.remove("modal-open");
+    const modal = document.getElementById("project-modal");
+    modal.classList.remove("modal-open", "modal-fullscreen");
     document.body.style.overflow = "";
 }
 
@@ -158,10 +160,11 @@ function renderGeneratedGallery() {
     });
 }
 function showGeneratedImage(src) {
+    const modal = document.getElementById("project-modal");
     document.getElementById("project-modal-img").src = src;
     document.getElementById("project-modal-title").textContent = currentLang === "tr" ? "Üretilen Görsel" : "Generated Image";
     document.getElementById("project-modal-desc").textContent = currentLang === "tr" ? "AI Laboratuvarı'nda üretildi." : "Generated in AI Lab.";
-    document.getElementById("project-modal").classList.add("modal-open");
+    modal.classList.add("modal-open", "modal-fullscreen");
     document.body.style.overflow = "hidden";
 }
 
@@ -287,6 +290,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     const dataUrl = "data:image/png;base64," + data.image;
                     imgOut.src = dataUrl;
                     imgOut.style.display = "block";
+                    imgOut.onclick = () => showGeneratedImage(dataUrl);
                     if (imgPlaceholder) imgPlaceholder.style.display = "none";
                     if (addGalleryBtn) {
                         addGalleryBtn.style.display = "inline-block";

@@ -70,27 +70,119 @@ function checkTimeTokens() {
     sessionStorage.setItem("omerai_last_check", String(now));
 }
 
-// Dinamik arka plan (Vanta NET - fare tepkili neon mesh)
+// Dinamik arka plan (Vanta NET + Dark Matter partiküller)
 function initVanta() {
-    if (typeof VANTA === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (vantaEffect) vantaEffect.destroy();
     const isLight = document.documentElement.getAttribute("data-theme") === "light";
-    vantaEffect = VANTA.NET({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200,
-        minWidth: 200,
-        scale: 1,
-        scaleMobile: 1,
-        color: isLight ? 0x1e90ff : 0x22d3ee,
-        backgroundColor: isLight ? 0xf1f5f9 : 0x1e3a4f,
-        points: 12,
-        maxDistance: 22,
-        spacing: 18
-    });
+    if (isLight) {
+        if (darkMatterRAF) { cancelAnimationFrame(darkMatterRAF); darkMatterRAF = null; }
+        document.getElementById("vanta-bg")?.style.setProperty("visibility", "visible");
+        if (typeof VANTA !== "undefined") {
+            if (vantaEffect) vantaEffect.destroy();
+            vantaEffect = VANTA.NET({
+                el: "#vanta-bg", mouseControls: true, touchControls: true,
+                color: 0x1e90ff, backgroundColor: 0xf1f5f9,
+                points: 12, maxDistance: 22, spacing: 18
+            });
+        }
+    } else {
+        if (vantaEffect) { vantaEffect.destroy(); vantaEffect = null; }
+        document.getElementById("vanta-bg")?.style.setProperty("visibility", "hidden");
+        initDarkMatter();
+    }
+}
+
+// Karanlık Madde - Vanta Black + fare etrafında dağılan neon mavi partiküller
+let darkMatterRAF = null;
+function initDarkMatter() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (darkMatterRAF) cancelAnimationFrame(darkMatterRAF);
+    const canvas = document.getElementById("dark-matter-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let mouseX = -999, mouseY = -999;
+    const particles = [];
+    const N = 80;
+    const MOUSE_RADIUS = 180;
+    const SCATTER_FORCE = 0.08;
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        if (particles.length === 0) {
+            for (let i = 0; i < N; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    r: Math.random() * 1.5 + 0.5
+                });
+            }
+        } else {
+            for (let p of particles) {
+                p.x = Math.min(p.x, canvas.width);
+                p.y = Math.min(p.y, canvas.height);
+            }
+        }
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function setMouse(x, y) { mouseX = x; mouseY = y; }
+    document.addEventListener("mousemove", function(e) { setMouse(e.clientX, e.clientY); });
+    document.addEventListener("touchmove", function(e) { if (e.touches[0]) setMouse(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+    document.addEventListener("mouseleave", function() { mouseX = -999; mouseY = -999; });
+
+    function animate() {
+        ctx.fillStyle = "#05050c";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            const dx = mouseX - p.x;
+            const dy = mouseY - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MOUSE_RADIUS && dist > 0) {
+                const f = (1 - dist / MOUSE_RADIUS) * SCATTER_FORCE;
+                p.vx -= (dx / dist) * f;
+                p.vy -= (dy / dist) * f;
+            }
+            p.vx *= 0.98;
+            p.vy *= 0.98;
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -0.5;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -0.5;
+            p.x = Math.max(0, Math.min(canvas.width, p.x));
+            p.y = Math.max(0, Math.min(canvas.height, p.y));
+        }
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const a = particles[i], b = particles[j];
+                const d = Math.hypot(a.x - b.x, a.y - b.y);
+                if (d < 90) {
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.strokeStyle = `rgba(34, 211, 238, ${0.08 * (1 - d / 90)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        for (let p of particles) {
+            const dx = mouseX - p.x;
+            const dy = mouseY - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const glow = dist < MOUSE_RADIUS ? 0.4 * (1 - dist / MOUSE_RADIUS) : 0;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(34, 211, 238, ${0.35 + glow})`;
+            ctx.fill();
+        }
+        darkMatterRAF = requestAnimationFrame(animate);
+    }
+    animate();
 }
 
 function modalNav(direction) {

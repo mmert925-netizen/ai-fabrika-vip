@@ -210,6 +210,100 @@ setInterval(() => {
     moveSlider(1);
 }, 5000);
 
+// 3b. Sesli Komut (Voice Seal) – Web Speech API
+let voiceSealActive = false;
+let speechRecognition = null;
+
+function getVoiceRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    return SpeechRecognition ? new SpeechRecognition() : null;
+}
+
+function toggleVoiceSeal() {
+    const btn = document.getElementById("voice-seal-btn");
+    const statusEl = document.getElementById("voice-seal-status");
+    if (!btn) return;
+
+    if (voiceSealActive) {
+        stopVoiceSeal();
+        return;
+    }
+
+    const rec = getVoiceRecognition();
+    if (!rec) {
+        alert(currentLang === "tr" ? "Tarayıcınız sesli komut desteklemiyor. Chrome önerilir." : "Your browser does not support voice commands. Chrome recommended.");
+        return;
+    }
+
+    rec.lang = currentLang === "tr" ? "tr-TR" : "en-US";
+    rec.continuous = false;
+    rec.interimResults = false;
+
+    rec.onstart = () => {
+        voiceSealActive = true;
+        btn.classList.add("listening");
+        if (statusEl) { statusEl.style.display = "block"; statusEl.textContent = currentLang === "tr" ? "Dinliyorum..." : "Listening..."; }
+    };
+    rec.onend = () => {
+        voiceSealActive = false;
+        btn.classList.remove("listening");
+        if (statusEl) statusEl.style.display = "none";
+    };
+    rec.onresult = (e) => {
+        const text = (e.results[0][0].transcript || "").trim();
+        if (!text) return;
+        if (statusEl) { statusEl.textContent = '"' + text + '"'; setTimeout(() => { statusEl.style.display = "none"; }, 2000); }
+        executeVoiceCommand(text);
+    };
+    rec.onerror = () => {
+        voiceSealActive = false;
+        btn.classList.remove("listening");
+        if (statusEl) statusEl.style.display = "none";
+    };
+
+    speechRecognition = rec;
+    rec.start();
+}
+
+function stopVoiceSeal() {
+    if (speechRecognition) {
+        speechRecognition.stop();
+        speechRecognition = null;
+    }
+    voiceSealActive = false;
+    const btn = document.getElementById("voice-seal-btn");
+    if (btn) btn.classList.remove("listening");
+    const statusEl = document.getElementById("voice-seal-status");
+    if (statusEl) statusEl.style.display = "none";
+}
+
+function ensureChatOpen() {
+    const chat = document.getElementById("ai-chat-widget");
+    if (chat && chat.classList.contains("chat-closed")) toggleChat();
+}
+
+function executeVoiceCommand(text) {
+    const t = text.toLowerCase();
+    if (/sohbet|chat|aç|open/.test(t) && t.length < 15) {
+        toggleChat();
+        return;
+    }
+    if (/proje|sergi|gallery/.test(t) && !/görsel|çiz|resim/.test(t)) {
+        document.getElementById("ai-gallery")?.scrollIntoView({ behavior: "smooth" });
+        return;
+    }
+    if (/laboratuvar|lab|görsel üret/.test(t)) {
+        document.getElementById("ai-lab")?.scrollIntoView({ behavior: "smooth" });
+        return;
+    }
+    if (/iletişim|contact|form/.test(t)) {
+        document.getElementById("iletisim")?.scrollIntoView({ behavior: "smooth" });
+        return;
+    }
+    ensureChatOpen();
+    setTimeout(() => sendMessage(text), 300);
+}
+
 // 4. Sohbet kutusu aç/kapa
 function toggleChat() {
     const chat = document.getElementById("ai-chat-widget");

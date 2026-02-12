@@ -35,10 +35,16 @@
         <h1 data-tr="Yazılım ve Yapay Zeka Fabrikası" data-en="Software & AI Factory">Yazılım ve Yapay Zeka Fabrikası</h1>
         <p data-tr="Geleceği kodla, görselleri mühürle." data-en="Code the future, seal the visuals.">Geleceği kodla, görselleri mühürle.</p>
         <div class="matrix-terminal">
+            <div class="terminal-scanlines"></div>
+            <div class="terminal-header">
+                <span class="terminal-bracket">[</span>
+                <span class="terminal-title" data-tr="SİSTEM DURUMU" data-en="SYSTEM STATUS">SİSTEM DURUMU</span>
+                <span class="terminal-bracket">]</span>
+            </div>
             <div class="terminal-status">
-                <div class="status-line"><span class="term-prefix">></span> CORE_SYSTEM: <span class="neon-green">ACTIVE</span></div>
-                <div class="status-line"><span class="term-prefix">></span> NEURAL_LINK: <span class="neon-blue">ESTABLISHED</span></div>
-                <div class="status-line"><span class="term-prefix">></span> PRODUCTION_CAPACITY: <span class="neon-blue" id="capacity-value">%100</span></div>
+                <div class="status-line"><span class="term-prefix blink">█</span> CORE_SYSTEM: <span class="neon-green">ACTIVE</span></div>
+                <div class="status-line"><span class="term-prefix blink">█</span> NEURAL_LINK: <span class="neon-blue">ESTABLISHED</span></div>
+                <div class="status-line"><span class="term-prefix blink">█</span> PRODUCTION_CAPACITY: <span class="neon-blue" id="capacity-value">%100</span></div>
             </div>
             <div class="terminal-counter">
                 <span class="term-prefix">></span> Processed Data: <span class="counter-value" id="processed-data">0</span>

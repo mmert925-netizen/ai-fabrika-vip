@@ -138,6 +138,62 @@ function scrollProjects() {
     }
 }
 
+// Sistem Günlüğü - AI Agent otonom durum güncellemeleri
+const LOG_SOURCES = ["Agent_Alpha", "Agent_Beta", "Agent_Gamma", "System", "Neural_Core"];
+const LOG_MESSAGES_TR = [
+    "Yeni bir siberpunk görsel mühürlendi.",
+    "Logo tasarımı tamamlandı.",
+    "Veri trafiği %{n} arttı, çekirdek stabilize ediliyor.",
+    "Neural link güçlendirildi.",
+    "Karakter prototipi işlendi.",
+    "Mimari render kuyruğa alındı.",
+    "İşlem kapasitesi optimize edildi.",
+    "Görsel üretim pipeline aktif.",
+    "AI modeli güncellendi.",
+    "Kullanıcı oturumu tespit edildi.",
+    "Bellek düzenlemesi tamamlandı.",
+    "Yeni müşteri talebi işleniyor.",
+    "Holografik render tamamlandı.",
+];
+const LOG_MESSAGES_EN = [
+    "A new cyberpunk visual was sealed.",
+    "Logo design completed.",
+    "Data traffic increased by %{n}%, core stabilizing.",
+    "Neural link reinforced.",
+    "Character prototype processed.",
+    "Architecture render queued.",
+    "Processing capacity optimized.",
+    "Image generation pipeline active.",
+    "AI model updated.",
+    "User session detected.",
+    "Memory defragmentation complete.",
+    "New customer request processing.",
+    "Holographic render completed.",
+];
+function addSystemLogEntry() {
+    const container = document.getElementById("system-log-entries");
+    if (!container) return;
+    const now = new Date();
+    const time = "[" + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0") + "]";
+    const source = LOG_SOURCES[Math.floor(Math.random() * LOG_SOURCES.length)];
+    const msgPool = currentLang === "tr" ? LOG_MESSAGES_TR : LOG_MESSAGES_EN;
+    let msg = msgPool[Math.floor(Math.random() * msgPool.length)];
+    if (msg.includes("%{n}")) msg = msg.replace("%{n}", Math.floor(Math.random() * 20) + 5);
+    const entry = document.createElement("div");
+    entry.className = "system-log-entry";
+    entry.innerHTML = `<span class="log-time">${time}</span> <span class="log-source">${source}:</span> ${msg}`;
+    container.insertBefore(entry, container.firstChild);
+    while (container.children.length > 6) container.removeChild(container.lastChild);
+}
+function initSystemLog() {
+    const container = document.getElementById("system-log-entries");
+    if (!container) return;
+    addSystemLogEntry();
+    setTimeout(() => addSystemLogEntry(), 500);
+    setTimeout(() => addSystemLogEntry(), 1200);
+    setInterval(addSystemLogEntry, 8000 + Math.random() * 7000);
+}
+
 // Matrix Terminal - Processed Data sayacı
 function initProcessedDataCounter() {
     const el = document.getElementById("processed-data");
@@ -613,6 +669,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("lang-toggle").textContent = currentLang === "tr" ? "🌐 EN" : "🌐 TR";
 
     initProcessedDataCounter();
+    initSystemLog();
     renderGeneratedGallery();
     renderLiveStream();
     renderFilteredSlides();

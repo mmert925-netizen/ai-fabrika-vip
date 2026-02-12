@@ -759,6 +759,52 @@ input:focus, textarea:focus {
 .blog-link:hover { text-decoration: underline; }
 
 /* 8. SOHBET KUTUSU – Açılır kapanır */
+/* Sistem Günlüğü - AI Agent otonom log */
+.system-log {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 280px;
+    max-height: 180px;
+    background: rgba(0, 15, 30, 0.95);
+    border: 1px solid rgba(34, 211, 238, 0.5);
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.75rem;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+    z-index: 999;
+    overflow: hidden;
+}
+.system-log-header {
+    padding: 6px 10px;
+    background: rgba(34, 211, 238, 0.15);
+    color: var(--accent-color);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+}
+.system-log-entries {
+    padding: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+    direction: ltr;
+}
+.system-log-entry {
+    padding: 4px 6px;
+    margin-bottom: 4px;
+    color: rgba(178, 235, 242, 0.9);
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+    animation: log-fade-in 0.4s ease;
+}
+.system-log-entry:nth-child(odd) { background: rgba(0, 0, 0, 0.2); }
+.system-log-entry .log-time { background: rgba(100, 120, 140, 0.5); padding: 0 4px; border-radius: 2px; }
+.system-log-entry .log-source { background: rgba(100, 120, 140, 0.5); padding: 0 4px; border-radius: 2px; margin-left: 2px; }
+@keyframes log-fade-in {
+    from { opacity: 0; transform: translateX(8px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
 .chat-wrapper { position: fixed; bottom: 20px; left: auto; right: 20px; z-index: 1000; }
 .chat-toggle-btn {
     display: none;
@@ -921,6 +967,8 @@ input:focus, textarea:focus {
     .filter-btn { padding: 6px 12px; font-size: 0.8rem; }
     nav ul { display: none; }
     .chat-wrapper { right: 5%; bottom: 10px; }
+    .system-log { width: 260px; bottom: 75px; right: 5%; max-height: 140px; }
+    .system-log-entries { max-height: 115px; }
     .chat-container { width: min(90vw, 320px); }
     .hero { height: 60vh; }
     .gallery-container { padding: 4rem 1rem; }

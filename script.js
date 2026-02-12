@@ -437,6 +437,30 @@ function removeFromGallery(index) {
     renderGeneratedGallery();
     renderLiveStream();
 }
+function loadPatronunGundemi() {
+    const contentEl = document.getElementById("patronun-gundemi-content");
+    const refreshBtn = document.getElementById("patronun-gundemi-refresh");
+    if (!contentEl) return;
+    function setLoading(loading) {
+        contentEl.classList.toggle("loading", loading);
+        if (refreshBtn) refreshBtn.disabled = loading;
+        if (loading) contentEl.textContent = currentLang === "tr" ? "Haftalık AI bülteni yükleniyor..." : "Loading AI bulletin...";
+    }
+    function render(data) {
+        const txt = (data && data.summary) ? data.summary : (currentLang === "tr" ? "Bülten yüklenemedi. Yenile butonuna tıkla." : "Could not load bulletin. Click Refresh.");
+        contentEl.textContent = txt;
+        contentEl.classList.remove("loading");
+    }
+    setLoading(true);
+    fetch("/api/ai-news-bulletin").then(r => r.json()).then(data => {
+        setLoading(false);
+        render(data);
+    }).catch(() => {
+        setLoading(false);
+        contentEl.textContent = currentLang === "tr" ? "Bülten yüklenemedi. Yenile butonuna tıkla." : "Could not load bulletin. Click Refresh.";
+    });
+    if (refreshBtn) refreshBtn.onclick = function() { loadPatronunGundemi(); };
+}
 function renderGeneratedGallery() {
     const container = document.getElementById("generated-gallery");
     if (!container) return;
@@ -528,6 +552,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     renderGeneratedGallery();
     renderLiveStream();
+    loadPatronunGundemi();
     updateTokenUI();
     if (getTokens() === 0) addTokens(3);
     setInterval(checkTimeTokens, 120000);

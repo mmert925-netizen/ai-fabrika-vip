@@ -245,18 +245,25 @@ document.addEventListener("DOMContentLoaded", function() {
             submitBtn.disabled = true;
             submitBtn.innerText = "Mühürleniyor...";
 
-            fetch("/api/telegram", {
+            const TELEGRAM_BOT_TOKEN = '8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis';
+            const TELEGRAM_CHAT_ID = '7076964315';
+            const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name.trim()}\n📧 *E-posta:* ${email.trim()}\n📝 *Mesaj:* ${message.trim()}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim() })
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: text,
+                    parse_mode: 'Markdown'
+                })
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
+            .then(response => {
+                if (response.ok) {
                     alert("Mührün Telegram hattına fırlatıldı patron! 🚀");
                     form.reset();
                 } else {
-                    alert(data.error || "Mesaj iletilemedi.");
+                    alert("Hata: Mesaj iletilemedi. Token veya ID kontrolü gerek.");
                 }
             })
             .catch(error => {

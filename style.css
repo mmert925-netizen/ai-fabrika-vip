@@ -643,9 +643,11 @@ input:focus, textarea:focus {
 footer {
     border-top: 1px solid var(--border-color);
     background: var(--bg-color);
+    text-align: center;
 }
 footer .footer-section {
     padding: 1rem 2rem;
+    text-align: center;
 }
 footer .footer-section h2 {
     font-size: 1.2rem;
@@ -654,6 +656,7 @@ footer .footer-section h2 {
 footer .footer-section.faq-section .faq-list {
     max-width: 600px;
     margin: 0 auto;
+    text-align: left;
 }
 footer .footer-section.faq-section .faq-item {
     margin-bottom: 6px;
@@ -665,6 +668,7 @@ footer .footer-section.faq-section .faq-item summary {
 footer .footer-section.blog-section .blog-grid {
     max-width: 900px;
     margin: 0 auto;
+    justify-items: center;
 }
 footer .footer-section.blog-section .blog-card {
     padding: 1rem;
@@ -674,7 +678,7 @@ footer .footer-section.blog-section .blog-card h4 {
 }
 .footer-copyright {
     text-align: center;
-    padding: 1rem 2rem;
+    padding: 0.75rem 2rem;
     font-size: 0.9rem;
     opacity: 0.7;
     margin: 0;

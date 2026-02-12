@@ -293,8 +293,11 @@ function renderFilteredSlides() {
         const p = PROJECTS[id];
         return `<div class="slide" data-project="${id}" data-category="${p.category}" onclick="openProjectDetail(${id})"><img src="${p.img}" alt="AI ${id}"></div>`;
     }).join("");
-    currentSlide = 0;
+    const n = ids.length || 1;
+    track.style.setProperty("--slide-count", String(n));
+    track.style.width = `${n * 100}%`;
     track.style.transform = "translateX(0)";
+    currentSlide = 0;
 }
 function setupGalleryFilters() {
     document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -312,7 +315,8 @@ function moveSlider(direction) {
     const slides = document.querySelectorAll('.slide');
     if (track && slides.length > 0) {
         currentSlide = (currentSlide + direction + slides.length) % slides.length;
-        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        const pct = (currentSlide / slides.length) * 100;
+        track.style.transform = `translateX(-${pct}%)`;
     }
 }
 

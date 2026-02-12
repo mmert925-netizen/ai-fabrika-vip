@@ -138,6 +138,18 @@ function scrollProjects() {
     }
 }
 
+// Matrix Terminal - Processed Data sayacı
+function initProcessedDataCounter() {
+    const el = document.getElementById("processed-data");
+    if (!el) return;
+    let count = Math.floor(Math.random() * 8000) + 1000;
+    el.textContent = count.toLocaleString();
+    setInterval(function() {
+        count += Math.floor(Math.random() * 5) + 1;
+        el.textContent = count.toLocaleString();
+    }, 120);
+}
+
 // 2. ÖMER.AI Asistan – Gemini tabanlı gerçek AI sohbet + özel yetenekler
 let chatHistory = [];
 
@@ -600,6 +612,7 @@ document.addEventListener("DOMContentLoaded", function() {
     applyLang();
     document.getElementById("lang-toggle").textContent = currentLang === "tr" ? "🌐 EN" : "🌐 TR";
 
+    initProcessedDataCounter();
     renderGeneratedGallery();
     renderLiveStream();
     renderFilteredSlides();

@@ -34,7 +34,20 @@
     <section id="home" class="hero">
         <h1 data-tr="Yazılım ve Yapay Zeka Fabrikası" data-en="Software & AI Factory">Yazılım ve Yapay Zeka Fabrikası</h1>
         <p data-tr="Geleceği kodla, görselleri mühürle." data-en="Code the future, seal the visuals.">Geleceği kodla, görselleri mühürle.</p>
-        <button onclick="scrollProjects()" class="neon-button" data-tr="Projeleri Gör" data-en="View Projects">Projeleri Gör</button>
+        <div class="matrix-terminal">
+            <div class="terminal-status">
+                <div class="status-line"><span class="term-prefix">></span> CORE_SYSTEM: <span class="neon-green">ACTIVE</span></div>
+                <div class="status-line"><span class="term-prefix">></span> NEURAL_LINK: <span class="neon-blue">ESTABLISHED</span></div>
+                <div class="status-line"><span class="term-prefix">></span> PRODUCTION_CAPACITY: <span class="neon-blue" id="capacity-value">%100</span></div>
+            </div>
+            <div class="terminal-counter">
+                <span class="term-prefix">></span> Processed Data: <span class="counter-value" id="processed-data">0</span>
+            </div>
+            <div class="terminal-buttons">
+                <button class="matrix-btn" onclick="document.getElementById('ai-lab')?.scrollIntoView({behavior:'smooth'})" data-tr="SİSTEMİ BAŞLAT" data-en="START SYSTEM">SİSTEMİ BAŞLAT</button>
+                <button class="matrix-btn" onclick="document.getElementById('ai-gallery')?.scrollIntoView({behavior:'smooth'})" data-tr="VERİLERİ MÜHÜRLE" data-en="SEAL DATA">VERİLERİ MÜHÜRLE</button>
+            </div>
+        </div>
     </section>
 
     <section id="ai-gallery" class="gallery-container">

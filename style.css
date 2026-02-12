@@ -126,7 +126,52 @@ nav a:hover { color: var(--accent-color); }
 }
 
 h1 { font-size: 3.5rem; color: var(--accent-color); margin-bottom: 10px; }
-.hero p { font-size: 1.2rem; color: var(--text-color); opacity: 0.8; margin-bottom: 2rem; }
+.hero p { font-size: 1.2rem; color: var(--text-color); opacity: 0.8; margin-bottom: 1.5rem; }
+
+/* Matrix/Terminal Panel */
+.matrix-terminal {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 1.2rem 1.8rem;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+    text-align: left;
+    max-width: 420px;
+}
+.terminal-status .status-line, .terminal-counter {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin: 0.25rem 0;
+}
+.term-prefix { color: var(--accent-color); margin-right: 0.5rem; }
+.neon-green { color: #39ff14; text-shadow: 0 0 8px #39ff14; }
+.neon-blue { color: #00d4ff; text-shadow: 0 0 8px #00d4ff; }
+.terminal-counter { margin-top: 0.8rem; }
+.counter-value { color: var(--accent-color); font-weight: bold; }
+.terminal-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.matrix-btn {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+}
+.matrix-btn:hover {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+    background: rgba(34, 211, 238, 0.1);
+}
 
 /* 5. GALERİ VE SLIDER */
 .gallery-container { padding: 4rem 380px; text-align: center; box-sizing: border-box; }  /* Sayfa ortasında, simetrik */
@@ -827,6 +872,8 @@ input:focus, textarea:focus {
 }
 @media (max-width: 768px) {
     h1 { font-size: 2.2rem; }
+    .matrix-terminal { padding: 1rem; max-width: 100%; font-size: 0.85rem; }
+    .terminal-buttons { flex-direction: column; }
     nav { padding: 1rem; }
     .gallery-filters { gap: 0.4rem; margin-bottom: 1rem; }
     .filter-btn { padding: 6px 12px; font-size: 0.8rem; }

@@ -77,7 +77,7 @@ function isImageRequest(text) {
 }
 
 function extractImagePrompt(text) {
-    let cleaned = text.replace(/(çiz|görsel|resim|draw|image|generate|üret|mühürle)[\s\w]*/gi, '').trim();
+  let cleaned = text.replace(/(çiz|görsel|resim|draw|image|generate|üret|mühürle)[\s\w]*/gi, '').trim();
     cleaned = cleaned.replace(/^(bana|bir|for me|için|please)\s+/gi, '').trim();
     return cleaned || text;
 }
@@ -266,12 +266,14 @@ function saveToGallery(src) {
     g.push({ src, id: Date.now() });
     localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
     renderGeneratedGallery();
+    renderLiveStream();
 }
 function removeFromGallery(index) {
     const g = getSavedGallery();
     g.splice(index, 1);
     localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
     renderGeneratedGallery();
+    renderLiveStream();
 }
 function renderGeneratedGallery() {
     const container = document.getElementById("generated-gallery");
@@ -289,6 +291,26 @@ function renderGeneratedGallery() {
         el.onclick = (e) => { if (!e.target.classList.contains("gallery-delete-btn")) showGeneratedImage(getSavedGallery()[idx].src); };
     });
 }
+function renderLiveStream() {
+    const track = document.getElementById("live-stream-track");
+    if (!track) return;
+    const projectImgs = [1,2,3,4,5,6].map(i => `img/proje${i}.jpg`);
+    const generated = getSavedGallery().map(g => g.src);
+    const allImages = [...projectImgs, ...generated];
+    if (allImages.length === 0) {
+        track.innerHTML = '<p class="live-stream-empty" style="color:var(--text-color); opacity:0.7;">' + (currentLang === "tr" ? "Görsel üretmeye başla!" : "Start generating images!") + '</p>';
+        return;
+    }
+    const items = allImages.map(src => `<div class="live-stream-item"><img src="${src}" alt="Live"></div>`).join("");
+    track.innerHTML = items + items;
+    track.querySelectorAll(".live-stream-item").forEach(el => {
+        el.onclick = () => {
+            const img = el.querySelector("img");
+            if (img && img.src) showGeneratedImage(img.src);
+        };
+    });
+}
+
 function showGeneratedImage(src) {
     modalViewingProjects = false;
     const modal = document.getElementById("project-modal");
@@ -322,6 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("lang-toggle").textContent = currentLang === "tr" ? "🌐 EN" : "🌐 TR";
 
     renderGeneratedGallery();
+    renderLiveStream();
 
     const chatOpen = localStorage.getItem("chatOpen");
     const chat = document.getElementById("ai-chat-widget");

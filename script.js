@@ -56,19 +56,43 @@ function scrollProjects() {
     }
 }
 
-// 2. ÖMER.AI Asistan – Gemini tabanlı gerçek AI sohbet
+// 2. ÖMER.AI Asistan – Gemini tabanlı gerçek AI sohbet + özel yetenekler
 let chatHistory = [];
-function sendMessage() {
+
+function quickAction(type) {
+    const msgs = {
+        görsel: currentLang === "tr" ? "Bana bir neon şehir görseli çiz" : "Draw me a neon city image",
+        proje: currentLang === "tr" ? "Sergideki projeler hakkında bilgi ver" : "Tell me about the gallery projects",
+        post: currentLang === "tr" ? "ÖMER.AI hakkında sosyal medya postu yaz" : "Write a social media post about ÖMER.AI",
+        haber: currentLang === "tr" ? "Güncel haber özeti ver" : "Give me today's news summary",
+        fiyat: currentLang === "tr" ? "Fiyatlar ve paketler hakkında bilgi ver" : "Tell me about pricing and packages",
+        iletisim: currentLang === "tr" ? "İletişime nasıl geçebilirim?" : "How can I get in touch?"
+    };
+    sendMessage(msgs[type] || msgs.görsel);
+}
+
+function isImageRequest(text) {
+    const t = text.toLowerCase();
+    return /çiz|görsel|resim|draw|image|generate|üret|mühürle/.test(t) && t.length > 5;
+}
+
+function extractImagePrompt(text) {
+    let cleaned = text.replace(/(çiz|görsel|resim|draw|image|generate|üret|mühürle)[\s\w]*/gi, '').trim();
+    cleaned = cleaned.replace(/^(bana|bir|for me|için|please)\s+/gi, '').trim();
+    return cleaned || text;
+}
+
+function sendMessage(customText) {
     const input = document.getElementById('user-input');
     const box = document.getElementById('chat-box');
     
-    if (!input || input.value.trim() === "") return;
+    const userText = (customText || (input && input.value.trim()) || "").trim();
+    if (!userText) return;
 
-    const userText = input.value.trim();
+    if (input) { input.value = ''; input.disabled = true; }
+
     box.innerHTML += `<p class="chat-msg user"><b>Sen:</b> ${userText}</p>`;
     box.scrollTop = box.scrollHeight;
-    input.value = '';
-    input.disabled = true;
 
     const typingEl = document.createElement('p');
     typingEl.className = 'chat-msg bot typing';
@@ -76,6 +100,77 @@ function sendMessage() {
     box.appendChild(typingEl);
     box.scrollTop = box.scrollHeight;
 
+    // Görsel üretimi isteği
+    if (isImageRequest(userText)) {
+        const prompt = extractImagePrompt(userText);
+        fetch("/api/generate-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt }) })
+            .then(res => res.json())
+            .then(data => {
+                typingEl.remove();
+                if (data.image) {
+                    const dataUrl = "data:image/png;base64," + data.image;
+                    box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> İşte mühürlediğim görsel:</p><div class="chat-image-wrapper"><img src="${dataUrl}" alt="Üretilen" class="chat-generated-img" onclick="showGeneratedImage(this.src)"></div>`;
+                    saveToGallery(dataUrl);
+                } else {
+                    box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${data.error || (currentLang === "tr" ? "Görsel üretilemedi." : "Image generation failed.")}</p>`;
+                }
+                box.scrollTop = box.scrollHeight;
+            })
+            .catch(() => {
+                typingEl.remove();
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Görsel API bağlantı hatası." : "Image API connection error."}</p>`;
+                box.scrollTop = box.scrollHeight;
+            })
+            .finally(() => { if (input) { input.disabled = false; input.focus(); } });
+        return;
+    }
+
+    // Sosyal medya postu
+    if (/post|sosyal medya|instagram|linkedin|twitter|tweet/i.test(userText)) {
+        const topic = userText.replace(/(post|sosyal medya|instagram|linkedin|twitter|tweet)\s*(yaz|için|hakkında)?\s*/gi, '').trim() || 'ÖMER.AI Fabrika';
+        fetch("/api/social-post", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ topic }) })
+            .then(res => res.json())
+            .then(data => {
+                typingEl.remove();
+                const post = data.post || data.error || (currentLang === "tr" ? "Post üretilemedi." : "Could not generate post.");
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${post}</p>`;
+                chatHistory.push({ role: 'user', text: userText });
+                chatHistory.push({ role: 'model', text: post });
+                if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
+                box.scrollTop = box.scrollHeight;
+            })
+            .catch(() => {
+                typingEl.remove();
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Bağlantı hatası." : "Connection error."}</p>`;
+                box.scrollTop = box.scrollHeight;
+            })
+            .finally(() => { if (input) { input.disabled = false; input.focus(); } });
+        return;
+    }
+
+    // Haber özeti
+    if (/haber|güncel|news|özet/i.test(userText)) {
+        fetch("/api/news-summary")
+            .then(res => res.json())
+            .then(data => {
+                typingEl.remove();
+                const summary = data.summary || data.error || (currentLang === "tr" ? "Haber çekilemedi." : "Could not fetch news.");
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${summary}</p>`;
+                chatHistory.push({ role: 'user', text: userText });
+                chatHistory.push({ role: 'model', text: summary });
+                if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
+                box.scrollTop = box.scrollHeight;
+            })
+            .catch(() => {
+                typingEl.remove();
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Haber servisi hatası." : "News service error."}</p>`;
+                box.scrollTop = box.scrollHeight;
+            })
+            .finally(() => { if (input) { input.disabled = false; input.focus(); } });
+        return;
+    }
+
+    // Normal sohbet (Gemini)
     fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -96,7 +191,7 @@ function sendMessage() {
         box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Bağlantı hatası. Tekrar dene." : "Connection error. Try again."}</p>`;
         box.scrollTop = box.scrollHeight;
     })
-    .finally(() => { input.disabled = false; input.focus(); });
+    .finally(() => { if (input) { input.disabled = false; input.focus(); } });
 }
 
 // 3. Slider Mekanizması

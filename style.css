@@ -90,7 +90,7 @@ h1 { font-size: 3.5rem; color: var(--accent-color); margin-bottom: 10px; }
 
 .slider-container {
     position: relative;
-    max-width: 1000px;
+    max-width: 350px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 20px;
@@ -191,11 +191,11 @@ h1 { font-size: 3.5rem; color: var(--accent-color); margin-bottom: 10px; }
 }
 .project-modal-content h3 { color: var(--accent-color); margin-bottom: 0.5rem; }
 
-/* Üretilen görseller galerisi – Küçültülmüş + Silme butonu */
+/* Üretilen görseller galerisi – 100/25 küçültülmüş + Silme butonu */
 .generated-gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.5rem;
     margin-top: 2rem;
     padding: 1rem 0;
 }
@@ -208,7 +208,7 @@ h1 { font-size: 3.5rem; color: var(--accent-color); margin-bottom: 10px; }
     position: relative;
 }
 .generated-gallery-item:hover { transform: scale(1.03); box-shadow: 0 0 20px var(--accent-color); }
-.generated-gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+.generated-gallery-item img { width: 100%; height: 100px; object-fit: cover; display: block; }
 .gallery-delete-btn {
     position: absolute;
     top: 8px;
@@ -490,8 +490,8 @@ input:focus, textarea:focus {
     .slider-container { max-width: 100%; }
     .lab-container { padding: 3rem 1rem 4rem; }
     #generated-image { min-width: 100%; width: 100%; }
-    .generated-gallery-item img { height: 180px; }
-    .generated-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .generated-gallery-item img { height: 80px; }
+    .generated-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
     .services-section { padding: 40px 1rem; }
     .testimonials-section { padding: 4rem 1rem; }
     .contact-section { padding: 50px 1rem; }

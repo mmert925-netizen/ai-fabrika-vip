@@ -507,7 +507,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const cg = document.getElementById("cursor-glow");
         if (cg) {
             let rafId;
-            document.addEventListener("mousemove", function(e) {
+            function moveGlow(e) {
                 if (rafId) cancelAnimationFrame(rafId);
                 rafId = requestAnimationFrame(function() {
                     cg.style.left = e.clientX + "px";
@@ -515,8 +515,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     cg.classList.add("active");
                     rafId = null;
                 });
-            });
-            document.addEventListener("mouseleave", function() { cg.classList.remove("active"); });
+            }
+            document.addEventListener("mousemove", moveGlow);
+            document.addEventListener("mouseenter", moveGlow);
+            document.documentElement.addEventListener("mouseleave", function() { cg.classList.remove("active"); });
         }
     }
 

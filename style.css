@@ -45,16 +45,19 @@ body {
 }
 .cursor-glow {
     position: fixed;
-    width: 400px;
-    height: 400px;
-    margin-left: -200px;
-    margin-top: -200px;
+    width: 500px;
+    height: 500px;
+    left: 0;
+    top: 0;
+    margin-left: -250px;
+    margin-top: -250px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, rgba(34, 211, 238, 0.04) 40%, transparent 70%);
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, rgba(34, 211, 238, 0.06) 40%, transparent 70%);
     pointer-events: none;
-    z-index: 0;
+    z-index: 9999;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
+    will-change: transform;
 }
 body:not(.no-motion) .cursor-glow.active { opacity: 1; }
 

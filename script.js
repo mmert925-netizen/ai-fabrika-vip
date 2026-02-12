@@ -605,7 +605,7 @@ function toggleTheme() {
     const targetTheme = currentTheme === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", targetTheme);
     localStorage.setItem("theme", targetTheme);
-    if (typeof VANTA !== "undefined") initVanta();
+    initVanta();
 }
 
 // 4c. Çoklu Dil (TR / EN)
@@ -735,7 +735,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
 
-    if (typeof VANTA !== "undefined") initVanta();
+    initVanta();
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.body.classList.add("no-motion");
     else {
         const cg = document.getElementById("cursor-glow");

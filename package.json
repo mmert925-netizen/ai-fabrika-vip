@@ -1,5 +1,11 @@
 {
   "name": "omerai-fabrika",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "img:webp": "node scripts/convert-to-webp.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
 }

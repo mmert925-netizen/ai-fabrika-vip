@@ -1,3 +1,17 @@
+//// API CACHE – Sık kullanılan GET çağrılarını kısa süreli cache'leme
+const API_CACHE = new Map();
+const CACHE_TTL_MS = 2 * 60 * 1000; // 2 dakika
+function fetchWithCache(url, options = {}) {
+    if (options.method && options.method !== "GET") return fetch(url, options);
+    const cached = API_CACHE.get(url);
+    if (cached && Date.now() < cached.expires) return Promise.resolve(cached.response.clone());
+    return fetch(url, options).then(res => {
+        const clone = res.clone();
+        API_CACHE.set(url, { response: clone, expires: Date.now() + CACHE_TTL_MS });
+        return res;
+    });
+}
+
 //// ÖLÇÜM VE ANALİZ – Conversion tracking, A/B test
 function trackEvent(category, action, label, value) {
     if (typeof gtag === "function") {
@@ -27,6 +41,19 @@ function initABTest() {
         ctaBtn.textContent = currentLang === "tr" ? "Hemen Başla" : "Get Started";
     }
     trackEvent("ab_test", "variant_shown", "hero_" + v);
+}
+
+//// WebP + srcset – responsive görsel HTML
+const IMG_SIZES_SLIDER = "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px";
+const IMG_SIZES_GRID = "(max-width: 768px) 50vw, 400px";
+function getProjePictureHtml(id, loading = "lazy", alt = "AI", sizes = IMG_SIZES_SLIDER) {
+    const srcset = `img/proje${id}-400.webp 400w, img/proje${id}-800.webp 800w, img/proje${id}-1200.webp 1200w`;
+    return `<picture><source type="image/webp" srcset="${srcset}" sizes="${sizes}"><img src="img/proje${id}.jpg" alt="${alt} ${id}" loading="${loading}" decoding="async"></picture>`;
+}
+function getProjeImgOrPicture(src, alt = "Live") {
+    const m = src && src.match(/img\/proje(\d+)\.jpg/);
+    if (m) return getProjePictureHtml(Number(m[1]), "lazy", "AI", IMG_SIZES_GRID);
+    return `<img src="${src}" alt="${alt}" loading="lazy" decoding="async">`;
 }
 
 //// PROJE DETAY SAYFALARI (Portfolio)
@@ -756,7 +783,7 @@ function updateHealthPanel(data) {
 }
 function fetchHealthCheck() {
     const t0 = Date.now();
-    fetch("/api/health")
+    fetchWithCache("/api/health")
         .then(r => r.json())
         .then(data => {
             if (data.services?.vercel && data.services.vercel.latency == null) {
@@ -994,7 +1021,7 @@ function sendMessage(customText) {
 
     // Haber özeti
     if (/haber|güncel|news|özet/i.test(userText)) {
-        fetch("/api/news-summary")
+        fetchWithCache("/api/news-summary")
             .then(res => res.json())
             .then(data => {
                 typingEl.remove();
@@ -1063,7 +1090,7 @@ function renderFilteredSlides() {
     const ids = getFilteredProjectIds();
     track.innerHTML = ids.map(id => {
         const p = PROJECTS[id];
-        return `<div class="slide" data-project="${id}" data-category="${p.category}" onclick="openProjectDetail(${id})"><img src="${p.img}" alt="AI ${id}"></div>`;
+        return `<div class="slide" data-project="${id}" data-category="${p.category}" onclick="openProjectDetail(${id})">${getProjePictureHtml(id, "lazy", "AI")}</div>`;
     }).join("");
     const n = ids.length || 1;
     track.style.setProperty("--slide-count", String(n));
@@ -1523,7 +1550,7 @@ function loadPatronunGundemi() {
         contentEl.classList.remove("loading");
     }
     setLoading(true);
-    fetch("/api/ai-news-bulletin").then(r => r.json()).then(data => {
+    fetchWithCache("/api/ai-news-bulletin").then(r => r.json()).then(data => {
         setLoading(false);
         render(data);
     }).catch(() => {
@@ -1539,7 +1566,7 @@ function renderGeneratedGallery() {
     container.innerHTML = g.map((item, i) => `
         <div class="generated-gallery-item" data-gallery-index="${i}">
             <button class="gallery-delete-btn" data-index="${i}" title="${currentLang === 'tr' ? 'Sil' : 'Delete'}">×</button>
-            <img src="${item.src}" alt="ÖMER.AI mühürlü görsel">
+            <img src="${item.src}" alt="ÖMER.AI mühürlü görsel" loading="lazy" decoding="async">
         </div>
     `).join("");
     container.querySelectorAll(".generated-gallery-item").forEach(el => {
@@ -1558,7 +1585,7 @@ function renderLiveStream() {
         track.innerHTML = '<p class="live-stream-empty" style="color:var(--text-color); opacity:0.7;">' + (currentLang === "tr" ? "Görsel üretmeye başla!" : "Start generating images!") + '</p>';
         return;
     }
-    const items = allImages.map(src => `<div class="live-stream-item"><img src="${src}" alt="Live"></div>`).join("");
+    const items = allImages.map(src => `<div class="live-stream-item">${getProjeImgOrPicture(src, "Live")}</div>`).join("");
     track.innerHTML = items + items;
     track.querySelectorAll(".live-stream-item").forEach(el => {
         el.onclick = () => {

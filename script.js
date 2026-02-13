@@ -412,12 +412,36 @@ function spendTokens(n) {
 }
 function updateTokenUI() {
     const el = document.getElementById("token-count");
+    const badge = document.getElementById("token-badge");
     const hdCheck = document.getElementById("hd-mode-check");
-    if (el) el.textContent = getTokens();
-    if (hdCheck) {
-        hdCheck.disabled = getTokens() < 10;
-        hdCheck.title = getTokens() >= 10 ? (currentLang === "tr" ? "HD görsel için 2 mühür harcanır" : "2 tokens for HD image") : (currentLang === "tr" ? "10+ mühür gerekli" : "10+ tokens required");
+    const prev = parseInt(el?.textContent || "0", 10);
+    const next = getTokens();
+    if (el) {
+        animateCount(el, prev, next, 300);
+        el.classList.remove("token-pulse");
+        void el.offsetWidth;
+        el.classList.add("token-pulse");
+        setTimeout(() => el.classList.remove("token-pulse"), 500);
     }
+    if (badge && next > prev) badge.classList.add("counter-glow");
+    if (badge) setTimeout(() => badge.classList.remove("counter-glow"), 600);
+    if (hdCheck) {
+        hdCheck.disabled = next < 10;
+        hdCheck.title = next >= 10 ? (currentLang === "tr" ? "HD görsel için 2 mühür harcanır" : "2 tokens for HD image") : (currentLang === "tr" ? "10+ mühür gerekli" : "10+ tokens required");
+    }
+}
+function animateCount(el, from, to, duration) {
+    if (from === to) { el.textContent = to; return; }
+    const start = performance.now();
+    const step = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        const val = Math.round(from + (to - from) * eased);
+        el.textContent = val.toLocaleString ? val.toLocaleString("tr-TR") : val;
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = to.toLocaleString ? to.toLocaleString("tr-TR") : to;
+    };
+    requestAnimationFrame(step);
 }
 function checkTimeTokens() {
     let minutes = parseInt(sessionStorage.getItem(TOKEN_SESSION_KEY) || "0", 10);
@@ -705,8 +729,13 @@ function initProcessedDataCounter() {
     if (!el) return;
     let count = 0;
     const tick = () => {
+        const prev = count;
         count += Math.floor(Math.random() * 4) + 2;
         el.textContent = count.toLocaleString("tr-TR");
+        el.classList.remove("counter-pulse");
+        void el.offsetWidth;
+        el.classList.add("counter-pulse");
+        setTimeout(() => el.classList.remove("counter-pulse"), 400);
     };
     tick();
     setInterval(tick, 180 + Math.random() * 120);

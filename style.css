@@ -1848,9 +1848,8 @@ input:focus, textarea:focus {
     }
     .chat-container.chat-open .chat-messages { height: 140px; flex: 0 0 auto; min-height: 100px; overflow-y: auto; }
     .chat-toggle-btn.visible { display: flex !important; }
-    .system-log { width: 260px; bottom: 75px; right: 5%; max-height: 140px; }
-    .health-check-panel { width: 200px; bottom: 75px; left: 5%; }
-    .system-log-entries { max-height: 115px; }
+    .system-log,
+    .health-check-panel { display: none !important; }
     .chat-container { width: min(90vw, 320px); }
     .hero { height: 60vh; }
     .gallery-container { padding: 4rem 1rem; }

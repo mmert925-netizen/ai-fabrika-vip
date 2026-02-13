@@ -1587,10 +1587,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const forceClosedMobile = window.OMERAI_MOBILE;
         if (forceClosedMobile || chatOpen === "false") {
             chat.classList.add("chat-closed");
+            chat.classList.remove("chat-open");
             toggleBtn.classList.add("visible");
         } else {
-            chat.classList.add("chat-open");
             chat.classList.remove("chat-closed");
+            chat.classList.add("chat-open");
+            toggleBtn.classList.remove("visible");
             showChatWelcome();
         }
     }

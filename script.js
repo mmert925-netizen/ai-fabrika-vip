@@ -1,3 +1,34 @@
+//// ÖLÇÜM VE ANALİZ – Conversion tracking, A/B test
+function trackEvent(category, action, label, value) {
+    if (typeof gtag === "function") {
+        gtag("event", action, { event_category: category, event_label: label || "", value: value || 0 });
+    }
+}
+function initABTest() {
+    const key = "omerai_ab_variant";
+    let v = localStorage.getItem(key);
+    if (!v) { v = Math.random() < 0.5 ? "A" : "B"; localStorage.setItem(key, v); }
+    const heroH1 = document.querySelector(".hero-text-wrap h1");
+    const heroP = document.querySelector(".hero-text-wrap p");
+    const ctaBtn = document.getElementById("sistem-baslat-btn");
+    if (v === "B" && heroH1) {
+        heroH1.setAttribute("data-tr", "AI ile Geleceği Kodla");
+        heroH1.setAttribute("data-en", "Code the Future with AI");
+        heroH1.textContent = currentLang === "tr" ? "AI ile Geleceği Kodla" : "Code the Future with AI";
+    }
+    if (v === "B" && heroP) {
+        heroP.setAttribute("data-tr", "Görselleri mühürle, projeleri hayata geçir.");
+        heroP.setAttribute("data-en", "Seal visuals, bring projects to life.");
+        heroP.textContent = currentLang === "tr" ? "Görselleri mühürle, projeleri hayata geçir." : "Seal visuals, bring projects to life.";
+    }
+    if (v === "B" && ctaBtn) {
+        ctaBtn.setAttribute("data-tr", "Hemen Başla");
+        ctaBtn.setAttribute("data-en", "Get Started");
+        ctaBtn.textContent = currentLang === "tr" ? "Hemen Başla" : "Get Started";
+    }
+    trackEvent("ab_test", "variant_shown", "hero_" + v);
+}
+
 //// PROJE DETAY SAYFALARI (Portfolio)
 const PROJECTS = {
     1: { title: { tr: "Neon Şehir Manzarası", en: "Neon City Landscape" }, desc: { tr: "Siberpunk tema ile oluşturulmuş gelecek şehir vizyonu.", en: "Future city vision with cyberpunk theme." }, img: "img/proje1.jpg", category: "cyberpunk", techStack: ["Gemini Imagen", "Photoshop", "Figma"] },
@@ -217,6 +248,7 @@ function triggerGhostIfCommand() {
     return true;
 }
 function onTerminalAction() {
+    trackEvent("conversion", "cta_click", "sistem_baslat");
     if (triggerGhostIfCommand()) return;
     document.getElementById("ai-lab")?.scrollIntoView({ behavior: "smooth" });
 }
@@ -298,6 +330,7 @@ function initDemoPrompts() {
                 input.value = prompt;
                 input.focus();
                 document.getElementById("ai-lab")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                trackEvent("engagement", "demo_prompt_click", "image_" + (this.textContent || "").trim());
             }
         });
     });
@@ -309,6 +342,7 @@ function initDemoPrompts() {
                 input.value = prompt;
                 input.focus();
                 document.getElementById("web-sablon-lab")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                trackEvent("engagement", "demo_prompt_click", "web_" + (this.textContent || "").trim());
             }
         });
     });
@@ -1213,6 +1247,7 @@ function toggleChat() {
         toggleBtn.classList.remove("visible");
         localStorage.setItem("chatOpen", "true");
         showChatWelcome();
+        trackEvent("engagement", "chat_opened", "conversion");
     }
 }
 
@@ -1238,6 +1273,7 @@ function initNewsletterForm() {
         e.preventDefault();
         const email = form.querySelector('input[type="email"]').value.trim();
         if (!email) return;
+        trackEvent("conversion", "newsletter_subscribe", "email_signup");
         alert(currentLang === "tr" ? "Aboneliğiniz alındı! Teşekkürler." : "Subscription received! Thank you.");
         form.reset();
     });
@@ -1653,6 +1689,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Proje Sihirbazı
     initProjectWizard();
     initDemoPrompts();
+    initABTest();
 
     const form = document.getElementById("contact-form");
     if (form) {
@@ -1691,6 +1728,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => {
                 if (response.ok) {
                     addTokens(5);
+                    trackEvent("conversion", "contact_form_submit", "telegram_success");
                     alert("Mührün Telegram hattına fırlatıldı patron! 🚀 +5 Dijital Mühür kazandın!");
                     form.reset();
                     const wizard = document.getElementById("project-wizard");
@@ -1764,6 +1802,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (genBtn && promptInput) {
         genBtn.addEventListener("click", function() {
+            trackEvent("engagement", "generate_image_click", "conversion");
             let prompt = promptInput.value.trim();
             if (!prompt) {
                 alert(currentLang === "tr" ? "Lütfen görsel açıklaması yazın." : "Please enter an image description.");
@@ -1791,6 +1830,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (loadingEl) loadingEl.style.display = "none";
                 if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 if (ok && data.image) {
+                    trackEvent("conversion", "generate_image_success", "image_created");
                     if (useHD) spendTokens(2);
                     const dataUrl = "data:image/png;base64," + data.image;
                     const serialNo = getNextSerial();
@@ -1852,6 +1892,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (webGenBtn && webPromptInput) {
         webGenBtn.addEventListener("click", function() {
+            trackEvent("engagement", "generate_web_click", "conversion");
             const prompt = webPromptInput.value.trim() || (currentLang === "tr" ? "Modern landing page" : "Modern landing page");
             if (webLoadingEl) webLoadingEl.style.display = "block";
             if (webPreviewWrapper) webPreviewWrapper.style.display = "none";
@@ -1866,6 +1907,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (webLoadingEl) webLoadingEl.style.display = "none";
                 if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 if (data.html) {
+                    trackEvent("conversion", "generate_web_success", "template_created");
                     lastGeneratedHtml = data.html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
                     if (webPlaceholder) webPlaceholder.style.display = "none";
                     if (webPreviewWrapper) webPreviewWrapper.style.display = "block";

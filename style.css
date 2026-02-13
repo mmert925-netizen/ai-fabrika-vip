@@ -1832,7 +1832,16 @@ input:focus, textarea:focus {
     nav ul.open { display: flex; }
     nav ul li { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
     nav ul li:last-child { border-bottom: none; }
-    .chat-wrapper { right: 5%; bottom: 10px; }
+    .chat-wrapper { left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; padding: 0 10px; }
+    .chat-container.chat-open {
+        width: min(95vw, 340px);
+        max-height: 65vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .chat-container.chat-open .chat-messages { height: 140px; flex: 0 0 auto; min-height: 100px; overflow-y: auto; }
+    .chat-toggle-btn.visible { display: flex !important; }
     .system-log { width: 260px; bottom: 75px; right: 5%; max-height: 140px; }
     .health-check-panel { width: 200px; bottom: 75px; left: 5%; }
     .system-log-entries { max-height: 115px; }
@@ -1854,7 +1863,7 @@ input:focus, textarea:focus {
     .pricing-comparison-table { font-size: 0.78rem; }
     .pricing-comparison-table th, .pricing-comparison-table td { padding: 8px 10px; }
     footer .footer-section { padding: 1rem; }
-    .chat-quick-actions { flex-direction: column; }
+    .chat-quick-actions { flex-direction: row; flex-wrap: wrap; max-height: 80px; overflow-y: auto; }
     .quick-btn { font-size: 12px; padding: 6px 10px; }
     .testimonials-section { padding: 4rem 1rem; }
     .contact-section { padding: 50px 1rem; }

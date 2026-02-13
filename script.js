@@ -1584,7 +1584,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const chat = document.getElementById("ai-chat-widget");
     const toggleBtn = document.getElementById("chat-toggle-btn");
     if (chat && toggleBtn) {
-        if (chatOpen === "false") {
+        const forceClosedMobile = window.OMERAI_MOBILE;
+        if (forceClosedMobile || chatOpen === "false") {
             chat.classList.add("chat-closed");
             toggleBtn.classList.add("visible");
         } else {

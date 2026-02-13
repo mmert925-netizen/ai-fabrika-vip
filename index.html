@@ -85,6 +85,7 @@
             <li><a href="#web-sablon-lab" data-tr="Web Şablon" data-en="Web Template">Web Şablon</a></li>
             <li><a href="#hizmetler" data-tr="Hizmetler" data-en="Services">Hizmetler</a></li>
             <li><a href="#fiyatlandirma" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a></li>
+            <li><a href="#referanslar" data-tr="Referanslar" data-en="References">Referanslar</a></li>
             <li><a href="#testimonials" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a></li>
             <li><a href="#portal" data-tr="Müşteri Portalı" data-en="Client Portal">Müşteri Portalı</a></li>
             <li><a href="#iletisim" data-tr="İletişim" data-en="Contact">İletişim</a></li>
@@ -182,6 +183,17 @@
                 <option value="anime, japon animasyon stili" data-tr="Anime" data-en="Anime">Anime</option>
             </select>
         </div>
+        <div class="demo-prompts" id="demo-prompts">
+            <span class="demo-label" data-tr="Örnek promptlar – tıkla dene:" data-en="Sample prompts – click to try:">Örnek promptlar – tıkla dene:</span>
+            <div class="demo-chips">
+                <button type="button" class="demo-chip" data-prompt="Neon ışıklarla aydınlanan futuristik şehir manzarası, siberpunk tarzı">🌃 Neon Şehir</button>
+                <button type="button" class="demo-chip" data-prompt="Yapay zeka robot portresi, detaylı devre desenleri, mavi neon">🤖 Robot Portresi</button>
+                <button type="button" class="demo-chip" data-prompt="Siberpunk tarzı logo, neon yeşil ve mor, teknoloji firması">⚡ Siberpunk Logo</button>
+                <button type="button" class="demo-chip" data-prompt="Gece vakti futuristik mekan, cam ve metal, ışık yansımaları">🏙️ Futuristik Mekan</button>
+                <button type="button" class="demo-chip" data-prompt="Dijital orman, biyolüminesan bitkiler, büyülü atmosfer">🌲 Dijital Orman</button>
+                <button type="button" class="demo-chip" data-prompt="Steampunk buhar makinesi, pirinç dişliler, detaylı çizim">⚙️ Steampunk Makine</button>
+            </div>
+        </div>
         <div class="lab-form-container">
             <textarea id="prompt-input" placeholder="Hayal ettiğin görseli buraya yaz patron..." rows="4" data-placeholder-tr="Hayal ettiğin görseli buraya yaz patron..." data-placeholder-en="Describe your vision here..."></textarea>
             <button id="generate-image-btn" class="neon-button" data-tr="Görseli Mühürle (Üret)" data-en="Generate Image">Görseli Mühürle (Üret)</button>
@@ -208,6 +220,16 @@
     <div id="web-sablon-lab" class="lab-container web-lab lab-panel">
         <h2 class="neon-text" data-tr="Web Şablon Laboratuvarı" data-en="Web Template Lab">Web Şablon Laboratuvarı</h2>
         <p class="web-lab-desc" data-tr="İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler." data-en="Describe your desired page – AI generates a single-page HTML/CSS template.">İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler.</p>
+        <div class="demo-prompts" id="web-demo-prompts">
+            <span class="demo-label" data-tr="Örnek şablonlar – tıkla dene:" data-en="Sample templates – click to try:">Örnek şablonlar – tıkla dene:</span>
+            <div class="demo-chips">
+                <button type="button" class="demo-chip web-demo" data-prompt="Restoran için modern landing page, menü önizlemesi, rezervasyon butonu">🍽️ Restoran</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Siberpunk tarzı portfolyo, neon renkler, proje kartları">🎨 Portfolyo</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="E-ticaret mağaza kartvizit sayfası, ürün grid, minimalist">🛒 Mağaza</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Yazılım firması için kurumsal landing, hizmetler, iletişim formu">💼 Kurumsal</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Kişisel blog ana sayfa, koyu tema, makale önizlemeleri">📝 Blog</button>
+            </div>
+        </div>
         <div class="lab-form-container">
             <textarea id="web-prompt-input" placeholder="Örn: restoran için landing page, siberpunk tarzı portfolyo, mağaza kartvizit sayfası..." rows="3" data-placeholder-tr="Örn: restoran için landing page, siberpunk tarzı portfolyo, mağaza kartvizit sayfası..." data-placeholder-en="E.g. landing page for restaurant, cyberpunk portfolio, store card page..."></textarea>
             <button id="generate-web-btn" class="neon-button" data-tr="Şablonu Mühürle (Üret)" data-en="Generate Template">Şablonu Mühürle (Üret)</button>
@@ -310,6 +332,18 @@
                     <p data-tr="Özel imalat hattı – sadece senin projelerin. Tam otonom AI fabrikasyon, sıfırdan teslimata." data-en="Private production line – only your projects. Full autonomous AI fabrication, from zero to delivery.">Özel imalat hattı – sadece senin projelerin. Tam otonom AI fabrikasyon, sıfırdan teslimata.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="referanslar" class="references-section">
+        <h2 class="neon-text" data-tr="Bize Güvenenler" data-en="Trusted By">Bize Güvenenler</h2>
+        <p class="references-intro" data-tr="Startup'tan kurumsala, projelerini ÖMER.AI ile mühürleyenler" data-en="From startups to enterprises, those who seal their projects with ÖMER.AI">Startup'tan kurumsala, projelerini ÖMER.AI ile mühürleyenler</p>
+        <div class="references-logos">
+            <div class="ref-item" title="Girişimci"><span class="ref-logo">🚀</span><span class="ref-name" data-tr="Tech Startup" data-en="Tech Startup">Tech Startup</span></div>
+            <div class="ref-item" title="E-ticaret"><span class="ref-logo">🛒</span><span class="ref-name" data-tr="Dijital Mağaza" data-en="Digital Store">Dijital Mağaza</span></div>
+            <div class="ref-item" title="Kurumsal"><span class="ref-logo">🏢</span><span class="ref-name" data-tr="Kurumsal Firma" data-en="Corporate">Kurumsal Firma</span></div>
+            <div class="ref-item" title="Ajans"><span class="ref-logo">🎨</span><span class="ref-name" data-tr="Yaratıcı Ajans" data-en="Creative Agency">Yaratıcı Ajans</span></div>
+            <div class="ref-item" title="Freelance"><span class="ref-logo">💼</span><span class="ref-name" data-tr="Bağımsız Profesyonel" data-en="Freelancer">Bağımsız Profesyonel</span></div>
         </div>
     </section>
 
@@ -579,6 +613,11 @@
                     <a href="#ai-lab" class="blog-link" data-tr="Dene →" data-en="Try →">Dene →</a>
                 </article>
                 <article class="blog-card">
+                    <h4 data-tr="2025'te AI ile Web Tasarım" data-en="AI Web Design in 2025">2025'te AI ile Web Tasarım</h4>
+                    <p data-tr="Prompt ile web şablonu üretmek: Hızlı prototipleme ve MVP için ideal." data-en="Generating web templates with prompts: Ideal for rapid prototyping and MVP.">Prompt ile web şablonu üretmek: Hızlı prototipleme ve MVP için ideal.</p>
+                    <a href="#web-sablon-lab" class="blog-link" data-tr="Dene →" data-en="Try →">Dene →</a>
+                </article>
+                <article class="blog-card">
                     <h4 data-tr="Telegram Bot Entegrasyonu" data-en="Telegram Bot Integration">Telegram Bot Entegrasyonu</h4>
                     <p data-tr="İş akışlarınızı Telegram ile otomatikleştirin." data-en="Automate your workflows with Telegram.">İş akışlarınızı Telegram ile otomatikleştirin.</p>
                     <a href="#iletisim" class="blog-link" data-tr="İletişim →" data-en="Contact →">İletişim →</a>
@@ -587,6 +626,11 @@
                     <h4 data-tr="AI Asistan ile Tanış" data-en="Meet the AI Assistant">AI Asistan ile Tanış</h4>
                     <p data-tr="Sohbet botumuz Gemini ile sorularınıza cevap veriyor." data-en="Our chat bot answers your questions with Gemini.">Sohbet botumuz Gemini ile sorularınıza cevap veriyor.</p>
                     <a href="#" onclick="toggleChat(); return false;" class="blog-link" data-tr="Sohbet Et →" data-en="Chat →">Sohbet Et →</a>
+                </article>
+                <article class="blog-card">
+                    <h4 data-tr="Siberpunk Estetiği Nedir?" data-en="What is Cyberpunk Aesthetic?">Siberpunk Estetiği Nedir?</h4>
+                    <p data-tr="Neon, karanlık, teknoloji – web ve görsel tasarımda siberpunk trendi." data-en="Neon, dark, tech – the cyberpunk trend in web and visual design.">Neon, karanlık, teknoloji – web ve görsel tasarımda siberpunk trendi.</p>
+                    <a href="#ai-gallery" class="blog-link" data-tr="Sergi →" data-en="Gallery →">Sergi →</a>
                 </article>
             </div>
         </section>

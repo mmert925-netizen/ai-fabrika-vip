@@ -881,6 +881,49 @@ body:not(.no-motion) .token-badge #token-count {
     image-rendering: pixelated;
 }
 
+/* Referanslar – Müşteri logoları */
+.references-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(30, 58, 79, 0.15);
+    backdrop-filter: blur(10px);
+}
+[data-theme="light"] .references-section { background: rgba(241, 245, 249, 0.5); }
+.references-intro {
+    color: var(--text-color);
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+.references-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.ref-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(30, 58, 79, 0.4);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    border-radius: 12px;
+    min-width: 120px;
+    transition: 0.3s;
+}
+.ref-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+    transform: translateY(-2px);
+}
+[data-theme="light"] .ref-item { background: rgba(255, 255, 255, 0.6); }
+.ref-logo { font-size: 2rem; }
+.ref-name { font-size: 0.85rem; color: var(--text-color); font-weight: 600; }
+
 /* Testimonials – Cam efekti */
 .testimonials-section {
     padding: 4rem 380px;
@@ -1010,6 +1053,23 @@ body.neuro-sync-lab #live-stream {
     min-width: 180px;
     max-width: 100%;
     flex: 1;
+}
+.demo-prompts { margin-bottom: 1rem; text-align: left; }
+.demo-label { display: block; font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; opacity: 0.9; }
+.demo-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.demo-chip {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.demo-chip:hover {
+    background: rgba(34, 211, 238, 0.2);
+    transform: scale(1.03);
 }
 .lab-form-container .neon-button { flex-shrink: 0; }
 .image-output-container {
@@ -1936,6 +1996,12 @@ input:focus, textarea:focus {
     .project-wizard { padding: 1.25rem; }
     .wizard-option { padding: 10px 14px; font-size: 0.9rem; }
     .wizard-report-stats { flex-direction: column; gap: 0.5rem; }
+    .references-section { padding: 3rem 1rem; }
+    .references-logos { gap: 1rem; }
+    .ref-item { min-width: 100px; padding: 0.75rem 1rem; }
+    .ref-logo { font-size: 1.5rem; }
+    .demo-chips { justify-content: center; }
+    .demo-chip { font-size: 0.75rem; padding: 5px 10px; }
 }
 
 footer {

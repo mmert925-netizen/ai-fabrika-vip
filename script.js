@@ -289,6 +289,31 @@ const WIZARD_ESTIMATES = {
     scope: { simple: 0.7, medium: 1, complex: 1.4 },
     urgency: { normal: 1, urgent: 0.85, critical: 0.75 }
 };
+function initDemoPrompts() {
+    document.querySelectorAll(".demo-chip:not(.web-demo)").forEach(btn => {
+        btn.addEventListener("click", function() {
+            const prompt = this.getAttribute("data-prompt");
+            const input = document.getElementById("prompt-input");
+            if (input && prompt) {
+                input.value = prompt;
+                input.focus();
+                document.getElementById("ai-lab")?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
+    document.querySelectorAll(".demo-chip.web-demo").forEach(btn => {
+        btn.addEventListener("click", function() {
+            const prompt = this.getAttribute("data-prompt");
+            const input = document.getElementById("web-prompt-input");
+            if (input && prompt) {
+                input.value = prompt;
+                input.focus();
+                document.getElementById("web-sablon-lab")?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
+}
+
 function initProjectWizard() {
     const wizard = document.getElementById("project-wizard");
     if (!wizard) return;
@@ -411,8 +436,7 @@ function spendTokens(n) {
     return t;
 }
 function updateTokenUI() {
-    const el = document.getElementById("token-count");
-    const badge = document.getElementById("token-badge");
+    const el = document.getElementById("token-count");     const badge = document.getElementById("token-badge");
     const hdCheck = document.getElementById("hd-mode-check");
     const prev = parseInt(el?.textContent || "0", 10);
     const next = getTokens();
@@ -1628,6 +1652,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Proje Sihirbazı
     initProjectWizard();
+    initDemoPrompts();
 
     const form = document.getElementById("contact-form");
     if (form) {

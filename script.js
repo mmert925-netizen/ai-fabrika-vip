@@ -1,17 +1,17 @@
 //// PROJE DETAY SAYFALARI (Portfolio)
 const PROJECTS = {
-    1: { title: { tr: "Neon Şehir Manzarası", en: "Neon City Landscape" }, desc: { tr: "Siberpunk tema ile oluşturulmuş gelecek şehir vizyonu.", en: "Future city vision with cyberpunk theme." }, img: "img/proje1.jpg", category: "cyberpunk" },
-    2: { title: { tr: "Robot Portresi", en: "Robot Portrait" }, desc: { tr: "Yapay zeka destekli robot karakter tasarımı.", en: "AI-assisted robot character design." }, img: "img/proje2.jpg", category: "karakter" },
-    3: { title: { tr: "Sanal Evren", en: "Virtual Universe" }, desc: { tr: "Dijital sanat ve soyut görsel üretimi.", en: "Digital art and abstract visual generation." }, img: "img/proje3.jpg", category: "soyut" },
-    4: { title: { tr: "Mekanik Bulutlar", en: "Mechanical Clouds" }, desc: { tr: "Steampunk ve futuristik karışımı konsept.", en: "Steampunk and futuristic blend concept." }, img: "img/proje4.jpg", category: "mimari" },
-    5: { title: { tr: "Holografik İkon", en: "Holographic Icon" }, desc: { tr: "3D holografik efekt ile logo tasarımı.", en: "Logo design with 3D holographic effect." }, img: "img/proje5.jpg", category: "logo" },
-    6: { title: { tr: "Dijital Orman", en: "Digital Forest" }, desc: { tr: "Doğa ve teknoloji sentezinde görsel.", en: "Visual in nature and technology synthesis." }, img: "img/proje6.jpg", category: "doga" },
-    7: { title: { tr: "Gece Şehri", en: "Night City" }, desc: { tr: "Neon ışıklarla aydınlanan futuristik metropol manzarası.", en: "Futuristic metropolis illuminated by neon lights." }, img: "img/proje7.jpg", category: "cyberpunk" },
-    8: { title: { tr: "Android Portresi", en: "Android Portrait" }, desc: { tr: "Sibernetic devrelerle bezenmiş insansı AI figürü.", en: "Humanoid AI figure with glowing cybernetic circuits." }, img: "img/proje8.jpg", category: "karakter" },
-    9: { title: { tr: "Veri Evreni", en: "Data Universe" }, desc: { tr: "Neural ağ ve veri akışlarının soyut görselleştirmesi.", en: "Abstract visualization of neural networks and data streams." }, img: "img/proje9.jpg", category: "soyut" },
-    10: { title: { tr: "Buhar Makinesi", en: "Steam Engine" }, desc: { tr: "Steampunk mimari: dişliler ve pirinç yapılar.", en: "Steampunk architecture: gears and brass structures." }, img: "img/proje10.jpg", category: "mimari" },
-    11: { title: { tr: "Hologram Sembol", en: "Hologram Symbol" }, desc: { tr: "Prismatik holografik ikon, neon glow efekti.", en: "Prismatic holographic icon with neon glow effect." }, img: "img/proje11.jpg", category: "logo" },
-    12: { title: { tr: "Biyolüminesan Orman", en: "Bioluminescent Forest" }, desc: { tr: "Teknoloji ve doğanın buluştuğu büyülü manzara.", en: "Magical landscape where technology meets nature." }, img: "img/proje12.jpg", category: "doga" }
+    1: { title: { tr: "Neon Şehir Manzarası", en: "Neon City Landscape" }, desc: { tr: "Siberpunk tema ile oluşturulmuş gelecek şehir vizyonu.", en: "Future city vision with cyberpunk theme." }, img: "img/proje1.jpg", category: "cyberpunk", techStack: ["Gemini Imagen", "Photoshop", "Figma"] },
+    2: { title: { tr: "Robot Portresi", en: "Robot Portrait" }, desc: { tr: "Yapay zeka destekli robot karakter tasarımı.", en: "AI-assisted robot character design." }, img: "img/proje2.jpg", category: "karakter", techStack: ["Imagen 4.0", "Stable Diffusion", "Blender"] },
+    3: { title: { tr: "Sanal Evren", en: "Virtual Universe" }, desc: { tr: "Dijital sanat ve soyut görsel üretimi.", en: "Digital art and abstract visual generation." }, img: "img/proje3.jpg", category: "soyut", techStack: ["Gemini", "DALL·E", "Figma"] },
+    4: { title: { tr: "Mekanik Bulutlar", en: "Mechanical Clouds" }, desc: { tr: "Steampunk ve futuristik karışımı konsept.", en: "Steampunk and futuristic blend concept." }, img: "img/proje4.jpg", category: "mimari", techStack: ["Blender", "Imagen", "Unity"] },
+    5: { title: { tr: "Holografik İkon", en: "Holographic Icon" }, desc: { tr: "3D holografik efekt ile logo tasarımı.", en: "Logo design with 3D holographic effect." }, img: "img/proje5.jpg", category: "logo", techStack: ["Figma", "Illustrator", "Imagen"] },
+    6: { title: { tr: "Dijital Orman", en: "Digital Forest" }, desc: { tr: "Doğa ve teknoloji sentezinde görsel.", en: "Visual in nature and technology synthesis." }, img: "img/proje6.jpg", category: "doga", techStack: ["Imagen 4.0", "Photoshop", "Cinema 4D"] },
+    7: { title: { tr: "Gece Şehri", en: "Night City" }, desc: { tr: "Neon ışıklarla aydınlanan futuristik metropol manzarası.", en: "Futuristic metropolis illuminated by neon lights." }, img: "img/proje7.jpg", category: "cyberpunk", techStack: ["Gemini Imagen", "After Effects", "Vercel"] },
+    8: { title: { tr: "Android Portresi", en: "Android Portrait" }, desc: { tr: "Sibernetic devrelerle bezenmiş insansı AI figürü.", en: "Humanoid AI figure with glowing cybernetic circuits." }, img: "img/proje8.jpg", category: "karakter", techStack: ["Imagen", "Midjourney", "Python"] },
+    9: { title: { tr: "Veri Evreni", en: "Data Universe" }, desc: { tr: "Neural ağ ve veri akışlarının soyut görselleştirmesi.", en: "Abstract visualization of neural networks and data streams." }, img: "img/proje9.jpg", category: "soyut", techStack: ["TensorFlow", "Three.js", "Gemini"] },
+    10: { title: { tr: "Buhar Makinesi", en: "Steam Engine" }, desc: { tr: "Steampunk mimari: dişliler ve pirinç yapılar.", en: "Steampunk architecture: gears and brass structures." }, img: "img/proje10.jpg", category: "mimari", techStack: ["Blender", "Substance", "Unreal"] },
+    11: { title: { tr: "Hologram Sembol", en: "Hologram Symbol" }, desc: { tr: "Prismatik holografik ikon, neon glow efekti.", en: "Prismatic holographic icon with neon glow effect." }, img: "img/proje11.jpg", category: "logo", techStack: ["Figma", "Imagen", "React"] },
+    12: { title: { tr: "Biyolüminesan Orman", en: "Bioluminescent Forest" }, desc: { tr: "Teknoloji ve doğanın buluştuğu büyülü manzara.", en: "Magical landscape where technology meets nature." }, img: "img/proje12.jpg", category: "doga", techStack: ["Imagen 4.0", "Photoshop", "Node.js"] }
 };
 const GALLERY_CATEGORIES = [
     { id: "all", tr: "Tümü", en: "All" },
@@ -28,18 +28,20 @@ let modalCurrentProject = 1;
 let modalViewingProjects = false;
 let vantaEffect = null;
 
-// 4. Sesli Sistem Arayüzü – Ambient uğultu, bip, hoş geldin AI sesi
+// 4. Sesli Sistem Arayüzü – Bip, hoş geldin AI sesi (ambient kaldırıldı – kötü ses)
 let audioCtx = null;
-let ambientGain = null;
-let ambientStarted = false;
 
 function getAudioCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     return audioCtx;
 }
 
+function isSoundEnabled() {
+    return localStorage.getItem("omerai_sound_enabled") === "1";
+}
+
 function playBeep() {
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!isSoundEnabled()) return;
     const run = () => {
         try {
             const ctx = getAudioCtx();
@@ -49,56 +51,46 @@ function playBeep() {
             gain.connect(ctx.destination);
             osc.frequency.value = 880;
             osc.type = "sine";
-            gain.gain.setValueAtTime(0.9, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.5, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
             osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + 0.15);
+            osc.stop(ctx.currentTime + 0.12);
         } catch (_) {}
     };
     try {
         const ctx = getAudioCtx();
-        if (ctx.state === "suspended") {
-            ctx.resume().then(run);
-        } else {
-            run();
-        }
+        if (ctx.state === "suspended") ctx.resume().then(run);
+        else run();
     } catch (_) { run(); }
 }
 
-function startAmbientHum() {
-    if (ambientStarted || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-    const run = () => {
+function toggleSound() {
+    const currentlyOn = isSoundEnabled();
+    if (currentlyOn) {
+        localStorage.removeItem("omerai_sound_enabled");
+        const btn = document.getElementById("sound-toggle");
+        if (btn) { btn.textContent = "🔇"; btn.title = "Ses kapalı – tıkla aç"; }
+    } else {
+        localStorage.setItem("omerai_sound_enabled", "1");
         try {
             const ctx = getAudioCtx();
-            const osc1 = ctx.createOscillator();
-            const osc2 = ctx.createOscillator();
-            ambientGain = ctx.createGain();
-            osc1.connect(ambientGain);
-            osc2.connect(ambientGain);
-            ambientGain.connect(ctx.destination);
-            osc1.frequency.value = 60;
-            osc2.frequency.value = 90;
-            osc1.type = "sine";
-            osc2.type = "triangle";
-            ambientGain.gain.value = 0.25;
-            osc1.start();
-            osc2.start();
-            ambientStarted = true;
-        } catch (_) {}
-    };
+            if (ctx.state === "suspended") ctx.resume().then(runSoundOn);
+            else runSoundOn();
+        } catch (_) { runSoundOn(); }
+    }
+}
+function runSoundOn() {
     try {
-        const ctx = getAudioCtx();
-        if (ctx.state === "suspended") {
-            ctx.resume().then(run);
-        } else {
-            run();
-        }
-    } catch (_) { run(); }
+        playBeep();
+        if (sessionStorage.getItem("omerai_welcome_played") !== "1") setTimeout(playWelcomeVoice, 400);
+        const btn = document.getElementById("sound-toggle");
+        if (btn) { btn.textContent = "🔊"; btn.title = "Ses açık – tıkla kapat"; }
+    } catch (_) {}
 }
 
 function playWelcomeVoice() {
     if (sessionStorage.getItem("omerai_welcome_played") === "1") return;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!isSoundEnabled()) return;
     if (!window.speechSynthesis) return;
     const doSpeak = () => {
         const u = new SpeechSynthesisUtterance(currentLang === "tr" ? "Sisteme hoş geldin patron, üretim hattı hazır." : "Welcome to the system, boss, the production line is ready.");
@@ -115,6 +107,287 @@ function playWelcomeVoice() {
     };
     if (speechSynthesis.getVoices().length) doSpeak();
     else speechSynthesis.onvoiceschanged = () => { doSpeak(); speechSynthesis.onvoiceschanged = null; };
+}
+
+// 5. Matrix Modu (Easter Egg) – O tuşu: kod modu, glitch, görseller ASCII art
+let matrixModeActive = false;
+const ASCII_CHARS = " .:-=+*#%@";
+
+function imageToAscii(img, cols = 60) {
+    return new Promise((resolve) => {
+        const draw = () => {
+            try {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                const w = img.naturalWidth || img.width;
+                const h = img.naturalHeight || img.height;
+                if (!w || !h) { resolve(""); return; }
+                const ratio = h / w;
+                const rows = Math.floor(cols * ratio * 0.5);
+                canvas.width = cols;
+                canvas.height = rows;
+                ctx.drawImage(img, 0, 0, cols, rows);
+                const data = ctx.getImageData(0, 0, cols, rows).data;
+                let out = "";
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        const i = (y * cols + x) * 4;
+                        const r = data[i], g = data[i + 1], b = data[i + 2];
+                        const bright = (r + g + b) / 3 / 255;
+                        const idx = Math.min(Math.floor(bright * ASCII_CHARS.length), ASCII_CHARS.length - 1);
+                        out += ASCII_CHARS[idx];
+                    }
+                    out += "\n";
+                }
+                resolve(out);
+            } catch (_) { resolve(""); }
+        };
+        if (img.complete && img.naturalWidth) draw();
+        else img.onload = draw;
+    });
+}
+
+function activateMatrixMode() {
+    if (matrixModeActive) return;
+    matrixModeActive = true;
+    document.body.classList.add("matrix-mode");
+    const allImgs = document.querySelectorAll("img[src]:not([src=''])");
+    const imgs = Array.from(allImgs).slice(0, 8);
+    const backups = [];
+    let done = 0;
+    const total = imgs.length;
+    imgs.forEach((img) => {
+        const src = img.src;
+        if (!src) {
+            done++;
+            if (done >= total) scheduleRevert(backups);
+            return;
+        }
+        const wrapper = img.parentElement;
+        const w = Math.max(img.offsetWidth || 200, 80);
+        const h = Math.max(img.offsetHeight || 150, 60);
+        const pre = document.createElement("pre");
+        pre.className = "matrix-ascii";
+        pre.style.width = w + "px";
+        pre.style.height = h + "px";
+        pre.style.minWidth = "80px";
+        pre.style.minHeight = "60px";
+        imageToAscii(img, 50).then((ascii) => {
+            pre.textContent = ascii;
+            wrapper.insertBefore(pre, img);
+            img.style.display = "none";
+            backups.push({ img, pre, wrapper });
+            done++;
+            if (done >= total) scheduleRevert(backups);
+        }).catch(() => {
+            done++;
+            if (done >= total) scheduleRevert(backups);
+        });
+    });
+    if (total === 0) scheduleRevert([]);
+}
+
+function scheduleRevert(backups) {
+    setTimeout(() => {
+        backups.forEach(({ img, pre, wrapper }) => {
+            img.style.display = "";
+            pre.remove();
+        });
+        document.body.classList.remove("matrix-mode");
+        matrixModeActive = false;
+    }, 2800);
+}
+
+// 7. Ghost in the Machine – Gizli terminal komutları
+const GHOST_COMMANDS = ["override_49", "admin_omer"];
+function triggerGhostIfCommand() {
+    const input = document.getElementById("terminal-input");
+    const vipSection = document.getElementById("vip-uretim-hatti");
+    if (!input || !vipSection) return false;
+    const cmd = (input.value || "").trim().toLowerCase();
+    if (!GHOST_COMMANDS.includes(cmd)) return false;
+    input.value = "";
+    const overlay = document.createElement("div");
+    overlay.className = "ghost-red-overlay ghost-red-soft";
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.remove(), 1600);
+    vipSection.style.display = "flex";
+    vipSection.setAttribute("aria-hidden", "false");
+    vipSection.querySelector(".vip-content")?.focus();
+    return true;
+}
+function onTerminalAction() {
+    if (triggerGhostIfCommand()) return;
+    document.getElementById("ai-lab")?.scrollIntoView({ behavior: "smooth" });
+}
+function initGhostCommands() {
+    const input = document.getElementById("terminal-input");
+    if (!input) return;
+    input.addEventListener("keydown", function(e) {
+        if (e.key !== "Enter") return;
+        triggerGhostIfCommand();
+    });
+    const startBtn = document.getElementById("sistem-baslat-btn");
+    if (startBtn) startBtn.addEventListener("click", onTerminalAction);
+}
+function closeVipSection() {
+    const vip = document.getElementById("vip-uretim-hatti");
+    if (vip) {
+        vip.style.display = "none";
+        vip.setAttribute("aria-hidden", "true");
+    }
+}
+
+// 8. Live GPU Load Simülasyonu – Sanal işlem gücü waveform
+function initGpuLoadSimulation() {
+    const canvas = document.getElementById("gpu-load-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width, h = canvas.height;
+    let currentLoad = 0.08;
+    let targetLoad = 0.08;
+    let coolingDown = false;
+    const history = [];
+    const historyLen = 60;
+    for (let i = 0; i < historyLen; i++) history.push(0.08);
+
+    function draw() {
+        if (coolingDown) targetLoad = Math.max(0.05, targetLoad - 0.008);
+        else if (targetLoad > 0.08) targetLoad = Math.min(0.98, targetLoad + 0.15);
+        currentLoad += (targetLoad - currentLoad) * 0.12;
+        history.push(currentLoad);
+        if (history.length > historyLen) history.shift();
+
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = "rgba(34, 211, 238, 0.9)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        const step = w / (historyLen - 1);
+        history.forEach((v, i) => {
+            const x = i * step;
+            const y = h - v * h * 0.92 - 2;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+    }
+
+    function loop() {
+        draw();
+        requestAnimationFrame(loop);
+    }
+    loop();
+
+    window.gpuLoadPeak = function() { targetLoad = 0.95; coolingDown = false; };
+    window.gpuLoadCoolDown = function() { coolingDown = true; };
+}
+
+// 9. Dinamik Teklif ve Proje Sihirbazı
+const WIZARD_ESTIMATES = {
+    project: { website: 10, "ai-bot": 18, "image-ai": 14, mobile: 22, ecommerce: 16, automation: 12, other: 15 },
+    scope: { simple: 0.7, medium: 1, complex: 1.4 },
+    urgency: { normal: 1, urgent: 0.85, critical: 0.75 }
+};
+function initProjectWizard() {
+    const wizard = document.getElementById("project-wizard");
+    if (!wizard) return;
+    const steps = wizard.querySelectorAll(".wizard-step");
+    const progressBar = document.getElementById("wizard-progress-bar");
+    const stepIndicator = document.getElementById("wizard-step-indicator");
+    const backBtn = document.getElementById("wizard-back");
+    const wizardDataEl = document.getElementById("wizard-data");
+
+    let currentStep = 1;
+    const answers = { project: null, scope: null, urgency: null };
+
+    function goToStep(step) {
+        currentStep = step;
+        steps.forEach(s => {
+            s.classList.toggle("active", parseInt(s.dataset.step) === step);
+        });
+        if (progressBar) progressBar.style.width = (step / 4) * 100 + "%";
+        if (stepIndicator) stepIndicator.textContent = step + "/4";
+        if (backBtn) backBtn.style.display = step > 1 ? "inline-block" : "none";
+
+        if (step === 4) {
+            const days = calcEstimate();
+            const complexity = calcComplexity();
+            const elDays = document.getElementById("wizard-estimate-days");
+            const elComplexity = document.getElementById("wizard-complexity");
+            if (elDays) elDays.textContent = days + " " + (currentLang === "tr" ? "gün" : "days");
+            if (elComplexity) elComplexity.textContent = "%" + complexity;
+            const labels = { website: "Web", "ai-bot": "AI Bot", "image-ai": "Görsel AI", mobile: "Mobil", ecommerce: "E-ticaret", automation: "Otomasyon", other: "Diğer" };
+            const scopeLabels = { simple: "Basit", medium: "Orta", complex: "Karmaşık" };
+            const urgencyLabels = { normal: "Normal", urgent: "Acil", critical: "Çok acil" };
+            const summary = `${labels[answers.project] || answers.project} | ${scopeLabels[answers.scope]} | ${urgencyLabels[answers.urgency]} → ${days} gün, %${complexity} karmaşıklık`;
+            if (wizardDataEl) wizardDataEl.value = summary;
+        }
+    }
+
+    function calcEstimate() {
+        const base = WIZARD_ESTIMATES.project[answers.project] || 12;
+        const scopeMult = WIZARD_ESTIMATES.scope[answers.scope] || 1;
+        const urgencyMult = WIZARD_ESTIMATES.urgency[answers.urgency] || 1;
+        return Math.round(base * scopeMult * urgencyMult);
+    }
+
+    function calcComplexity() {
+        const projMap = { website: 45, "ai-bot": 75, "image-ai": 65, mobile: 80, ecommerce: 60, automation: 55, other: 50 };
+        const scopeMap = { simple: 25, medium: 50, complex: 80 };
+        const base = projMap[answers.project] || 50;
+        const scopeAdd = scopeMap[answers.scope] || 50;
+        return Math.min(95, Math.round((base + scopeAdd) / 2));
+    }
+
+    wizard.querySelectorAll(".wizard-option").forEach(btn => {
+        btn.addEventListener("click", function() {
+            const step = parseInt(btn.closest(".wizard-step")?.dataset.step || 1);
+            const value = btn.dataset.value;
+            if (step === 1) answers.project = value;
+            else if (step === 2) answers.scope = value;
+            else if (step === 3) answers.urgency = value;
+            btn.closest(".wizard-options")?.querySelectorAll(".wizard-option").forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            if (step < 4) goToStep(step + 1);
+        });
+    });
+
+    if (backBtn) backBtn.addEventListener("click", () => goToStep(Math.max(1, currentStep - 1)));
+    wizard.querySelector(".wizard-back-btn")?.addEventListener("click", () => goToStep(3));
+}
+
+// 6. Neuro-Sync Adaptif Arayüz – Laboratuvarda vakit geçirince fabrika kaynakları oraya aktarılır
+function initNeuroSync() {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const lab = document.getElementById("ai-lab");
+    if (!lab) return;
+    let labTimer = null;
+    let labFocused = false;
+    const LAB_DURATION_MS = 5500;
+
+    const observer = new IntersectionObserver((entries) => {
+        const ent = entries[0];
+        if (!ent) return;
+        const inLab = ent.isIntersecting && ent.intersectionRatio >= 0.25;
+        if (inLab) {
+            if (!labTimer) {
+                labTimer = setTimeout(() => {
+                    labFocused = true;
+                    document.body.classList.add("neuro-sync-lab");
+                    labTimer = null;
+                }, LAB_DURATION_MS);
+            }
+        } else {
+            if (labTimer) { clearTimeout(labTimer); labTimer = null; }
+            if (labFocused) {
+                labFocused = false;
+                document.body.classList.remove("neuro-sync-lab");
+            }
+        }
+    }, { threshold: [0, 0.1, 0.25, 0.5] });
+
+    observer.observe(lab);
 }
 
 // ÖMER.AI Token / Dijital Mühür Sistemi
@@ -300,6 +573,13 @@ function openProjectDetail(id) {
     document.getElementById("project-modal-img").src = p.img;
     document.getElementById("project-modal-title").textContent = p.title[currentLang] || p.title.tr;
     document.getElementById("project-modal-desc").textContent = p.desc[currentLang] || p.desc.tr;
+    const techEl = document.getElementById("project-modal-tech");
+    if (techEl) {
+        const stack = p.techStack || [];
+        const label = currentLang === "tr" ? "Teknoloji:" : "Tech Stack:";
+        techEl.innerHTML = stack.length ? `<span class="project-tech-label">${label}</span> ` + stack.map(t => `<span class="project-tech-tag">${t}</span>`).join("") : "";
+        techEl.style.display = stack.length ? "block" : "none";
+    }
     modal.classList.add("modal-open");
     modal.classList.remove("modal-fullscreen");
     document.body.style.overflow = "hidden";
@@ -375,6 +655,48 @@ function initSystemLog() {
     setInterval(addSystemLogEntry, 8000 + Math.random() * 7000);
 }
 
+// Health Check Panel – Telegram, Imagen, Vercel gerçek durum
+function updateHealthPanel(data) {
+    if (!data?.services) return;
+    const onlineStr = currentLang === "tr" ? "Çevrimiçi" : "Online";
+    ["telegram", "imagen", "vercel"].forEach(key => {
+        const s = data.services[key];
+        const statusEl = document.getElementById("health-" + key);
+        const msEl = document.getElementById("health-" + key + "-ms");
+        if (!statusEl) return;
+        const statusClass = s?.status || "unknown";
+        statusEl.textContent = s?.status === "online" ? onlineStr : (s?.message || "—");
+        statusEl.className = "health-service-status " + statusClass;
+        if (msEl) msEl.textContent = s?.latency != null ? s.latency + "ms" : "";
+    });
+}
+function fetchHealthCheck() {
+    const t0 = Date.now();
+    fetch("/api/health")
+        .then(r => r.json())
+        .then(data => {
+            if (data.services?.vercel && data.services.vercel.latency == null) {
+                data.services.vercel.latency = Date.now() - t0;
+            }
+            updateHealthPanel(data);
+        })
+        .catch(() => {
+            updateHealthPanel({
+                services: {
+                    telegram: { status: "offline", latency: null, message: "—" },
+                    imagen: { status: "offline", latency: null, message: "—" },
+                    vercel: { status: "offline", latency: null, message: "—" }
+                }
+            });
+        });
+}
+function initHealthCheck() {
+    fetchHealthCheck();
+    const refreshBtn = document.getElementById("health-check-refresh");
+    if (refreshBtn) refreshBtn.addEventListener("click", () => { refreshBtn.classList.add("spinning"); setTimeout(() => refreshBtn.classList.remove("spinning"), 500); fetchHealthCheck(); });
+    setInterval(fetchHealthCheck, 60000);
+}
+
 // Matrix Terminal - Processed Data sayacı (canlı, rastgele artan – fabrika veri işliyor)
 function initProcessedDataCounter() {
     const el = document.getElementById("processed-data");
@@ -391,13 +713,51 @@ function initProcessedDataCounter() {
 // 2. ÖMER.AI Asistan – Gemini tabanlı gerçek AI sohbet + özel yetenekler
 let chatHistory = [];
 
+// Markdown → HTML (güvenli, XSS korumalı)
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+function parseMarkdown(text) {
+    if (!text || typeof text !== 'string') return '';
+    let s = escapeHtml(text);
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\n/g, '<br>');
+    return s;
+}
+
+// Önerilen sorular (yanıta göre bağlamsal)
+function getSuggestedQuestions(lastReply) {
+    const t = (lastReply || '').toLowerCase();
+    const suggestions = [];
+    if (/fiyat|paket|₺|tl/.test(t)) {
+        suggestions.push(currentLang === "tr" ? "Proje ne kadar sürer?" : "How long does a project take?");
+        suggestions.push(currentLang === "tr" ? "Ödeme nasıl yapılır?" : "How do I pay?");
+    }
+    if (/görsel|resim|imagen/.test(t) || suggestions.length === 0) {
+        suggestions.push(currentLang === "tr" ? "Bana bir görsel çiz" : "Draw me an image");
+    }
+    if (/web|site|tasarım/.test(t) || suggestions.length < 2) {
+        suggestions.push(currentLang === "tr" ? "Web tasarımı yap" : "Create a web design");
+    }
+    if (/proje|sergi/.test(t) || suggestions.length < 3) {
+        suggestions.push(currentLang === "tr" ? "Projeler hakkında bilgi ver" : "Tell me about projects");
+    }
+    return [...new Set(suggestions)].slice(0, 3);
+}
+
 function quickAction(type) {
     const msgs = {
         görsel: currentLang === "tr" ? "Bana bir neon şehir görseli çiz" : "Draw me a neon city image",
         proje: currentLang === "tr" ? "Sergideki projeler hakkında bilgi ver" : "Tell me about the gallery projects",
         post: currentLang === "tr" ? "ÖMER.AI hakkında sosyal medya postu yaz" : "Write a social media post about ÖMER.AI",
+        web: currentLang === "tr" ? "Web tasarımı yap restoran için landing page" : "Web design a landing page for a restaurant",
         haber: currentLang === "tr" ? "Güncel haber özeti ver" : "Give me today's news summary",
         fiyat: currentLang === "tr" ? "Fiyatlar ve paketler hakkında bilgi ver" : "Tell me about pricing and packages",
+        yardim: currentLang === "tr" ? "Ne yapabilirsin? Hangi komutları kullanabilirim?" : "What can you do? What commands can I use?",
         iletisim: currentLang === "tr" ? "İletişime nasıl geçebilirim?" : "How can I get in touch?"
     };
     sendMessage(msgs[type] || msgs.görsel);
@@ -412,6 +772,17 @@ function extractImagePrompt(text) {
   let cleaned = text.replace(/(çiz|görsel|resim|draw|image|generate|üret|mühürle)[\s\w]*/gi, '').trim();
     cleaned = cleaned.replace(/^(bana|bir|for me|için|please)\s+/gi, '').trim();
     return cleaned || text;
+}
+
+function isWebDesignRequest(text) {
+    const t = text.toLowerCase();
+    return /web tasarım|web tasarımı|site tasarım|html sayfa|landing page|web şablon|web template|web sayfa|site yap/i.test(t) || t.includes('web tasarım');
+}
+
+function extractWebPrompt(text) {
+    let cleaned = text.replace(/(web tasarımı?|site tasarım|html sayfa|landing page|web şablon|web template|web sayfa|site yap)\s*(yap|oluştur|üret|for|make|create)?\s*/gi, '').trim();
+    cleaned = cleaned.replace(/^(bana|bir|for me|için|please)\s+/gi, '').trim();
+    return cleaned || 'Modern landing page';
 }
 
 function sendMessage(customText) {
@@ -435,6 +806,7 @@ function sendMessage(customText) {
     // Görsel üretimi isteği
     if (isImageRequest(userText)) {
         const prompt = extractImagePrompt(userText);
+        if (typeof window.gpuLoadPeak === "function") window.gpuLoadPeak();
         fetch("/api/generate-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt }) })
             .then(res => res.json())
             .then(data => {
@@ -452,11 +824,53 @@ function sendMessage(customText) {
                     box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${data.error || (currentLang === "tr" ? "Görsel üretilemedi." : "Image generation failed.")}</p>`;
                     playBeep();
                 }
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 box.scrollTop = box.scrollHeight;
             })
             .catch(() => {
                 typingEl.remove();
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Görsel API bağlantı hatası." : "Image API connection error."}</p>`;
+                box.scrollTop = box.scrollHeight;
+                playBeep();
+            })
+            .finally(() => { if (input) { input.disabled = false; input.focus(); } });
+        return;
+    }
+
+    // Web tasarımı / HTML şablon üretimi
+    if (isWebDesignRequest(userText)) {
+        const prompt = extractWebPrompt(userText);
+        if (typeof window.gpuLoadPeak === "function") window.gpuLoadPeak();
+        fetch("/api/generate-web", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt }) })
+            .then(res => res.json())
+            .then(data => {
+                typingEl.remove();
+                if (data.html) {
+                    const safeHtml = data.html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                    const blob = new Blob([safeHtml], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const previewId = 'web-preview-' + Date.now();
+                    box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "İşte mühürlediğim web şablonu:" : "Here's your web template:"}</p>
+                        <div class="chat-web-preview"><iframe id="${previewId}" sandbox="allow-same-origin" title="Önizleme" style="width:100%;height:280px;border:1px solid var(--border-color);border-radius:8px;background:#fff;"></iframe>
+                        <div class="chat-web-actions"><a href="${url}" download="omerai-web-sablon.html" class="neon-button add-gallery-btn" style="display:inline-block;margin-top:8px;text-decoration:none;">${currentLang === "tr" ? "📥 HTML İndir" : "📥 Download HTML"}</a></div></div>`;
+                    const iframe = document.getElementById(previewId);
+                    if (iframe) {
+                        iframe.srcdoc = safeHtml;
+                    }
+                    box.scrollTop = box.scrollHeight;
+                    playBeep();
+                } else {
+                    box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${data.error || (currentLang === "tr" ? "Web şablonu üretilemedi." : "Web template generation failed.")}</p>`;
+                    playBeep();
+                }
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
+                box.scrollTop = box.scrollHeight;
+            })
+            .catch(() => {
+                typingEl.remove();
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Web API bağlantı hatası." : "Web API connection error."}</p>`;
                 box.scrollTop = box.scrollHeight;
                 playBeep();
             })
@@ -472,7 +886,7 @@ function sendMessage(customText) {
             .then(data => {
                 typingEl.remove();
                 const post = data.post || data.error || (currentLang === "tr" ? "Post üretilemedi." : "Could not generate post.");
-                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${post}</p>`;
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> <span class="bot-reply-content">${parseMarkdown(post)}</span></p>`;
                 chatHistory.push({ role: 'user', text: userText });
                 chatHistory.push({ role: 'model', text: post });
                 if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
@@ -496,7 +910,7 @@ function sendMessage(customText) {
             .then(data => {
                 typingEl.remove();
                 const summary = data.summary || data.error || (currentLang === "tr" ? "Haber çekilemedi." : "Could not fetch news.");
-                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${summary}</p>`;
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> <span class="bot-reply-content">${parseMarkdown(summary)}</span></p>`;
                 chatHistory.push({ role: 'user', text: userText });
                 chatHistory.push({ role: 'model', text: summary });
                 if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
@@ -523,7 +937,13 @@ function sendMessage(customText) {
     .then(data => {
         typingEl.remove();
         const reply = data.reply || data.error || (currentLang === "tr" ? "Bir yanıt alınamadı." : "Could not get a response.");
-        box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${reply}</p>`;
+        box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> <span class="bot-reply-content">${parseMarkdown(reply)}</span></p>`;
+        const suggestions = getSuggestedQuestions(reply);
+        if (suggestions.length > 0) {
+            window._lastSuggestions = suggestions;
+            const chips = suggestions.map((s, i) => `<button class="suggestion-chip" data-idx="${i}" onclick="sendMessage(window._lastSuggestions?.[this.dataset.idx]||'')">${escapeHtml(s)}</button>`).join('');
+            box.innerHTML += `<div class="suggestion-chips">${chips}</div>`;
+        }
         chatHistory.push({ role: 'user', text: userText });
         chatHistory.push({ role: 'model', text: reply });
         if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
@@ -661,6 +1081,28 @@ function ensureChatOpen() {
     if (chat && chat.classList.contains("chat-closed")) toggleChat();
 }
 
+// Sesli giriş – input yanındaki mikrofondan doğrudan sohbet
+function startChatVoiceInput(e) {
+    if (e) e.stopPropagation();
+    const rec = getVoiceRecognition();
+    if (!rec) {
+        alert(currentLang === "tr" ? "Tarayıcınız sesli giriş desteklemiyor. Chrome önerilir." : "Your browser doesn't support voice input. Chrome recommended.");
+        return;
+    }
+    const btn = document.getElementById("chat-mic-btn");
+    if (btn) btn.classList.add("listening");
+    rec.lang = currentLang === "tr" ? "tr-TR" : "en-US";
+    rec.continuous = false;
+    rec.interimResults = false;
+    rec.onresult = (ev) => {
+        const text = (ev.results[0][0].transcript || "").trim();
+        if (text) sendMessage(text);
+    };
+    rec.onend = () => { if (btn) btn.classList.remove("listening"); };
+    rec.onerror = () => { if (btn) btn.classList.remove("listening"); };
+    rec.start();
+}
+
 function executeVoiceCommand(text) {
     const t = text.toLowerCase();
     if (/sohbet|chat|aç|open/.test(t) && t.length < 15) {
@@ -684,6 +1126,21 @@ function executeVoiceCommand(text) {
 }
 
 // 4. Sohbet kutusu aç/kapa
+function showChatWelcome() {
+    const box = document.getElementById("chat-box");
+    if (!box || box.children.length > 0) return;
+    const welcome = currentLang === "tr"
+        ? "Merhaba patron! 👋 Ben ÖMER.AI Asistan. Görsel üretebilir, web şablonu mühürleyebilir, post yazabilir, fiyat/süre tahmini verebilirim. Ne yapmamı istersin?"
+        : "Hello boss! 👋 I'm ÖMER.AI Assistant. I can generate images, create web templates, write posts, give price/time estimates. What would you like?";
+    box.innerHTML = `<p class="chat-msg bot"><b>🤖 Asistan:</b> <span class="bot-reply-content">${parseMarkdown(welcome)}</span></p>`;
+    const suggestions = currentLang === "tr"
+        ? ["Bana bir görsel çiz", "Fiyatlar nedir?", "Web tasarımı yap"]
+        : ["Draw me an image", "What are the prices?", "Create a web design"];
+    window._lastSuggestions = suggestions;
+    const chips = suggestions.map((s, i) => `<button class="suggestion-chip" data-idx="${i}" onclick="sendMessage(window._lastSuggestions?.[this.dataset.idx]||'')">${escapeHtml(s)}</button>`).join('');
+    box.innerHTML += `<div class="suggestion-chips">${chips}</div>`;
+}
+
 function toggleChat() {
     const chat = document.getElementById("ai-chat-widget");
     const toggleBtn = document.getElementById("chat-toggle-btn");
@@ -696,11 +1153,11 @@ function toggleChat() {
         localStorage.setItem("chatOpen", "false");
     } else {
         playBeep();
-        startAmbientHum();
         chat.classList.add("chat-open");
         chat.classList.remove("chat-closed");
         toggleBtn.classList.remove("visible");
         localStorage.setItem("chatOpen", "true");
+        showChatWelcome();
     }
 }
 
@@ -722,10 +1179,13 @@ function toggleLang() {
     document.getElementById("lang-toggle").textContent = currentLang === "tr" ? "🌐 EN" : "🌐 TR";
 }
 function applyLang() {
-    document.querySelectorAll("[data-tr], [data-en]").forEach(el => {
+    document.querySelectorAll("[data-tr], [data-en], [data-title-tr], [data-title-en]").forEach(el => {
         if (el.hasAttribute("data-placeholder-tr") || el.hasAttribute("data-placeholder-en")) {
             const ph = el.getAttribute("data-placeholder-" + currentLang) || el.getAttribute("data-placeholder-tr");
             if (ph) el.placeholder = ph;
+        } else if (el.hasAttribute("data-title-tr") || el.hasAttribute("data-title-en")) {
+            const t = el.getAttribute("data-title-" + currentLang) || el.getAttribute("data-title-tr");
+            if (t) el.title = t;
         } else if (el.hasAttribute("data-tr") || el.hasAttribute("data-en")) {
             const txt = el.getAttribute("data-" + currentLang) || el.getAttribute("data-tr");
             if (txt) el.textContent = txt;
@@ -741,6 +1201,100 @@ function getNextSerial() {
     localStorage.setItem(SERIAL_KEY, String(n));
     return n;
 }
+const PORTAL_STORAGE_KEY = "omerai_portal_session";
+function initPortalClient() {
+    const loginEl = document.getElementById("portal-login");
+    const dashboardEl = document.getElementById("portal-dashboard");
+    const loginBtn = document.getElementById("portal-login-btn");
+    const logoutBtn = document.getElementById("portal-logout");
+    const orderInput = document.getElementById("portal-order-code");
+
+    function openDashboard(projectStage) {
+        const stage = Math.min(4, Math.max(1, projectStage || 4));
+        if (loginEl) loginEl.style.display = "none";
+        if (dashboardEl) dashboardEl.style.display = "block";
+        const bar = document.getElementById("portal-progress-bar");
+        const downloads = document.getElementById("portal-downloads");
+        if (bar) bar.style.width = (stage / 4) * 100 + "%";
+        document.querySelectorAll(".portal-stage").forEach((el, i) => {
+            el.classList.toggle("active", i + 1 === stage);
+            el.classList.toggle("completed", i + 1 < stage);
+        });
+        if (downloads) downloads.style.display = stage >= 4 ? "block" : "none";
+        localStorage.setItem(PORTAL_STORAGE_KEY, JSON.stringify({ stage, ts: Date.now() }));
+    }
+
+    function closeDashboard() {
+        if (loginEl) loginEl.style.display = "block";
+        if (dashboardEl) dashboardEl.style.display = "none";
+        localStorage.removeItem(PORTAL_STORAGE_KEY);
+    }
+
+    const session = (() => { try { return JSON.parse(localStorage.getItem(PORTAL_STORAGE_KEY) || "{}"); } catch { return {}; }})();
+    if (session.stage && session.ts && Date.now() - session.ts < 86400000) {
+        openDashboard(session.stage);
+    }
+
+    if (loginBtn && orderInput) {
+        loginBtn.addEventListener("click", () => {
+            const v = (orderInput.value || "").trim().toLowerCase();
+            if (v === "demo" || v === "demo@omer.ai" || v === "demo@omer.ai".replace(".", "")) {
+                openDashboard(4);
+            } else if (v) {
+                openDashboard(v.length > 3 ? 2 : 1);
+            } else {
+                alert(currentLang === "tr" ? "Lütfen sipariş kodu veya e-posta girin." : "Please enter order code or email.");
+            }
+        });
+        orderInput.addEventListener("keypress", (e) => { if (e.key === "Enter") loginBtn.click(); });
+    }
+    if (logoutBtn) logoutBtn.addEventListener("click", closeDashboard);
+
+    document.getElementById("portal-dl-logo")?.addEventListener("click", () => {
+        const serial = getNextSerial();
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128"><rect fill="#0f172a" width="256" height="128"/><text x="128" y="72" font-family="Consolas,monospace" font-size="32" fill="#22d3ee" text-anchor="middle">ÖMER.AI</text><text x="128" y="100" font-family="Consolas,monospace" font-size="10" fill="#22d3ee" text-anchor="middle">Seri No: #${serial}</text></svg>`;
+        const blob = new Blob([svg], { type: "image/svg+xml" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "omerai-fabrika-logo-seri-" + serial + ".svg";
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+    document.getElementById("portal-dl-code")?.addEventListener("click", () => {
+        const serial = getNextSerial();
+        const code = `/* ÖMER.AI Fabrikası - Mühürlü Kod - Seri No: #${serial} */
+/* ${new Date().toISOString()} */
+
+// Örnek modül - ÖMER.AI üretimi
+export default function omeraiModule() {
+  return "ÖMER.AI - Gelecek Burada Mühürlendi.";
+}
+`;
+        const blob = new Blob([code], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "omerai-fabrika-kod-seri-" + serial + ".js";
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+    document.getElementById("portal-dl-visual")?.addEventListener("click", () => {
+        const serial = getNextSerial();
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+            createSealedImageDataUrl(img.src, serial).then(sealedUrl => {
+                const a = document.createElement("a");
+                a.href = sealedUrl;
+                a.download = "omerai-fabrika-gorsel-seri-" + serial + ".png";
+                a.click();
+            });
+        };
+        img.src = "img/proje1.jpg";
+    });
+}
+
 function createSealedImageDataUrl(dataUrl, serialNo) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -870,6 +1424,8 @@ function showGeneratedImage(src) {
     document.getElementById("project-modal-img").src = src;
     document.getElementById("project-modal-title").textContent = currentLang === "tr" ? "Üretilen Görsel" : "Generated Image";
     document.getElementById("project-modal-desc").textContent = currentLang === "tr" ? "AI Laboratuvarı'nda üretildi." : "Generated in AI Lab.";
+    const techEl = document.getElementById("project-modal-tech");
+    if (techEl) { techEl.innerHTML = ""; techEl.style.display = "none"; }
     modal.classList.add("modal-open", "modal-fullscreen");
     document.body.style.overflow = "hidden";
 }
@@ -896,15 +1452,13 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(playWelcomeVoice, 1200);
     function audioUnlock() {
         try {
+            if (!isSoundEnabled()) return;
             const ctx = getAudioCtx();
             if (ctx.state === "suspended") {
                 ctx.resume().then(() => {
-                    startAmbientHum();
+                    playBeep();
                     if (sessionStorage.getItem("omerai_welcome_played") !== "1") setTimeout(playWelcomeVoice, 400);
                 });
-            } else {
-                startAmbientHum();
-                if (sessionStorage.getItem("omerai_welcome_played") !== "1") setTimeout(playWelcomeVoice, 400);
             }
         } catch (_) {}
     }
@@ -934,8 +1488,13 @@ document.addEventListener("DOMContentLoaded", function() {
     applyLang();
     document.getElementById("lang-toggle").textContent = currentLang === "tr" ? "🌐 EN" : "🌐 TR";
 
+    initGhostCommands();
+    initGpuLoadSimulation();
+    initNeuroSync();
     initProcessedDataCounter();
     initSystemLog();
+    initHealthCheck();
+    initPortalClient();
     renderGeneratedGallery();
     renderLiveStream();
     renderFilteredSlides();
@@ -943,6 +1502,14 @@ document.addEventListener("DOMContentLoaded", function() {
     loadPatronunGundemi();
     updateTokenUI();
     if (getTokens() === 0) addTokens(3);
+    const soundBtn = document.getElementById("sound-toggle");
+    if (soundBtn) {
+        soundBtn.textContent = isSoundEnabled() ? "🔊" : "🔇";
+        soundBtn.title = isSoundEnabled() ? "Ses açık – tıkla kapat" : "Ses kapalı – tıkla aç";
+    }
+    document.addEventListener("keydown", function(e) {
+        if ((e.key === "o" || e.key === "O") && !e.ctrlKey && !e.metaKey && !e.altKey) activateMatrixMode();
+    });
     setInterval(checkTimeTokens, 120000);
 
     const chatOpen = localStorage.getItem("chatOpen");
@@ -955,17 +1522,21 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             chat.classList.add("chat-open");
             chat.classList.remove("chat-closed");
+            showChatWelcome();
         }
     }
+
+    // Proje Sihirbazı
+    initProjectWizard();
 
     const form = document.getElementById("contact-form");
     if (form) {
         form.addEventListener("submit", function(event) {
             event.preventDefault();
 
-            const name = form.querySelector('input[type="text"]').value;
-            const email = form.querySelector('input[type="email"]').value;
-            const message = form.querySelector('textarea').value;
+            const name = (form.elements.name || form.querySelector('input[name="name"]') || form.querySelector('input[type="text"]'))?.value || "";
+            const email = (form.elements.email || form.querySelector('input[name="email"]') || form.querySelector('input[type="email"]'))?.value || "";
+            const message = (form.elements.message || form.querySelector('textarea[name="message"]') || form.querySelector('textarea'))?.value || "";
 
             const errors = validateContactForm(name, email, message);
             if (errors.length > 0) {
@@ -973,13 +1544,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            const submitBtn = form.querySelector('button');
+            const submitBtn = form.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.innerText = "Mühürleniyor...";
+            submitBtn.textContent = submitBtn.getAttribute("data-loading-" + (currentLang || "tr")) || submitBtn.getAttribute("data-loading-tr") || "Mühürleniyor...";
 
             const TELEGRAM_BOT_TOKEN = '8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis';
             const TELEGRAM_CHAT_ID = '7076964315';
-            const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name.trim()}\n📧 *E-posta:* ${email.trim()}\n📝 *Mesaj:* ${message.trim()}`;
+            const wizardData = document.getElementById("wizard-data")?.value;
+            const wizardPart = wizardData ? `\n📋 *Sihirbaz:* ${wizardData}` : "";
+            const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name.trim()}\n📧 *E-posta:* ${email.trim()}\n📝 *Mesaj:* ${(message || "-").trim()}${wizardPart}`;
 
             fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
@@ -995,6 +1568,19 @@ document.addEventListener("DOMContentLoaded", function() {
                     addTokens(5);
                     alert("Mührün Telegram hattına fırlatıldı patron! 🚀 +5 Dijital Mühür kazandın!");
                     form.reset();
+                    const wizard = document.getElementById("project-wizard");
+                    if (wizard) {
+                        wizard.querySelectorAll(".wizard-option").forEach(b => b.classList.remove("selected"));
+                        wizard.querySelectorAll(".wizard-step").forEach(s => s.classList.remove("active"));
+                        const step1 = wizard.querySelector(".wizard-step[data-step='1']");
+                        if (step1) step1.classList.add("active");
+                        const pb = document.getElementById("wizard-progress-bar");
+                        const si = document.getElementById("wizard-step-indicator");
+                        if (pb) pb.style.width = "25%";
+                        if (si) si.textContent = "1/4";
+                        const backBtn = document.getElementById("wizard-back");
+                        if (backBtn) backBtn.style.display = "none";
+                    }
                 } else {
                     alert("Hata: Mesaj iletilemedi. Token veya ID kontrolü gerek.");
                 }
@@ -1005,7 +1591,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .finally(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Mührü Gönder";
+                submitBtn.textContent = submitBtn.getAttribute("data-" + (currentLang || "tr")) || submitBtn.getAttribute("data-tr") || "Mührü Gönder";
             });
         });
     }
@@ -1070,6 +1656,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (imgPlaceholder) imgPlaceholder.style.display = "block";
             if (addGalleryBtn) addGalleryBtn.style.display = "none";
             if (downloadBtn) downloadBtn.style.display = "none";
+            if (typeof window.gpuLoadPeak === "function") window.gpuLoadPeak();
 
             fetch("/api/generate-image", {
                 method: "POST",
@@ -1077,6 +1664,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: JSON.stringify({ prompt })
             }).then(res => res.json().then(data => ({ ok: res.ok, data }))).then(({ ok, data }) => {
                 if (loadingEl) loadingEl.style.display = "none";
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 if (ok && data.image) {
                     if (useHD) spendTokens(2);
                     const dataUrl = "data:image/png;base64," + data.image;
@@ -1115,6 +1703,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }).catch(() => {
                 if (loadingEl) loadingEl.style.display = "none";
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 alert("Görsel üretimi için backend API henüz bağlı değil.");
             });
         });
@@ -1122,4 +1711,77 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (addGalleryBtn) addGalleryBtn.style.cursor = "pointer";
     if (downloadBtn) downloadBtn.style.cursor = "pointer";
+
+    // Web Şablon Laboratuvarı
+    const webGenBtn = document.getElementById("generate-web-btn");
+    const webPromptInput = document.getElementById("web-prompt-input");
+    const webLoadingEl = document.getElementById("web-loading-indicator");
+    const webPreviewWrapper = document.getElementById("web-preview-wrapper");
+    const webPlaceholder = document.getElementById("web-placeholder");
+    const webIframe = document.getElementById("web-preview-iframe");
+    const webDownloadBtn = document.getElementById("web-download-btn");
+    const webCodeToggle = document.getElementById("web-code-toggle");
+    const webCodeOutput = document.getElementById("web-code-output");
+
+    let lastGeneratedHtml = null;
+
+    if (webGenBtn && webPromptInput) {
+        webGenBtn.addEventListener("click", function() {
+            const prompt = webPromptInput.value.trim() || (currentLang === "tr" ? "Modern landing page" : "Modern landing page");
+            if (webLoadingEl) webLoadingEl.style.display = "block";
+            if (webPreviewWrapper) webPreviewWrapper.style.display = "none";
+            if (webPlaceholder) webPlaceholder.style.display = "block";
+            if (typeof window.gpuLoadPeak === "function") window.gpuLoadPeak();
+
+            fetch("/api/generate-web", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt })
+            }).then(res => res.json()).then(data => {
+                if (webLoadingEl) webLoadingEl.style.display = "none";
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
+                if (data.html) {
+                    lastGeneratedHtml = data.html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                    if (webPlaceholder) webPlaceholder.style.display = "none";
+                    if (webPreviewWrapper) webPreviewWrapper.style.display = "block";
+                    if (webIframe) webIframe.srcdoc = lastGeneratedHtml;
+                    if (webCodeOutput) {
+                        webCodeOutput.textContent = lastGeneratedHtml;
+                        webCodeOutput.style.display = "none";
+                    }
+                    if (webCodeToggle) webCodeToggle.textContent = (webCodeToggle.getAttribute("data-" + (currentLang || "tr")) || webCodeToggle.getAttribute("data-tr") || "📄 Kodu Göster");
+                } else {
+                    alert(data.error || (currentLang === "tr" ? "Web şablonu üretilemedi." : "Web template generation failed."));
+                }
+            }).catch(() => {
+                if (webLoadingEl) webLoadingEl.style.display = "none";
+                if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
+                alert(currentLang === "tr" ? "Web API bağlantı hatası." : "Web API connection error.");
+            });
+        });
+    }
+
+    if (webDownloadBtn) {
+        webDownloadBtn.addEventListener("click", function() {
+            if (!lastGeneratedHtml) return;
+            const blob = new Blob([lastGeneratedHtml], { type: "text/html" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "omerai-web-sablon-" + Date.now() + ".html";
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
+    if (webCodeToggle) {
+        webCodeToggle.addEventListener("click", function() {
+            if (!webCodeOutput) return;
+            const isHidden = webCodeOutput.style.display === "none" || !webCodeOutput.style.display;
+            webCodeOutput.style.display = isHidden ? "block" : "none";
+            webCodeToggle.textContent = isHidden
+                ? (currentLang === "tr" ? "🙈 Kodu Gizle" : "🙈 Hide Code")
+                : (webCodeToggle.getAttribute("data-tr") || "📄 Kodu Göster");
+        });
+    }
 });

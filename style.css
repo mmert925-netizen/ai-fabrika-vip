@@ -1810,6 +1810,10 @@ input:focus, textarea:focus {
     .portal-stages { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
+    /* Mobilde sohbet varsayılan kapalı - JS/cache'den bağımsız */
+    .chat-container:not(.chat-open) { display: none !important; }
+    .chat-wrapper .chat-toggle-btn { display: flex !important; }
+    .chat-wrapper:has(.chat-container.chat-open) .chat-toggle-btn { display: none !important; }
     h1 { font-size: 2.2rem; }
     .matrix-terminal { padding: 1.2rem; max-width: 100%; }
     .terminal-status .status-line, .terminal-counter { font-size: 0.9rem; }

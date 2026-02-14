@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÖMER.AI | Yapay Zeka Fabrikası</title>
+    <meta name="description" content="Yazılım ve yapay zeka fabrikası. Gemini ve Imagen ile görsel üretimi, chatbot, web tasarım, Telegram entegrasyonu. Geleceği kodla, görselleri mühürle.">
+    <meta name="keywords" content="yapay zeka, AI, Gemini, Imagen, web tasarım, chatbot, Telegram bot, görsel üretimi, ÖMER.AI">
+    <meta name="author" content="ÖMER.AI">
+    <meta property="og:title" content="ÖMER.AI | Yapay Zeka Fabrikası">
+    <meta property="og:description" content="Yazılım ve yapay zeka fabrikası. Gemini ve Imagen ile görsel üretimi, chatbot, web tasarım. Geleceği kodla, görselleri mühürle.">
+    <meta property="og:image" content="https://ai-fabrika-vip.vercel.app/img/proje1.jpg">
+    <meta property="og:url" content="https://ai-fabrika-vip.vercel.app">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ÖMER.AI | Yapay Zeka Fabrikası">
+    <meta name="twitter:description" content="Yazılım ve yapay zeka fabrikası. Gemini ve Imagen ile görsel üretimi, chatbot, web tasarım.">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#22d3ee">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ÖMER.AI">
+    <style>/* Critical CSS - İlk ekran */
+:root{--bg-color:#1e3a4f;--text-color:#b2ebf2;--accent-color:#22d3ee;--nav-bg:rgba(30,58,79,.95)}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,sans-serif;background:var(--bg-color);color:var(--text-color);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2rem;background:var(--nav-bg);backdrop-filter:blur(10px)}
+.hero{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
+.hero h1{font-size:2.5rem;color:var(--accent-color);margin:0 0 .5rem}
+.hero p{font-size:1.1rem;opacity:.9;margin:0 0 1.5rem}</style>
+    <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ÖMER.AI",
+        "url": "https://ai-fabrika-vip.vercel.app",
+        "logo": "https://ai-fabrika-vip.vercel.app/img/proje1.jpg",
+        "description": "Yazılım ve yapay zeka fabrikası. Gemini ve Imagen ile görsel üretimi, chatbot, web tasarım, Telegram entegrasyonu.",
+        "slogan": "Geleceği kodla, görselleri mühürle.",
+        "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ÖMER.AI | Yapay Zeka Fabrikası",
+        "url": "https://ai-fabrika-vip.vercel.app",
+        "description": "Yazılım ve yapay zeka fabrikası. AI görsel üretimi, chatbot, web tasarım hizmetleri.",
+        "publisher": { "@type": "Organization", "name": "ÖMER.AI" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "Proje ne kadar sürer?", "acceptedAnswer": { "@type": "Answer", "text": "Web projeleri 1-2 hafta, AI bot projeleri 2-3 hafta sürebilir." } },
+            { "@type": "Question", "name": "Destek veriyor musunuz?", "acceptedAnswer": { "@type": "Answer", "text": "Teslimattan sonra 1 ay ücretsiz destek." } },
+            { "@type": "Question", "name": "Ödeme nasıl yapılır?", "acceptedAnswer": { "@type": "Answer", "text": "Havale/EFT veya kredi kartı. %50 ön ödeme ile başlıyoruz." } }
+        ]
+    }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HN6FVE6351"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HN6FVE6351');</script>
+    <!-- Microsoft Clarity - Heatmap: clarity.microsoft.com'dan ücretsiz proje oluştur, ID'yi aşağıya yaz -->
+    <script>window.OMERAI_CLARITY_ID="vgn5z3p2ux";</script>
+    <script type="text/javascript">(function(){var id=window.OMERAI_CLARITY_ID;if(!id)return;(function(c,l,a,r,i,t){c[a]=c[a]||[];var z=l.createElement(r),s=l.getElementsByTagName(r)[0];z.async=1;z.src="https://www.clarity.ms/tag/"+i;t=l.getElementsByTagName(r)[0];t.parentNode.insertBefore(z,t)})(window,document,"clarity","script",id)});</script>
+</head>
+<body>
+    <div id="vanta-bg" class="vanta-background" aria-hidden="true"></div>
+    <canvas id="dark-matter-canvas" class="dark-matter-bg" aria-hidden="true"></canvas>
+    <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+    <nav>
+        <div class="theme-switch-wrapper">
+            <div class="token-badge" id="token-badge" title="ÖMER.AI Dijital Mühürler">
+                <span class="token-icon">🔐</span>
+                <span id="token-count">0</span>
+            </div>
+            <button id="sound-toggle" onclick="toggleSound()" title="Sesleri aç/kapat">🔇</button>
+            <button id="theme-toggle" onclick="toggleTheme()">🌓 Mod Değiştir</button>
+            <button id="lang-toggle" onclick="toggleLang()" title="Dil / Language">🌐 EN</button>
+        </div>
+        <div class="logo">ÖMER.AI</div>
+        <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menü" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul id="nav-menu">
+            <li><a href="#home" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+            <li><a href="#ai-gallery" data-tr="AI Sergi" data-en="AI Gallery">AI Sergi</a></li>
+            <li><a href="#live-stream" data-tr="Canlı Akış" data-en="Live Stream">Canlı Akış</a></li>
+            <li><a href="#ai-lab" data-tr="AI Laboratuvarı" data-en="AI Lab">AI Laboratuvarı</a></li>
+            <li><a href="#web-sablon-lab" data-tr="Web Şablon" data-en="Web Template">Web Şablon</a></li>
+            <li><a href="#hizmetler" data-tr="Hizmetler" data-en="Services">Hizmetler</a></li>
+            <li><a href="#fiyatlandirma" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a></li>
+            <li><a href="#referanslar" data-tr="Referanslar" data-en="References">Referanslar</a></li>
+            <li><a href="#testimonials" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a></li>
+            <li><a href="#portal" data-tr="Müşteri Portalı" data-en="Client Portal">Müşteri Portalı</a></li>
+            <li><a href="#iletisim" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <nav id="breadcrumb" class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="#home" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+    </nav>
+
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <section id="home" class="hero">
+        <div class="hero-text-wrap">
+            <h1 data-tr="Yazılım ve Yapay Zeka Fabrikası" data-en="Software & AI Factory">Yazılım ve Yapay Zeka Fabrikası</h1>
+            <p data-tr="Geleceği kodla, görselleri mühürle." data-en="Code the future, seal the visuals.">Geleceği kodla, görselleri mühürle.</p>
+        </div>
+        <div class="matrix-terminal">
+            <div class="terminal-scanlines"></div>
+            <div class="gpu-load-container" aria-hidden="true">
+                <span class="gpu-load-label">GPU_LOAD</span>
+                <canvas id="gpu-load-canvas" class="gpu-load-waveform" width="120" height="36" title="Sanal İşlem Gücü"></canvas>
+            </div>
+            <div class="terminal-header">
+                <span class="terminal-bracket">[</span>
+                <span class="terminal-title" data-tr="SİSTEM DURUMU" data-en="SYSTEM STATUS">SİSTEM DURUMU</span>
+                <span class="terminal-bracket">]</span>
+            </div>
+            <div class="terminal-status">
+                <div class="status-line"><span class="term-prefix blink">█</span> CORE_SYSTEM: <span class="neon-green">ACTIVE</span></div>
+                <div class="status-line"><span class="term-prefix">█</span> NEURAL_LINK: <span class="neon-blue">ESTABLISHED</span></div>
+                <div class="status-line"><span class="term-prefix">█</span> PRODUCTION_CAPACITY: <span class="neon-blue" id="capacity-value">%100</span></div>
+            </div>
+            <div class="terminal-counter">
+                <span class="term-prefix">></span> Processed Data: <span class="counter-value" id="processed-data">0</span>
+            </div>
+            <div class="terminal-command-line">
+                <span class="term-prefix">></span>
+                <input type="text" id="terminal-input" class="terminal-input" placeholder="komut..." autocomplete="off" spellcheck="false">
+            </div>
+            <div class="terminal-buttons">
+                <button class="matrix-btn" id="sistem-baslat-btn" data-tr="SİSTEMİ BAŞLAT" data-en="START SYSTEM">SİSTEMİ BAŞLAT</button>
+                <button class="matrix-btn" onclick="document.getElementById('ai-gallery')?.scrollIntoView({behavior:'smooth'})" data-tr="VERİLERİ MÜHÜRLE" data-en="SEAL DATA">VERİLERİ MÜHÜRLE</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-gallery" class="gallery-container">
+        <h2 class="neon-text" data-tr="Yapay Zeka Sergisi" data-en="AI Gallery">Yapay Zeka Sergisi</h2>
+        <div class="gallery-filters" id="gallery-filters">
+            <button class="filter-btn active" data-filter="all" data-tr="Tümü" data-en="All">Tümü</button>
+            <button class="filter-btn" data-filter="cyberpunk" data-tr="Cyberpunk" data-en="Cyberpunk">Cyberpunk</button>
+            <button class="filter-btn" data-filter="mimari" data-tr="Mimari" data-en="Architecture">Mimari</button>
+            <button class="filter-btn" data-filter="logo" data-tr="Logo" data-en="Logo">Logo</button>
+            <button class="filter-btn" data-filter="karakter" data-tr="Karakter" data-en="Character">Karakter</button>
+            <button class="filter-btn" data-filter="soyut" data-tr="Soyut" data-en="Abstract">Soyut</button>
+            <button class="filter-btn" data-filter="doga" data-tr="Doğa" data-en="Nature">Doğa</button>
+        </div>
+        <div class="slider-wrapper">
+            <button class="slider-btn prev" onclick="moveSlider(-1)">❮</button>
+            <div class="slider-container">
+                <div class="slider-track" id="slider-track">
+                    <div class="slide" data-project="1" data-category="cyberpunk" onclick="openProjectDetail(1)"><picture><source type="image/webp" srcset="img/proje1-400.webp 400w, img/proje1-800.webp 800w, img/proje1-1200.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"><img src="img/proje1.jpg" alt="AI 1" loading="eager" fetchpriority="high" decoding="async"></picture></div>
+                    <div class="slide" data-project="2" data-category="karakter" onclick="openProjectDetail(2)"><picture><source type="image/webp" srcset="img/proje2-400.webp 400w, img/proje2-800.webp 800w, img/proje2-1200.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"><img src="img/proje2.jpg" alt="AI 2" loading="lazy" decoding="async"></picture></div>
+                    <div class="slide" data-project="3" data-category="soyut" onclick="openProjectDetail(3)"><picture><source type="image/webp" srcset="img/proje3-400.webp 400w, img/proje3-800.webp 800w, img/proje3-1200.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"><img src="img/proje3.jpg" alt="AI 3" loading="lazy" decoding="async"></picture></div>
+                    <div class="slide" data-project="4" data-category="mimari" onclick="openProjectDetail(4)"><picture><source type="image/webp" srcset="img/proje4-400.webp 400w, img/proje4-800.webp 800w, img/proje4-1200.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"><img src="img/proje4.jpg" alt="AI 4" loading="lazy" decoding="async"></picture></div>
+                    <div class="slide" data-project="5" data-category="logo" onclick="openProjectDetail(5)"><picture><source type="image/webp" srcset="img/proje5-400.webp 400w, img/proje5-800.webp 800w, img/proje5-1200.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"><img src="img/proje5.jpg" alt="AI 5" loading="lazy" decoding="async"></picture></div>
+                    <div class="slide" data-project="6" data-category="doga" onclick="openProjectDetail(6)"><picture><source type="image/webp" srcset="img/proje6-400.webp 400w, img/proje6-800.webp 800w, img/proje6-1200.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"><img src="img/proje6.jpg" alt="AI 6" loading="lazy" decoding="async"></picture></div>
+                </div>
+            </div>
+            <button class="slider-btn next" onclick="moveSlider(1)">❯</button>
+        </div>
+        <div id="generated-gallery" class="generated-gallery-grid"></div>
+    </section>
+
+    <section id="live-stream" class="live-stream-section">
+        <div class="live-stream-header">
+            <span class="live-badge">● LIVE</span>
+            <h2 class="neon-text" data-tr="Canlı AI Üretim Akışı" data-en="Live AI Production Stream">Canlı AI Üretim Akışı</h2>
+        </div>
+        <div class="live-stream-container">
+            <div id="live-stream-track" class="live-stream-track"></div>
+        </div>
+    </section>
+
+    <section id="labs" class="labs-wrapper">
+    <h2 class="labs-section-title neon-text" data-tr="AI Laboratuvarları" data-en="AI Laboratories">AI Laboratuvarları</h2>
+    <div id="ai-lab" class="lab-container lab-panel">
+        <div class="lab-header">
+            <span class="lab-icon">🖼️</span>
+            <h2 class="neon-text" data-tr="Imagen 4.0 Üretim Laboratuvarı" data-en="Imagen 4.0 Production Lab">Imagen 4.0 Üretim Laboratuvarı</h2>
+        </div>
+        <div class="style-selector">
+            <span data-tr="Stil:" data-en="Style:">Stil:</span>
+            <label class="hd-toggle-wrap">
+                <input type="checkbox" id="hd-mode-check" disabled>
+                <span class="hd-label" data-tr="HD Mühür (10+ gerekli)" data-en="HD Seal (10+ required)">HD Mühür (10+ gerekli)</span>
+            </label>
+            <select id="style-select">
+                <option value="" data-tr="Özel" data-en="Custom">Özel</option>
+                <option value="karikatür, çizgi roman tarzı" data-tr="Karikatür" data-en="Cartoon">Karikatür</option>
+                <option value="fotorealistik, gerçekçi, photorealistic" data-tr="Gerçekçi" data-en="Realistic">Gerçekçi</option>
+                <option value="siberpunk, neon, cyberpunk estetiği" data-tr="Siberpunk" data-en="Cyberpunk">Siberpunk</option>
+                <option value="minimalist, sade" data-tr="Minimalist" data-en="Minimalist">Minimalist</option>
+                <option value="anime, japon animasyon stili" data-tr="Anime" data-en="Anime">Anime</option>
+            </select>
+        </div>
+        <div class="demo-prompts" id="demo-prompts">
+            <span class="demo-label" data-tr="Örnek promptlar – tıkla dene:" data-en="Sample prompts – click to try:">Örnek promptlar – tıkla dene:</span>
+            <div class="demo-chips">
+                <button type="button" class="demo-chip" data-prompt="Neon ışıklarla aydınlanan futuristik şehir manzarası, siberpunk tarzı">🌃 Neon Şehir</button>
+                <button type="button" class="demo-chip" data-prompt="Yapay zeka robot portresi, detaylı devre desenleri, mavi neon">🤖 Robot Portresi</button>
+                <button type="button" class="demo-chip" data-prompt="Siberpunk tarzı logo, neon yeşil ve mor, teknoloji firması">⚡ Siberpunk Logo</button>
+                <button type="button" class="demo-chip" data-prompt="Gece vakti futuristik mekan, cam ve metal, ışık yansımaları">🏙️ Futuristik Mekan</button>
+                <button type="button" class="demo-chip" data-prompt="Dijital orman, biyolüminesan bitkiler, büyülü atmosfer">🌲 Dijital Orman</button>
+                <button type="button" class="demo-chip" data-prompt="Steampunk buhar makinesi, pirinç dişliler, detaylı çizim">⚙️ Steampunk Makine</button>
+            </div>
+        </div>
+        <div class="lab-form-container">
+            <textarea id="prompt-input" placeholder="Hayal ettiğin görseli buraya yaz patron..." rows="4" data-placeholder-tr="Hayal ettiğin görseli buraya yaz patron..." data-placeholder-en="Describe your vision here..."></textarea>
+            <button id="generate-image-btn" class="neon-button" data-tr="Görseli Mühürle (Üret)" data-en="Generate Image">Görseli Mühürle (Üret)</button>
+            <div id="loading-indicator" class="progress-bar-wrap" style="display: none;">
+                <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+                <span class="progress-bar-label" data-tr="Görsel üretiliyor..." data-en="Generating image...">Görsel üretiliyor...</span>
+            </div>
+        </div>
+        <div id="image-output-container" class="image-output-container">
+            <div class="image-result-wrapper">
+                <div class="sealed-image-container" id="sealed-image-container" style="display: none;">
+                    <img id="generated-image" src="" alt="Üretilen Görsel">
+                    <div class="seal-band" id="seal-band">
+                        <span class="seal-text">ÖMER.AI Fabrikası - Seri No: <span id="seal-serial">#0000</span></span>
+                        <div class="seal-qr" id="seal-qr" title="ÖMER.AI Doğrulama"></div>
+                    </div>
+                </div>
+                <div class="image-result-actions">
+                    <button id="download-sealed-btn" class="neon-button add-gallery-btn" style="display: none;" data-tr="Mühürlü İndir" data-en="Download with Seal">Mühürlü İndir</button>
+                    <button id="add-to-gallery-btn" class="neon-button add-gallery-btn" style="display: none;" data-tr="Galeriye Ekle" data-en="Add to Gallery">Galeriye Ekle</button>
+                </div>
+            </div>
+            <p id="image-placeholder" style="color: var(--text-color); opacity: 0.7;" data-tr="Üretilen eser burada belirecek..." data-en="Generated artwork will appear here...">Üretilen eser burada belirecek...</p>
+        </div>
+    </div>
+
+    <div id="web-sablon-lab" class="lab-container web-lab lab-panel">
+        <div class="lab-header">
+            <span class="lab-icon">🌐</span>
+            <h2 class="neon-text" data-tr="Web Şablon Laboratuvarı" data-en="Web Template Lab">Web Şablon Laboratuvarı</h2>
+        </div>
+        <p class="web-lab-desc" data-tr="İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler." data-en="Describe your desired page – AI generates a single-page HTML/CSS template.">İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler.</p>
+        <div class="demo-prompts" id="web-demo-prompts">
+            <span class="demo-label" data-tr="Örnek şablonlar – tıkla dene:" data-en="Sample templates – click to try:">Örnek şablonlar – tıkla dene:</span>
+            <div class="demo-chips">
+                <button type="button" class="demo-chip web-demo" data-prompt="Restoran için modern landing page, menü önizlemesi, rezervasyon butonu">🍽️ Restoran</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Siberpunk tarzı portfolyo, neon renkler, proje kartları">🎨 Portfolyo</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="E-ticaret mağaza kartvizit sayfası, ürün grid, minimalist">🛒 Mağaza</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Yazılım firması için kurumsal landing, hizmetler, iletişim formu">💼 Kurumsal</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Kişisel blog ana sayfa, koyu tema, makale önizlemeleri">📝 Blog</button>
+            </div>
+        </div>
+        <div class="lab-form-container">
+            <textarea id="web-prompt-input" placeholder="Örn: restoran için landing page, siberpunk tarzı portfolyo, mağaza kartvizit sayfası..." rows="3" data-placeholder-tr="Örn: restoran için landing page, siberpunk tarzı portfolyo, mağaza kartvizit sayfası..." data-placeholder-en="E.g. landing page for restaurant, cyberpunk portfolio, store card page..."></textarea>
+            <button id="generate-web-btn" class="neon-button" data-tr="Şablonu Mühürle (Üret)" data-en="Generate Template">Şablonu Mühürle (Üret)</button>
+            <div id="web-loading-indicator" class="progress-bar-wrap" style="display: none;">
+                <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+                <span class="progress-bar-label" data-tr="Şablon üretiliyor..." data-en="Generating template...">Şablon üretiliyor...</span>
+            </div>
+        </div>
+        <div id="web-output-container" class="web-output-container">
+            <div id="web-preview-wrapper" class="web-preview-wrapper" style="display: none;">
+                <div class="web-preview-header">
+                    <span data-tr="Önizleme" data-en="Preview">Önizleme</span>
+                    <div class="web-preview-actions">
+                        <button id="web-download-btn" class="neon-button add-gallery-btn" data-tr="📥 HTML İndir" data-en="📥 Download HTML">📥 HTML İndir</button>
+                        <button id="web-code-toggle" class="neon-button add-gallery-btn" data-tr="📄 Kodu Göster" data-en="📄 Show Code">📄 Kodu Göster</button>
+                    </div>
+                </div>
+                <iframe id="web-preview-iframe" sandbox="allow-same-origin" title="Web önizleme"></iframe>
+                <pre id="web-code-output" class="web-code-output" style="display: none;"></pre>
+            </div>
+            <p id="web-placeholder" style="color: var(--text-color); opacity: 0.7;" data-tr="Üretilen şablon burada belirecek..." data-en="Generated template will appear here...">Üretilen şablon burada belirecek...</p>
+        </div>
+    </div>
+    </section>
+
+    <section id="hizmetler" class="services-section">
+        <h2 class="neon-text" data-tr="Fabrika Çözümleri" data-en="Factory Solutions">Fabrika Çözümleri</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="icon">🧠</i>
+                <h3 data-tr="Yapay Zeka Modelleme" data-en="AI Modeling">Yapay Zeka Modelleme</h3>
+                <p data-tr="Gemini ve Imagen 4.0 tabanlı otonom sistemler ve akıllı botlar geliştiriyoruz." data-en="We develop autonomous systems and smart bots based on Gemini and Imagen 4.0.">Gemini ve Imagen 4.0 tabanlı otonom sistemler ve akıllı botlar geliştiriyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="icon">🌐</i>
+                <h3 data-tr="Siberpunk Web Tasarım" data-en="Cyberpunk Web Design">Siberpunk Web Tasarım</h3>
+                <p data-tr="Geleceğin estetiğini modern arayüzlerle birleştiriyor, hızlı siteler mühürlüyoruz." data-en="We combine future aesthetics with modern interfaces and build fast sites.">Geleceğin estetiğini modern arayüzlerle birleştiriyor, hızlı siteler mühürlüyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="icon">🚀</i>
+                <h3 data-tr="Yazılım Otomasyonu" data-en="Software Automation">Yazılım Otomasyonu</h3>
+                <p data-tr="İş akışlarını hızlandıran, Telegram entegreli özel yazılım çözümleri üretiyoruz." data-en="We create custom software solutions with Telegram integration.">İş akışlarını hızlandıran, Telegram entegreli özel yazılım çözümleri üretiyoruz.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fiyatlandirma" class="pricing-section">
+        <h2 class="neon-text" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</h2>
+        <div class="pricing-comparison-wrap">
+            <h3 class="pricing-table-title" data-tr="Piyasa Karşılaştırması" data-en="Market Comparison">Piyasa Karşılaştırması</h3>
+            <div class="pricing-table-container">
+                <table class="pricing-comparison-table">
+                    <thead>
+                        <tr>
+                            <th data-tr="Hizmet Kalemi" data-en="Service Item">Hizmet Kalemi</th>
+                            <th data-tr="Serbest Piyasa (Freelance)" data-en="Freelance Market">Serbest Piyasa (Freelance)</th>
+                            <th data-tr="Kurumsal Ajanslar" data-en="Corporate Agencies">Kurumsal Ajanslar</th>
+                            <th class="highlight-col" data-tr="ÖMER.AI Fabrikası (Öneri)" data-en="ÖMER.AI Factory (Suggested)">ÖMER.AI Fabrikası (Öneri)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-tr="Özel AI Bot Entegrasyonu" data-en="Custom AI Bot Integration">Özel AI Bot Entegrasyonu</td>
+                            <td>10.000₺ – 25.000₺</td>
+                            <td>50.000₺ – 150.000₺</td>
+                            <td class="highlight-col"><strong>35.000₺+</strong> <span class="pricing-tag" data-tr="VIP Mühür" data-en="VIP Seal">VIP Mühür</span></td>
+                        </tr>
+                        <tr>
+                            <td data-tr="Siberpunk Web Arayüzü" data-en="Cyberpunk Web Interface">Siberpunk Web Arayüzü</td>
+                            <td>5.000₺ – 15.000₺</td>
+                            <td>40.000₺ – 100.000₺</td>
+                            <td class="highlight-col"><strong>25.000₺+</strong> <span class="pricing-tag" data-tr="Jilet Tasarım" data-en="Razor Design">Jilet Tasarım</span></td>
+                        </tr>
+                        <tr>
+                            <td data-tr="Görsel Üretim Paketleri" data-en="Visual Production Packages">Görsel Üretim Paketleri</td>
+                            <td data-tr="Görsel başı 50₺ – 100₺" data-en="50₺ – 100₺ per visual">Görsel başı 50₺ – 100₺</td>
+                            <td data-tr="Aylık 10.000₺+ Danışmanlık" data-en="Monthly 10.000₺+ Consulting">Aylık 10.000₺+ Danışmanlık</td>
+                            <td class="highlight-col"><strong data-tr="Kredi/Mühür Sistemi" data-en="Credit/Stamp System">Kredi/Mühür Sistemi</strong> <span class="pricing-tag" data-tr="(Abonelik)" data-en="(Subscription)">(Abonelik)</span></td>
+                        </tr>
+                        <tr>
+                            <td data-tr="Teknik Destek / Bakım" data-en="Technical Support / Maintenance">Teknik Destek / Bakım</td>
+                            <td data-tr="Saatlik 500₺ – 1.000₺" data-en="500₺ – 1.000₺/hr">Saatlik 500₺ – 1.000₺</td>
+                            <td data-tr="Aylık 15.000₺+ Sabit" data-en="Monthly 15.000₺+ Fixed">Aylık 15.000₺+ Sabit</td>
+                            <td class="highlight-col"><strong data-tr="Sistem İzleme / Otonom Destek" data-en="System Monitoring / Autonomous Support">Sistem İzleme / Otonom Destek</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="pricing-strategy-wrap">
+            <h3 class="pricing-strategy-title" data-tr="Paket Seçenekleri" data-en="Package Options">Paket Seçenekleri</h3>
+            <div class="pricing-strategy-grid">
+                <div class="pricing-strategy-card">
+                    <h4>Standart</h4>
+                    <p data-tr="Temel yazılım desteği" data-en="Basic software support">Temel yazılım desteği</p>
+                </div>
+                <div class="pricing-strategy-card">
+                    <h4>Pro</h4>
+                    <p data-tr="AI Laboratuvarı kullanımı + Destek" data-en="AI Lab usage + Support">AI Laboratuvarı kullanımı + Destek</p>
+                </div>
+                <div class="pricing-strategy-card featured-tier">
+                    <h4 class="tier-vip">V49 VIP</h4>
+                    <p data-tr="Özel imalat hattı – sadece senin projelerin. Tam otonom AI fabrikasyon, sıfırdan teslimata." data-en="Private production line – only your projects. Full autonomous AI fabrication, from zero to delivery.">Özel imalat hattı – sadece senin projelerin. Tam otonom AI fabrikasyon, sıfırdan teslimata.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="referanslar" class="references-section">
+        <h2 class="neon-text" data-tr="Bize Güvenenler" data-en="Trusted By">Bize Güvenenler</h2>
+        <p class="references-intro" data-tr="Startup'tan kurumsala, projelerini ÖMER.AI ile mühürleyenler" data-en="From startups to enterprises, those who seal their projects with ÖMER.AI">Startup'tan kurumsala, projelerini ÖMER.AI ile mühürleyenler</p>
+        <div class="references-logos">
+            <div class="ref-item" title="Girişimci"><span class="ref-logo">🚀</span><span class="ref-name" data-tr="Tech Startup" data-en="Tech Startup">Tech Startup</span></div>
+            <div class="ref-item" title="E-ticaret"><span class="ref-logo">🛒</span><span class="ref-name" data-tr="Dijital Mağaza" data-en="Digital Store">Dijital Mağaza</span></div>
+            <div class="ref-item" title="Kurumsal"><span class="ref-logo">🏢</span><span class="ref-name" data-tr="Kurumsal Firma" data-en="Corporate">Kurumsal Firma</span></div>
+            <div class="ref-item" title="Ajans"><span class="ref-logo">🎨</span><span class="ref-name" data-tr="Yaratıcı Ajans" data-en="Creative Agency">Yaratıcı Ajans</span></div>
+            <div class="ref-item" title="Freelance"><span class="ref-logo">💼</span><span class="ref-name" data-tr="Bağımsız Profesyonel" data-en="Freelancer">Bağımsız Profesyonel</span></div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section">
+        <h2 class="neon-text" data-tr="Müşteri Yorumları" data-en="Testimonials">Müşteri Yorumları</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-tr="Harika iş çıkardılar! Web sitem hayal ettiğimden güzel oldu." data-en="They did an amazing job! My website turned out better than I imagined.">Harika iş çıkardılar! Web sitem hayal ettiğimden güzel oldu.</p>
+                <span class="testimonial-author">— Ahmet K., Girişimci</span>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-tr="AI botumuz iş süreçlerimizi çok hızlandırdı. Kesinlikle tavsiye ederim." data-en="Our AI bot dramatically sped up our processes. Highly recommend.">AI botumuz iş süreçlerimizi çok hızlandırdı. Kesinlikle tavsiye ederim.</p>
+                <span class="testimonial-author">— Zeynep M., CFO</span>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-tr="Profesyonel ekip, hızlı teslimat. Tekrar çalışacağız." data-en="Professional team, fast delivery. We'll work together again.">Profesyonel ekip, hızlı teslimat. Tekrar çalışacağız.</p>
+                <span class="testimonial-author">— Can D., CTO</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="portal" class="portal-section">
+        <h2 class="neon-text" data-tr="Kullanıcı Portalı" data-en="Client Dashboard">Kullanıcı Portalı</h2>
+        <p class="portal-intro" data-tr="Siparişinizi takip edin, işin aşamasını görün." data-en="Track your order, see the progress of your project.">Siparişinizi takip edin, işin aşamasını görün.</p>
+        <div id="portal-login" class="portal-login">
+            <div class="portal-login-card">
+                <label for="portal-order-code" data-tr="Sipariş Kodu veya E-posta" data-en="Order Code or Email">Sipariş Kodu veya E-posta</label>
+                <input type="text" id="portal-order-code" placeholder="örn: DEMO veya demo@omer.ai" autocomplete="off">
+                <button type="button" class="neon-button" id="portal-login-btn" data-tr="Giriş Yap" data-en="Log In">Giriş Yap</button>
+                <p class="portal-demo-hint" data-tr="Demo: DEMO veya demo@omer.ai ile giriş yapın" data-en="Demo: log in with DEMO or demo@omer.ai">Demo: DEMO veya demo@omer.ai ile giriş yapın</p>
+            </div>
+        </div>
+        <div id="portal-dashboard" class="portal-dashboard" style="display:none">
+            <div class="portal-dashboard-header">
+                <h3 data-tr="Proje Durumu" data-en="Project Status">Proje Durumu</h3>
+                <button type="button" class="portal-logout neon-button" id="portal-logout" data-tr="Çıkış" data-en="Log Out">Çıkış</button>
+            </div>
+            <div class="portal-project-info">
+                <span class="portal-project-name" id="portal-project-name">Örnek Proje – Kurumsal Web Sitesi</span>
+                <span class="portal-project-id">#DEMO-2026</span>
+            </div>
+            <div class="portal-progress">
+                <div class="portal-progress-bar-wrap">
+                    <div class="portal-progress-bar" id="portal-progress-bar"></div>
+                </div>
+                <div class="portal-stages">
+                    <div class="portal-stage" data-stage="1">
+                        <span class="portal-stage-dot"></span>
+                        <span class="portal-stage-label" data-tr="Tasarım aşamasında" data-en="In Design Phase">Tasarım aşamasında</span>
+                    </div>
+                    <div class="portal-stage" data-stage="2">
+                        <span class="portal-stage-dot"></span>
+                        <span class="portal-stage-label" data-tr="Kodlanıyor" data-en="Being Coded">Kodlanıyor</span>
+                    </div>
+                    <div class="portal-stage" data-stage="3">
+                        <span class="portal-stage-dot"></span>
+                        <span class="portal-stage-label" data-tr="Test ediliyor" data-en="Being Tested">Test ediliyor</span>
+                    </div>
+                    <div class="portal-stage" data-stage="4">
+                        <span class="portal-stage-dot"></span>
+                        <span class="portal-stage-label" data-tr="Tamamlandı" data-en="Completed">Tamamlandı</span>
+                    </div>
+                </div>
+            </div>
+            <div id="portal-downloads" class="portal-downloads" style="display:none">
+                <h4 data-tr="Mühürlü Dosyalar – İndir" data-en="Sealed Files – Download">Mühürlü Dosyalar – İndir</h4>
+                <div class="portal-download-grid">
+                    <button type="button" class="portal-download-btn" id="portal-dl-logo" data-tr="📐 Mühürlü Logo" data-en="📐 Sealed Logo">📐 Mühürlü Logo</button>
+                    <button type="button" class="portal-download-btn" id="portal-dl-code" data-tr="💻 Mühürlü Kod" data-en="💻 Sealed Code">💻 Mühürlü Kod</button>
+                    <button type="button" class="portal-download-btn" id="portal-dl-visual" data-tr="🖼️ Mühürlü Görsel" data-en="🖼️ Sealed Visual">🖼️ Mühürlü Görsel</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="iletisim" class="contact-section">
+        <h2 class="neon-text" data-tr="Dinamik Teklif & Proje Sihirbazı" data-en="Dynamic Offer & Project Wizard">Dinamik Teklif & Proje Sihirbazı</h2>
+        <p class="wizard-intro" data-tr="Projenizi adım adım tanımlayın, anlık tahmini alın." data-en="Define your project step by step, get an instant estimate.">Projenizi adım adım tanımlayın, anlık tahmini alın.</p>
+        <div id="project-wizard" class="project-wizard">
+            <div class="wizard-progress">
+                <div class="wizard-progress-bar" id="wizard-progress-bar"></div>
+                <span class="wizard-step-indicator" id="wizard-step-indicator">1/4</span>
+            </div>
+            <div class="wizard-steps">
+                <div class="wizard-step active" data-step="1">
+                    <h3 class="wizard-question" data-tr="Hangi tür proje planlıyorsunuz?" data-en="What type of project are you planning?">Hangi tür proje planlıyorsunuz?</h3>
+                    <div class="wizard-options">
+                        <button type="button" class="wizard-option" data-value="website" data-tr="🌐 Web Sitesi" data-en="🌐 Website">🌐 Web Sitesi</button>
+                        <button type="button" class="wizard-option" data-value="ai-bot" data-tr="🤖 AI Bot" data-en="🤖 AI Bot">🤖 AI Bot</button>
+                        <button type="button" class="wizard-option" data-value="image-ai" data-tr="🖼️ Görüntü İşleme / Görsel AI" data-en="🖼️ Image Processing / Visual AI">🖼️ Görüntü İşleme / Görsel AI</button>
+                        <button type="button" class="wizard-option" data-value="mobile" data-tr="📱 Mobil Uygulama" data-en="📱 Mobile App">📱 Mobil Uygulama</button>
+                        <button type="button" class="wizard-option" data-value="ecommerce" data-tr="🛒 E-ticaret" data-en="🛒 E-commerce">🛒 E-ticaret</button>
+                        <button type="button" class="wizard-option" data-value="automation" data-tr="⚙️ Otomasyon / Entegrasyon" data-en="⚙️ Automation / Integration">⚙️ Otomasyon / Entegrasyon</button>
+                        <button type="button" class="wizard-option" data-value="other" data-tr="📋 Diğer" data-en="📋 Other">📋 Diğer</button>
+                    </div>
+                </div>
+                <div class="wizard-step" data-step="2">
+                    <h3 class="wizard-question" data-tr="Proje kapsamı nasıl?" data-en="What is the project scope?">Proje kapsamı nasıl?</h3>
+                    <div class="wizard-options">
+                        <button type="button" class="wizard-option" data-value="simple" data-tr="Basit – Landing, tek sayfa" data-en="Simple – Landing, single page">Basit – Landing, tek sayfa</button>
+                        <button type="button" class="wizard-option" data-value="medium" data-tr="Orta – Çok sayfalı, CRM" data-en="Medium – Multi-page, CRM">Orta – Çok sayfalı, CRM</button>
+                        <button type="button" class="wizard-option" data-value="complex" data-tr="Karmaşık – Özel sistem, API" data-en="Complex – Custom system, API">Karmaşık – Özel sistem, API</button>
+                    </div>
+                </div>
+                <div class="wizard-step" data-step="3">
+                    <h3 class="wizard-question" data-tr="Proje ne kadar acil?" data-en="How urgent is the project?">Proje ne kadar acil?</h3>
+                    <div class="wizard-options">
+                        <button type="button" class="wizard-option" data-value="normal" data-tr="Normale yakın" data-en="Normal">Normale yakın</button>
+                        <button type="button" class="wizard-option" data-value="urgent" data-tr="Acil" data-en="Urgent">Acil</button>
+                        <button type="button" class="wizard-option" data-value="critical" data-tr="Çok acil" data-en="Very urgent">Çok acil</button>
+                    </div>
+                </div>
+                <div class="wizard-step" data-step="4">
+                    <div class="wizard-report" id="wizard-report">
+                        <h3 class="wizard-report-title" data-tr="Analiz Raporu" data-en="Analysis Report">Analiz Raporu</h3>
+                        <div class="wizard-report-stats">
+                            <div class="wizard-stat">
+                                <span class="wizard-stat-label" data-tr="Tahmini Süre" data-en="Estimated Time">Tahmini Süre</span>
+                                <span class="wizard-stat-value" id="wizard-estimate-days">—</span>
+                            </div>
+                            <div class="wizard-stat">
+                                <span class="wizard-stat-label" data-tr="Karmaşıklık" data-en="Complexity">Karmaşıklık</span>
+                                <span class="wizard-stat-value" id="wizard-complexity">—</span>
+                            </div>
+                        </div>
+                        <p class="wizard-report-note" data-tr="Projeniz ciddiye alındı. İletişim bilgilerinizi bırakın, size özel teklif hazırlayalım." data-en="Your project is taken seriously. Leave your contact info for a custom quote.">Projeniz ciddiye alındı. İletişim bilgilerinizi bırakın, size özel teklif hazırlayalım.</p>
+                    </div>
+                    <form id="contact-form" class="wizard-contact-form">
+                        <input type="text" name="name" placeholder="Adın" required data-placeholder-tr="Adın" data-placeholder-en="Your name">
+                        <input type="email" name="email" placeholder="E-posta" required data-placeholder-tr="E-posta" data-placeholder-en="Email">
+                        <textarea name="message" placeholder="Ek notlar (isteğe bağlı)" data-placeholder-tr="Ek notlar (isteğe bağlı)" data-placeholder-en="Additional notes (optional)"></textarea>
+                        <input type="hidden" name="wizard-data" id="wizard-data">
+                        <div class="wizard-form-actions">
+                            <button type="button" class="wizard-back-btn neon-button" data-tr="Geri" data-en="Back">Geri</button>
+                            <button type="submit" class="neon-button" data-tr="Mührü Gönder" data-en="Send" data-loading-tr="Mühürleniyor..." data-loading-en="Sending...">Mührü Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="wizard-nav">
+                <button type="button" class="wizard-back neon-button" id="wizard-back" style="display:none" data-tr="← Geri" data-en="← Back">← Geri</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="vip-uretim-hatti" class="vip-section" aria-hidden="true" style="display: none;">
+        <div class="vip-overlay" onclick="closeVipSection()"></div>
+        <div class="vip-content" onclick="event.stopPropagation()">
+            <h2 class="vip-title">◈ VIP ÜRETİM HATTI ◈</h2>
+            <p class="vip-desc">Gizli erişim aktif. Özel projeler.</p>
+            <div class="vip-gallery">
+                <div class="vip-item" onclick="openProjectDetail(7)"><picture><source type="image/webp" srcset="img/proje7-400.webp 400w, img/proje7-800.webp 800w, img/proje7-1200.webp 1200w" sizes="(max-width: 768px) 50vw, 400px"><img src="img/proje7.jpg" alt="VIP 1" loading="lazy" decoding="async"></picture></div>
+                <div class="vip-item" onclick="openProjectDetail(8)"><picture><source type="image/webp" srcset="img/proje8-400.webp 400w, img/proje8-800.webp 800w, img/proje8-1200.webp 1200w" sizes="(max-width: 768px) 50vw, 400px"><img src="img/proje8.jpg" alt="VIP 2" loading="lazy" decoding="async"></picture></div>
+                <div class="vip-item" onclick="openProjectDetail(9)"><picture><source type="image/webp" srcset="img/proje9-400.webp 400w, img/proje9-800.webp 800w, img/proje9-1200.webp 1200w" sizes="(max-width: 768px) 50vw, 400px"><img src="img/proje9.jpg" alt="VIP 3" loading="lazy" decoding="async"></picture></div>
+                <div class="vip-item" onclick="openProjectDetail(10)"><picture><source type="image/webp" srcset="img/proje10-400.webp 400w, img/proje10-800.webp 800w, img/proje10-1200.webp 1200w" sizes="(max-width: 768px) 50vw, 400px"><img src="img/proje10.jpg" alt="VIP 4" loading="lazy" decoding="async"></picture></div>
+                <div class="vip-item" onclick="openProjectDetail(11)"><picture><source type="image/webp" srcset="img/proje11-400.webp 400w, img/proje11-800.webp 800w, img/proje11-1200.webp 1200w" sizes="(max-width: 768px) 50vw, 400px"><img src="img/proje11.jpg" alt="VIP 5" loading="lazy" decoding="async"></picture></div>
+                <div class="vip-item" onclick="openProjectDetail(12)"><picture><source type="image/webp" srcset="img/proje12-400.webp 400w, img/proje12-800.webp 800w, img/proje12-1200.webp 1200w" sizes="(max-width: 768px) 50vw, 400px"><img src="img/proje12.jpg" alt="VIP 6" loading="lazy" decoding="async"></picture></div>
+            </div>
+            <button class="vip-close" onclick="closeVipSection()">✕</button>
+        </div>
+    </section>
+
+    <div id="project-modal" class="project-modal" onclick="closeProjectDetail(event)">
+        <button class="modal-nav-btn modal-prev" onclick="event.stopPropagation(); modalNav(-1)">❮</button>
+        <div class="project-modal-content" onclick="event.stopPropagation()">
+            <button class="project-modal-close" onclick="closeProjectDetail()">&times;</button>
+            <img id="project-modal-img" src="" alt="">
+            <h3 id="project-modal-title"></h3>
+            <p id="project-modal-desc"></p>
+            <div class="project-modal-tech" id="project-modal-tech"></div>
+        </div>
+        <button class="modal-nav-btn modal-next" onclick="event.stopPropagation(); modalNav(1)">❯</button>
+    </div>
+
+    <div id="health-check-panel" class="health-check-panel" aria-label="Servis durumu">
+        <div class="health-check-header">
+            <span data-tr="Sağlık Kontrolü" data-en="Health Check">Sağlık Kontrolü</span>
+            <button type="button" class="health-check-refresh" id="health-check-refresh" title="Yenile">↻</button>
+        </div>
+        <div class="health-check-services">
+            <div class="health-service" data-service="telegram">
+                <span class="health-service-name">Telegram Bot</span>
+                <span class="health-service-status" id="health-telegram">—</span>
+                <span class="health-service-latency" id="health-telegram-ms"></span>
+            </div>
+            <div class="health-service" data-service="imagen">
+                <span class="health-service-name">Imagen API</span>
+                <span class="health-service-status" id="health-imagen">—</span>
+                <span class="health-service-latency" id="health-imagen-ms"></span>
+            </div>
+            <div class="health-service" data-service="vercel">
+                <span class="health-service-name">Vercel Server</span>
+                <span class="health-service-status" id="health-vercel">—</span>
+                <span class="health-service-latency" id="health-vercel-ms"></span>
+            </div>
+        </div>
+    </div>
+    <div id="system-log" class="system-log" aria-live="polite">
+        <div class="system-log-header" data-tr="SİSTEM GÜNLÜĞÜ" data-en="SYSTEM LOG">SİSTEM GÜNLÜĞÜ</div>
+        <div id="system-log-entries" class="system-log-entries"></div>
+    </div>
+    <div class="chat-wrapper">
+        <button class="chat-toggle-btn visible" id="chat-toggle-btn" onclick="toggleChat()" title="Sohbeti aç">🤖 Sohbet</button>
+        <div id="ai-chat-widget" class="chat-container chat-closed">
+            <div class="chat-header">
+                <span>🤖 ÖMER.AI Asistan</span>
+                <div class="chat-header-actions">
+                    <button class="voice-seal-btn" id="voice-seal-btn" onclick="event.stopPropagation(); toggleVoiceSeal()" title="Sesli Komut">🎤</button>
+                    <button class="chat-close-btn" onclick="toggleChat()" title="Kapat">✕</button>
+                </div>
+            </div>
+            <div id="voice-seal-status" class="voice-seal-status" style="display:none;"></div>
+            <div class="chat-quick-actions">
+                <button class="quick-btn" onclick="quickAction('görsel')" data-tr="🖼️ Görsel Üret" data-en="🖼️ Generate">🖼️ Görsel Üret</button>
+                <button class="quick-btn" onclick="quickAction('web')" data-tr="🌐 Web Tasarım" data-en="🌐 Web Design">🌐 Web Tasarım</button>
+                <button class="quick-btn" onclick="quickAction('proje')" data-tr="📂 Projeler" data-en="📂 Projects">📂 Projeler</button>
+                <button class="quick-btn" onclick="quickAction('post')" data-tr="📱 Post Yaz" data-en="📱 Write Post">📱 Post Yaz</button>
+                <button class="quick-btn" onclick="quickAction('haber')" data-tr="📰 Haber" data-en="📰 News">📰 Haber</button>
+                <button class="quick-btn" onclick="quickAction('fiyat')" data-tr="💰 Fiyatlar" data-en="💰 Pricing">💰 Fiyatlar</button>
+                <button class="quick-btn" onclick="quickAction('yardim')" data-tr="❓ Yardım" data-en="❓ Help">❓ Yardım</button>
+                <button class="quick-btn" onclick="quickAction('iletisim')" data-tr="✉️ İletişim" data-en="✉️ Contact">✉️ İletişim</button>
+            </div>
+            <div id="chat-box" class="chat-messages"></div>
+            <div class="chat-input">
+                <button class="chat-mic-btn" id="chat-mic-btn" onclick="startChatVoiceInput(event)" title="Sesli yaz" data-title-tr="Sesli yaz" data-title-en="Voice input">🎤</button>
+                <input type="text" id="user-input" placeholder="Patrona yaz..." data-placeholder-tr="Patrona yaz..." data-placeholder-en="Type here...">
+                <button onclick="sendMessage()">Gönder</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <section id="sss" class="faq-section footer-section">
+            <h2 class="neon-text" data-tr="Sık Sorulan Sorular" data-en="FAQ">Sık Sorulan Sorular</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary data-tr="Proje ne kadar sürer?" data-en="How long does a project take?">Proje ne kadar sürer?</summary>
+                    <p data-tr="Web projeleri 1-2 hafta, AI bot projeleri 2-3 hafta sürebilir." data-en="Web projects 1-2 weeks, AI bot projects 2-3 weeks.">Web projeleri 1-2 hafta, AI bot projeleri 2-3 hafta sürebilir.</p>
+                </details>
+                <details class="faq-item">
+                    <summary data-tr="Destek veriyor musunuz?" data-en="Do you provide support?">Destek veriyor musunuz?</summary>
+                    <p data-tr="Teslimattan sonra 1 ay ücretsiz destek." data-en="1 month free support after delivery.">Teslimattan sonra 1 ay ücretsiz destek.</p>
+                </details>
+                <details class="faq-item">
+                    <summary data-tr="Ödeme nasıl yapılır?" data-en="How do I pay?">Ödeme nasıl yapılır?</summary>
+                    <p data-tr="Havale/EFT veya kredi kartı. %50 ön ödeme ile başlıyoruz." data-en="Bank transfer or credit card. We start with 50% advance.">Havale/EFT veya kredi kartı. %50 ön ödeme ile başlıyoruz.</p>
+                </details>
+                <details class="faq-item">
+                    <summary data-tr="Görsel üretimi nasıl çalışır?" data-en="How does image generation work?">Görsel üretimi nasıl çalışır?</summary>
+                    <p data-tr="AI Laboratuvarı'nda prompt yazarsın, Gemini Imagen ile görsel üretilir. Ücretsiz deneyebilirsin!" data-en="Write a prompt in AI Lab, Gemini Imagen generates the image. Try it free!">AI Laboratuvarı'nda prompt yazarsın, Gemini Imagen ile görsel üretilir. Ücretsiz deneyebilirsin!</p>
+                </details>
+            </div>
+        </section>
+        <section id="blog" class="blog-section footer-section">
+            <h2 class="neon-text" data-tr="Blog & Haberler" data-en="Blog & News">Blog & Haberler</h2>
+            <div id="patronun-gundemi" class="patronun-gundemi">
+                <h3 class="patronun-gundemi-title" data-tr="Patronun Gündemi" data-en="Boss's Agenda">Patronun Gündemi</h3>
+                <div id="patronun-gundemi-skeleton" class="skeleton-block" aria-hidden="true">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                </div>
+                <p id="patronun-gundemi-content" class="patronun-gundemi-content" style="display: none;">
+                    <span class="loading-dots" data-tr="Haftalık AI bülteni yükleniyor..." data-en="Loading AI bulletin...">Haftalık AI bülteni yükleniyor...</span>
+                </p>
+                <button id="patronun-gundemi-refresh" class="neon-button patron-refresh-btn" data-tr="Yenile" data-en="Refresh">Yenile</button>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <h4 data-tr="Gemini ile Görsel Üretimi" data-en="Image Generation with Gemini">Gemini ile Görsel Üretimi</h4>
+                    <p data-tr="Imagen 4.0 tabanlı görsel üretim laboratuvarımız nasıl çalışıyor?" data-en="How our Imagen 4.0 based image lab works.">Imagen 4.0 tabanlı görsel üretim laboratuvarımız nasıl çalışıyor?</p>
+                    <a href="#ai-lab" class="blog-link" data-tr="Dene →" data-en="Try →">Dene →</a>
+                </article>
+                <article class="blog-card">
+                    <h4 data-tr="2025'te AI ile Web Tasarım" data-en="AI Web Design in 2025">2025'te AI ile Web Tasarım</h4>
+                    <p data-tr="Prompt ile web şablonu üretmek: Hızlı prototipleme ve MVP için ideal." data-en="Generating web templates with prompts: Ideal for rapid prototyping and MVP.">Prompt ile web şablonu üretmek: Hızlı prototipleme ve MVP için ideal.</p>
+                    <a href="#web-sablon-lab" class="blog-link" data-tr="Dene →" data-en="Try →">Dene →</a>
+                </article>
+                <article class="blog-card">
+                    <h4 data-tr="Telegram Bot Entegrasyonu" data-en="Telegram Bot Integration">Telegram Bot Entegrasyonu</h4>
+                    <p data-tr="İş akışlarınızı Telegram ile otomatikleştirin." data-en="Automate your workflows with Telegram.">İş akışlarınızı Telegram ile otomatikleştirin.</p>
+                    <a href="#iletisim" class="blog-link" data-tr="İletişim →" data-en="Contact →">İletişim →</a>
+                </article>
+                <article class="blog-card">
+                    <h4 data-tr="AI Asistan ile Tanış" data-en="Meet the AI Assistant">AI Asistan ile Tanış</h4>
+                    <p data-tr="Sohbet botumuz Gemini ile sorularınıza cevap veriyor." data-en="Our chat bot answers your questions with Gemini.">Sohbet botumuz Gemini ile sorularınıza cevap veriyor.</p>
+                    <a href="#" onclick="toggleChat(); return false;" class="blog-link" data-tr="Sohbet Et →" data-en="Chat →">Sohbet Et →</a>
+                </article>
+                <article class="blog-card">
+                    <h4 data-tr="Siberpunk Estetiği Nedir?" data-en="What is Cyberpunk Aesthetic?">Siberpunk Estetiği Nedir?</h4>
+                    <p data-tr="Neon, karanlık, teknoloji – web ve görsel tasarımda siberpunk trendi." data-en="Neon, dark, tech – the cyberpunk trend in web and visual design.">Neon, karanlık, teknoloji – web ve görsel tasarımda siberpunk trendi.</p>
+                    <a href="#ai-gallery" class="blog-link" data-tr="Sergi →" data-en="Gallery →">Sergi →</a>
+                </article>
+            </div>
+        </section>
+        <section class="newsletter-section footer-section">
+            <h3 class="neon-text" data-tr="Bültene Abone Ol" data-en="Subscribe to Newsletter">Bültene Abone Ol</h3>
+            <p class="newsletter-desc" data-tr="AI ve yazılım gündeminden haberdar ol." data-en="Stay updated on AI and software news.">AI ve yazılım gündeminden haberdar ol.</p>
+            <form id="newsletter-form" class="newsletter-form">
+                <input type="email" name="email" placeholder="E-posta adresin" required data-placeholder-tr="E-posta adresin" data-placeholder-en="Your email">
+                <button type="submit" class="neon-button" data-tr="Abone Ol" data-en="Subscribe">Abone Ol</button>
+            </form>
+        </section>
+        <div class="trust-badges">
+            <span class="trust-badge" title="Güvenli">🔒</span>
+            <span class="trust-badge" title="Hızlı Teslimat">⚡</span>
+            <span class="trust-badge" title="7/24 Destek">🛟</span>
+        </div>
+        <p class="footer-copyright" data-tr="© 2026 ÖMER.AI - Gelecek Burada Mühürlendi." data-en="© 2026 ÖMER.AI - Future Sealed Here.">&copy; 2026 ÖMER.AI - Gelecek Burada Mühürlendi.</p>
+    </footer>
+    <div id="cookie-banner" class="cookie-banner">
+        <p data-tr="Bu site deneyiminizi iyileştirmek için çerez kullanır. Devam ederek çerez kullanımını kabul etmiş olursunuz." data-en="This site uses cookies to improve your experience. By continuing, you accept cookie usage.">Bu site deneyiminizi iyileştirmek için çerez kullanır. Devam ederek çerez kullanımını kabul etmiş olursunuz.</p>
+        <button class="neon-button cookie-accept" onclick="acceptCookies()" data-tr="Kabul Et" data-en="Accept">Kabul Et</button>
+    </div>
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()" title="Yukarı çık" aria-label="Yukarı çık">↑</button>
+    <script>
+      window.OMERAI_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+      if (window.OMERAI_MOBILE) localStorage.setItem("chatOpen", "false");
+    </script>
+    <script>
+      if (!window.OMERAI_MOBILE) {
+        var t=document.createElement("script");t.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js";t.defer=true;document.body.appendChild(t);
+        var v=document.createElement("script");v.src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js";v.defer=true;document.body.appendChild(v);
+      }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -701,34 +701,5 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
       }
     </script>
     <script src="script.js"></script>
-    <script>
-        // Basit ve garantili çözüm
-        setTimeout(() => {
-            const contentEl = document.getElementById("patronun-gundemi-content");
-            const skeletonEl = document.getElementById("patronun-gundemi-skeleton");
-            
-            if (contentEl) {
-                console.log("Loading bulletin with simple method...");
-                fetch("/api/as-news-bulletin")
-                    .then(r => r.json())
-                    .then(data => {
-                        console.log("Success:", data);
-                        if (data && data.summary) {
-                            contentEl.textContent = data.summary;
-                            contentEl.style.display = "block";
-                            if (skeletonEl) skeletonEl.style.display = "none";
-                        } else {
-                            contentEl.textContent = "Bu hafta teknoloji dünyası sakin. Önemli bir gelişme yok.";
-                        }
-                    })
-                    .catch(err => {
-                        console.error("Error:", err);
-                        contentEl.textContent = "Bu hafta teknoloji dünyası sakin. Önemli bir gelişme yok.";
-                        contentEl.style.display = "block";
-                        if (skeletonEl) skeletonEl.style.display = "none";
-                    });
-            }
-        }, 1000);
-    </script>
-</body>
+    </body>
 </html>

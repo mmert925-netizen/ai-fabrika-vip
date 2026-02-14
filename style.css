@@ -2591,12 +2591,16 @@ footer .footer-section.blog-section .blog-card h4 {
     box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4);
 }
 
-/* Video seal band */
+/* Mühür bandı wrapper */
+.seal-band-wrapper {
+    text-align: center;
+    margin-top: 15px;
+    display: none; /* Sadece video üretildiğinde göster */
+}
+
+/* Video seal band - video dışına taşı */
 #video-seal-band {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     background: rgba(30, 58, 79, 0.95);
     border: 2px solid var(--accent-color);
     border-radius: 8px;
@@ -2604,6 +2608,8 @@ footer .footer-section.blog-section .blog-card h4 {
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 16px rgba(34, 211, 238, 0.4);
     z-index: 200;
+    text-align: center;
+    display: inline-block;
 }
 
 /* QR kodu tamamen gizle */

@@ -662,6 +662,7 @@ class VideoLabSystem {
         const placeholder = document.getElementById('video-placeholder');
         const downloadBtn = document.getElementById('download-video-btn');
         const addToGalleryBtn = document.getElementById('add-video-to-gallery-btn');
+        const sealBandWrapper = document.querySelector('.seal-band-wrapper');
 
         console.log('Display elements found:', {
             container: !!container,
@@ -669,7 +670,8 @@ class VideoLabSystem {
             serialSpan: !!serialSpan,
             placeholder: !!placeholder,
             downloadBtn: !!downloadBtn,
-            addToGalleryBtn: !!addToGalleryBtn
+            addToGalleryBtn: !!addToGalleryBtn,
+            sealBandWrapper: !!sealBandWrapper
         });
 
         if (container && video) {
@@ -746,6 +748,12 @@ class VideoLabSystem {
             container.style.display = 'block';
             console.log('Container display set to block');
             
+            // Mühür bandını göster (video dışında)
+            if (sealBandWrapper) {
+                sealBandWrapper.style.display = 'block';
+                console.log('Seal band wrapper shown');
+            }
+            
             if (placeholder) {
                 placeholder.style.display = 'none';
                 console.log('Placeholder hidden');
@@ -757,7 +765,7 @@ class VideoLabSystem {
                 console.log('Action buttons shown');
             }
 
-            // QR kod oluştur
+            // QR kodu gizle (zaten gizli ama tekrar kontrol)
             this.generateQRCode(videoData.serialNumber);
         } else {
             console.error('Required video elements not found!');

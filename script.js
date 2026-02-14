@@ -1594,6 +1594,7 @@ function loadPatronunGundemi() {
     const contentEl = document.getElementById("patronun-gundemi-content");
     const skeletonEl = document.getElementById("patronun-gundemi-skeleton");
     const refreshBtn = document.getElementById("patronun-gundemi-refresh");
+    console.log("Patronun Gündemi loading...", { contentEl, skeletonEl, refreshBtn });
     if (!contentEl) return;
     function setLoading(loading) {
         if (skeletonEl) skeletonEl.style.display = loading ? "block" : "none";
@@ -1609,9 +1610,12 @@ function loadPatronunGundemi() {
         setLoading(false);
     }
     setLoading(true);
+    console.log("Fetching /api/as-news-bulletin...");
     fetchWithCache("/api/as-news-bulletin").then(r => r.json()).then(data => {
+        console.log("API response:", data);
         render(data);
-    }).catch(() => {
+    }).catch((err) => {
+        console.error("API error:", err);
         contentEl.textContent = currentLang === "tr" ? "Bülten yüklenemedi. Yenile butonuna tıkla." : "Could not load bulletin. Click Refresh.";
         setLoading(false);
     });

@@ -35,7 +35,7 @@ function trackEvent(category, action, label, value) {
     }
 }
 function initABTest() {
-    const key = "omerai_ab_variant";
+    const key = "omerai-v4_ab_variant";
     let v = localStorage.getItem(key);
     if (!v) { v = Math.random() < 0.5 ? "A" : "B"; localStorage.setItem(key, v); }
     const heroH1 = document.querySelector(".hero-text-wrap h1");

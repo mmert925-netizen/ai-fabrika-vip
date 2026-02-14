@@ -1938,21 +1938,33 @@ input:focus, textarea:focus {
     cursor: pointer;
     font-size: 1rem;
     transition: 0.2s;
-    margin-right: 6px;
+    margin-right: 0;
+    order: -1;
 }
-.chat-mic-btn:hover { background: rgba(34, 211, 238, 0.2); }
-.chat-mic-btn.listening { background: var(--accent-color); color: #0f172a; animation: pulse-mic 1s infinite; }
-@keyframes pulse-mic { 50% { opacity: 0.8; } }
+
+.chat-mic-btn:hover {
+    background: rgba(34, 211, 238, 0.2);
+}
+
+.chat-mic-btn.listening {
+    background: var(--accent-color);
+    color: #0f172a;
+    animation: pulse-mic 1s infinite;
+}
+
+@keyframes pulse-mic {
+    50% { opacity: 0.8; }
+}
 
 .chat-input input {
     flex: 1;
     padding: 8px 12px;
     background: var(--input-bg);
-    margin-right: 6px;
     border: 1px solid var(--border-color);
     color: var(--text-color);
     border-radius: 8px;
     font-size: 14px;
+    order: 0;
 }
 
 .chat-input button:not(.chat-mic-btn) {
@@ -1963,6 +1975,7 @@ input:focus, textarea:focus {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    order: 1;
 }
 
 .bot-reply-content code {

@@ -1609,7 +1609,7 @@ function loadPatronunGundemi() {
         setLoading(false);
     }
     setLoading(true);
-    fetchWithCache("/api/ai-news-bulletin").then(r => r.json()).then(data => {
+    fetchWithCache("/api/as-news-bulletin").then(r => r.json()).then(data => {
         render(data);
     }).catch(() => {
         contentEl.textContent = currentLang === "tr" ? "Bülten yüklenemedi. Yenile butonuna tıkla." : "Could not load bulletin. Click Refresh.";

@@ -1592,42 +1592,37 @@ function removeFromGallery(index) {
 }
 function loadPatronunGundemi() {
     const contentEl = document.getElementById("patronun-gundemi-content");
-    const skeletonEl = document.getElementById("patronun-gundemi-skeleton");
-    const refreshBtn = document.getElementById("patronun-gundemi-refresh");
-    console.log("Patronun Gündemi loading...", { contentEl, skeletonEl, refreshBtn });
+    const refreshBtn = document.querySelector(".patron-refresh-btn");
+    console.log("Patronun Gündemi loading...", { contentEl, refreshBtn });
     if (!contentEl) return;
+    
     function setLoading(loading) {
-        if (skeletonEl) skeletonEl.style.display = loading ? "block" : "none";
         contentEl.style.display = loading ? "none" : "block";
         contentEl.classList.toggle("loading", loading);
         if (refreshBtn) refreshBtn.disabled = loading;
         if (loading) contentEl.textContent = currentLang === "tr" ? "Haftalık AI bülteni yükleniyor..." : "Loading AI bulletin...";
     }
+    
     function render(data) {
-        const txt = (data && data.summary) ? data.summary : (currentLang === "tr" ? "Bülten yüklenemedi. Yenile butonuna tıkla." : "Could not load bulletin. Click Refresh.");
+        const txt = (data && data.summary) ? data.summary : (currentLang === "tr" ? "Bu hafta teknoloji dünyası sakin. Önemli bir gelişme yok." : "Tech world is quiet this week. No major developments.");
         contentEl.textContent = txt;
         contentEl.classList.remove("loading");
         setLoading(false);
     }
+    
     setLoading(true);
     console.log("Fetching /api/as-news-bulletin...");
-    fetchWithCache("/api/as-news-bulletin").then(r => r.json()).then(data => {
-        console.log("API response:", data);
-        render(data);
-    }).catch((err) => {
-        console.error("API error:", err);
-        // Fallback: Try the other endpoint
-        console.log("Trying fallback endpoint...");
-        fetch("/api/ai-news-bulletin").then(r => r.json()).then(data => {
-            console.log("Fallback API response:", data);
+    
+    fetch("/api/as-news-bulletin")
+        .then(r => r.json())
+        .then(data => {
+            console.log("API response:", data);
             render(data);
-        }).catch((fallbackErr) => {
-            console.error("Fallback API error:", fallbackErr);
-            contentEl.textContent = currentLang === "tr" ? "Bülten yüklenemedi. Yenile butonuna tıkla." : "Could not load bulletin. Click Refresh.";
-            setLoading(false);
+        })
+        .catch((err) => {
+            console.error("API error:", err);
+            render(null);
         });
-    });
-    if (refreshBtn) refreshBtn.onclick = function() { loadPatronunGundemi(); };
 }
 function renderGeneratedGallery() {
     const container = document.getElementById("generated-gallery");

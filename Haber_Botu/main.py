@@ -4,8 +4,18 @@ os.system('pip install feedparser')
 import feedparser
 import requests
 from google import genai
+from dotenv import load_dotenv
 
-client = genai.Client(api_key="AIzaSyDrXM0aFr60O6ktWDPgFjZW4cGG1rFX47o")
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+if not all([GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID]):
+    raise ValueError("Eksik environment variable: GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID")
+
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def haber_islem():
     kaynak = "https://www.cnnturk.com/feed/66/index.rss"
@@ -16,6 +26,6 @@ def haber_islem():
         baslik = feed.entries[0].title
         prompt = f"Bu haberi Ömer patrona kısa özetle: {baslik}"
         ai_res = client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
-        requests.post(f"https://api.telegram.org/bot8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis/sendMessage", 
-                      json={"chat_id": "7076964315", "text": ai_res.text})
+        requests.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", 
+                      json={"chat_id": TELEGRAM_CHAT_ID, "text": ai_res.text})
 haber_islem()

@@ -32,11 +32,10 @@ def generate_article(topic, keywords, num_sentences=25):
         f"A deep dive into the complexities of {topic}.",
         f"Unlocking the potential of {topic} for future advancements.",
         f"The evolution and future of {topic}.",
-        f" Examining the benefits and challenges associated with {topic}.",
-        f" Delving into the history and impact of {topic}.",
-         f" Analyzing the latest trends and developments in the field of {topic}.",
-        f" Discovering the hidden secrets and fascinating facts about {topic}."
-
+        f"Examining the benefits and challenges associated with {topic}.",
+        f"Delving into the history and impact of {topic}.",
+        f"Analyzing the latest trends and developments in the field of {topic}.",
+        f"Discovering the hidden secrets and fascinating facts about {topic}."
     ]
 
 
@@ -44,7 +43,7 @@ def generate_article(topic, keywords, num_sentences=25):
     sentences.append(base_sentences[0])
     sentences.append(f"In this article, we will delve into {topic} and understand its core principles.")
     num_keywords_added = 0
-    for _ in range(num_sentences -2 ):
+    for _ in range(num_sentences - 2):
 
         sentence = random.choice(base_sentences) + " "
         kw_index = num_keywords_added % len(keywords)

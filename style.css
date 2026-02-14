@@ -2552,6 +2552,8 @@ footer .footer-section.blog-section .blog-card h4 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 5;
 }
 
 .sealed-video-container {
@@ -2601,7 +2603,67 @@ footer .footer-section.blog-section .blog-card h4 {
     padding: 0.5rem 1rem;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 16px rgba(34, 211, 238, 0.4);
+    z-index: 100;
+}
+
+/* Video container için pozisyon relatif */
+.sealed-video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(34, 211, 238, 0.3);
     z-index: 10;
+}
+
+/* Video optimizasyonları */
+#generated-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    max-height: 450px;
+    object-fit: contain;
+    background: #000;
+    position: relative;
+    z-index: 15;
+}
+
+/* Video yükleme durumları */
+#generated-video.loading {
+    background: linear-gradient(90deg, #1e3a4f 0%, #2a4a5f 50%, #1e3a4f 100%);
+    background-size: 200% 100%;
+    animation: loadingShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Video oynatma butonu */
+#video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(34, 211, 238, 0.9);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+#video-play-button:hover {
+    background: rgba(34, 211, 238, 1);
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 4px 20px rgba(34, 211, 238, 0.5);
 }
 
 /* Responsive video lab */

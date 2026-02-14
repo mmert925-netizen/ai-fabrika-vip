@@ -626,10 +626,11 @@ class VideoLabSystem {
 
     generatePlaceholderVideo(prompt, duration, style) {
         console.log('Generating placeholder video for:', { prompt, duration, style });
-        // Çalışan demo video URL'leri
+        // En stabil ve küçük boyutlu video URL'leri
         const demoVideoUrls = [
-            'https://www.w3schools.com/html/mov_bbb.mp4', // Big Buck Bunny
-            'http://techslides.com/demos/sample-videos/small.mp4' // Small MP4
+            'https://www.w3schools.com/html/mov_bbb.mp4', // Big Buck Bunny - çok stabil
+            'https://samplelib.com/lib/preview/mp4/sample-5s.mp4', // 5 saniye küçük video
+            'https://www.learningcontainer.com/mp4/sample/bigbuck.mp4' // Alternatif
         ];
         const randomVideoUrl = demoVideoUrls[Math.floor(Math.random() * demoVideoUrls.length)];
 
@@ -674,25 +675,67 @@ class VideoLabSystem {
         if (container && video) {
             console.log('Displaying video:', videoData.videoUrl);
             
+            // Video element'ini sıfırla
+            video.pause();
+            video.currentTime = 0;
+            
             // Video element'ini yapılandır
             video.src = videoData.videoUrl;
-            video.load();
+            video.preload = 'auto';
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
             
             // Video yükleme kontrolü
+            const loadTimeout = setTimeout(() => {
+                console.log('Video loading timeout, trying fallback...');
+                this.tryFallbackVideo();
+            }, 10000); // 10 saniye timeout
+            
             video.addEventListener('loadstart', () => {
                 console.log('Video loading started');
+                clearTimeout(loadTimeout);
+            });
+            
+            video.addEventListener('loadeddata', () => {
+                console.log('Video data loaded');
+                clearTimeout(loadTimeout);
             });
             
             video.addEventListener('canplay', () => {
                 console.log('Video can play');
-                video.play().catch(e => console.log('Autoplay blocked:', e));
+                clearTimeout(loadTimeout);
+                // Otomatik oynatmayı dene
+                video.play().then(() => {
+                    console.log('Video autoplay successful');
+                }).catch(e => {
+                    console.log('Autoplay blocked, user interaction needed:', e);
+                    // Kullanıcı etkileşimi için buton göster
+                    this.showPlayButton();
+                });
             });
             
             video.addEventListener('error', (e) => {
                 console.error('Video error:', e);
+                clearTimeout(loadTimeout);
                 showToast('Video yüklenemedi, farklı video deneniyor...', 'error');
                 // Fallback: farklı video dene
                 this.tryFallbackVideo();
+            });
+            
+            video.addEventListener('stalled', () => {
+                console.log('Video stalled, trying to recover...');
+                setTimeout(() => {
+                    video.load();
+                }, 2000);
+            });
+            
+            video.addEventListener('waiting', () => {
+                console.log('Video waiting for data...');
+            });
+            
+            video.addEventListener('playing', () => {
+                console.log('Video is playing successfully');
             });
             
             if (serialSpan) {
@@ -719,6 +762,44 @@ class VideoLabSystem {
         } else {
             console.error('Required video elements not found!');
         }
+    }
+
+    showPlayButton() {
+        const video = document.getElementById('generated-video');
+        if (!video) return;
+        
+        // Mevcut oynatma butonunu kontrol et
+        let playButton = document.getElementById('video-play-button');
+        
+        if (!playButton) {
+            playButton = document.createElement('button');
+            playButton.id = 'video-play-button';
+            playButton.innerHTML = '▶️ Oynat';
+            playButton.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(34, 211, 238, 0.9);
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-size: 16px;
+                cursor: pointer;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            `;
+            
+            playButton.addEventListener('click', () => {
+                video.play();
+                playButton.style.display = 'none';
+            });
+            
+            video.parentElement.appendChild(playButton);
+        }
+        
+        playButton.style.display = 'block';
     }
 
     tryFallbackVideo() {

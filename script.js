@@ -578,39 +578,18 @@ class VideoLabSystem {
         this.showLoading(true);
 
         try {
-            // Video üretim API'si çağrısı
-            const response = await fetch('/api/generate-video.js', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    prompt,
-                    duration,
-                    style
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Video üretimi başarısız');
-            }
-
-            const videoData = await response.json();
-            this.currentVideoData = videoData;
-            this.displayVideo(videoData);
-            
-            trackEvent('conversion', 'video_generation', 'success', 1);
-            showToast('Video başarıyla üretildi!', 'success');
-
-        } catch (error) {
-            console.error('Video generation error:', error);
-            
-            // Demo placeholder video
+            // Demo placeholder video doğrudan kullan
+            console.log('Generating demo video...');
             const placeholderData = this.generatePlaceholderVideo(prompt, duration, style);
             this.currentVideoData = placeholderData;
             this.displayVideo(placeholderData);
             
             showToast('Demo video üretildi (gerçek API entegrasyonu gerekli)', 'info');
+            trackEvent('conversion', 'video_generation', 'demo', 1);
+
+        } catch (error) {
+            console.error('Video generation error:', error);
+            showToast('Video üretilemedi', 'error');
         } finally {
             this.isGenerating = false;
             this.showLoading(false);
@@ -618,10 +597,11 @@ class VideoLabSystem {
     }
 
     generatePlaceholderVideo(prompt, duration, style) {
+        // Çalışan placeholder videolar
         const placeholderVideos = [
-            'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-            'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+            'https://www.w3schools.com/html/mov_bbb.mp4',
+            'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            'https://sample-videos.com/video321/mp4/480/big_buck_bunny_480p_1mb.mp4'
         ];
         
         const randomVideo = placeholderVideos[Math.floor(Math.random() * placeholderVideos.length)];
@@ -630,7 +610,7 @@ class VideoLabSystem {
             videoUrl: randomVideo,
             thumbnailUrl: `https://picsum.photos/seed/${encodeURIComponent(prompt)}/800/450.jpg`,
             duration: duration,
-            resolution: '1920x1080',
+            resolution: '1280x720',
             createdAt: new Date().toISOString(),
             prompt: prompt,
             style: style,
@@ -654,8 +634,28 @@ class VideoLabSystem {
         const addToGalleryBtn = document.getElementById('add-video-to-gallery-btn');
 
         if (container && video) {
+            console.log('Displaying video:', videoData.videoUrl);
+            
+            // Video element'ini yapılandır
             video.src = videoData.videoUrl;
-            video.load(); // Videoyu yeniden yükle
+            video.load();
+            
+            // Video yükleme kontrolü
+            video.addEventListener('loadstart', () => {
+                console.log('Video loading started');
+            });
+            
+            video.addEventListener('canplay', () => {
+                console.log('Video can play');
+                video.play().catch(e => console.log('Autoplay blocked:', e));
+            });
+            
+            video.addEventListener('error', (e) => {
+                console.error('Video error:', e);
+                showToast('Video yüklenemedi, farklı video deneniyor...', 'error');
+                // Fallback: farklı video dene
+                this.tryFallbackVideo();
+            });
             
             if (serialSpan) {
                 serialSpan.textContent = videoData.serialNumber;
@@ -672,8 +672,19 @@ class VideoLabSystem {
                 addToGalleryBtn.style.display = 'inline-block';
             }
 
-            // QR kod oluştur (placeholder)
+            // QR kod oluştur
             this.generateQRCode(videoData.serialNumber);
+        }
+    }
+
+    tryFallbackVideo() {
+        const fallbackVideo = 'https://www.w3schools.com/html/mov_bbb.mp4';
+        const video = document.getElementById('generated-video');
+        
+        if (video) {
+            video.src = fallbackVideo;
+            video.load();
+            showToast('Yedek video yükleniyor...', 'info');
         }
     }
 

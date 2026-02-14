@@ -500,6 +500,16 @@ body:not(.no-motion) .token-badge #token-count {
 }
 .neon-text { color: var(--accent-color); text-shadow: 0 0 6px rgba(34, 211, 238, 0.4); margin-bottom: 2rem; }
 
+/* Newsletter - Remove red dot */
+.newsletter-section .neon-text {
+    text-shadow: 0 0 6px rgba(34, 211, 238, 0.4);
+    position: relative;
+}
+
+.newsletter-section .neon-text::after {
+    content: none;
+}
+
 .gallery-filters {
     display: flex;
     flex-wrap: wrap;

@@ -16,7 +16,7 @@ function showToast(message, type = "info") {
 
 //// API CACHE – Sık kullanılan GET çağrılarını kısa süreli cache'leme
 const API_CACHE = new Map();
-const CACHE_TTL_MS = 2 * 60 * 1000; // 2 dakika
+const CACHE_TTL_MS = 0; // Cache devre dışı
 function fetchWithCache(url, options = {}) {
     if (options.method && options.method !== "GET") return fetch(url, options);
     const cached = API_CACHE.get(url);

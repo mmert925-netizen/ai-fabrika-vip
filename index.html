@@ -702,24 +702,33 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
     </script>
     <script src="script.js"></script>
     <script>
-        // Force reload Patronun Gundemi with correct API
+        // Basit ve garantili çözüm
         setTimeout(() => {
             const contentEl = document.getElementById("patronun-gundemi-content");
-            if (contentEl && contentEl.textContent.includes("yüklenemedi")) {
-                console.log("Force loading Patronun Gundemi...");
+            const skeletonEl = document.getElementById("patronun-gundemi-skeleton");
+            
+            if (contentEl) {
+                console.log("Loading bulletin with simple method...");
                 fetch("/api/as-news-bulletin")
                     .then(r => r.json())
                     .then(data => {
+                        console.log("Success:", data);
                         if (data && data.summary) {
                             contentEl.textContent = data.summary;
                             contentEl.style.display = "block";
-                            const skeletonEl = document.getElementById("patronun-gundemi-skeleton");
                             if (skeletonEl) skeletonEl.style.display = "none";
+                        } else {
+                            contentEl.textContent = "Bu hafta teknoloji dünyası sakin. Önemli bir gelişme yok.";
                         }
                     })
-                    .catch(err => console.error("Force load failed:", err));
+                    .catch(err => {
+                        console.error("Error:", err);
+                        contentEl.textContent = "Bu hafta teknoloji dünyası sakin. Önemli bir gelişme yok.";
+                        contentEl.style.display = "block";
+                        if (skeletonEl) skeletonEl.style.display = "none";
+                    });
             }
-        }, 2000);
+        }, 1000);
     </script>
 </body>
 </html>

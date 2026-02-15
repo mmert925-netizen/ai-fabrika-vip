@@ -1,7 +1,3 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
 // Fallback haberler (gerçek haber kaynakları simüle et)
 function getFallbackNews() {
   return [
@@ -56,32 +52,7 @@ function getFallbackNews() {
   ];
 }
 
-// Gemini ile haberler hakkında özet yap
-async function generateNewsInsight(newsItems) {
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    
-    const titles = newsItems.slice(0, 5).map(n => n.title).join("\n- ");
-    
-    const prompt = `
-Aşağıdaki teknoloji/AI haberlerinden çok kısa (1 cümle) bir insight ver. Türkçe ve emoji ile heyecan uyandırıcı olsun.
-
-Haberler:
-- ${titles}
-
-Insight (1 cümle):
-`;
-
-    const result = await model.generateContent(prompt);
-    return await result.response.text();
-  } catch (error) {
-    console.error("Insight oluşturma hatası:", error);
-    return "🚀 Yapay Zeka dünyası hızlı gelişiyor ve sınırlar her gün değişiyor!";
-  }
-}
-
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
@@ -97,27 +68,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Fallback haberler kullan (güvenilir)
     const news = getFallbackNews();
-    
-    // Haberler hakkında bir insight yap
-    const insight = await generateNewsInsight(news);
 
     return res.status(200).json({
       success: true,
       news: news,
-      insight: insight,
       count: news.length,
       refreshed_at: new Date().toISOString(),
       source: "AI News Archive"
     });
   } catch (error) {
     console.error("API hatası:", error);
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       news: getFallbackNews(),
-      insight: "🚀 Yapay Zeka dünyası hızlı gelişiyor!",
-      error: error.message,
       source: "Fallback"
     });
   }

@@ -882,12 +882,6 @@ function getSuggestedQuestions(lastReply) {
 }
 
 function quickAction(type) {
-    // Haber modalı açma
-    if (type === 'gündem' || type === 'haber') {
-        openNewsModal();
-        return;
-    }
-    
     const msgs = {
         görsel: currentLang === "tr" ? "Bana bir neon şehir görseli çiz" : "Draw me a neon city image",
         proje: currentLang === "tr" ? "Sergideki projeler hakkında bilgi ver" : "Tell me about the gallery projects",
@@ -2019,75 +2013,50 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-//// HABER MODALı FONKSİYONLARI
-function openNewsModal() {
-    const modal = document.getElementById('news-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        refreshNewsFeed();
+//// NEWS GRID FONKSİYONLARI
+function loadNewsToGrid() {
+    const newsGrid = document.getElementById('news-grid');
+    if (newsGrid) {
+        newsGrid.innerHTML = '<div class="news-loading-card"><p>⏳ Haberler yükleniyor...</p></div>';
     }
-}
-
-function closeNewsModal() {
-    const modal = document.getElementById('news-modal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
-
-function refreshNewsFeed() {
-    const newsList = document.getElementById('news-list');
-    const insight = document.getElementById('news-insight');
-    
-    if (newsList) newsList.innerHTML = '<div class="news-loading">⏳ Haberler yükleniyor...</div>';
     
     fetch('/api/tech-news')
         .then(res => res.json())
         .then(data => {
             if (data.success && data.news) {
-                // Insight'ı göster
-                if (insight) {
-                    insight.textContent = data.insight || '🤖 Bugünün teknoloji dünyası hızlı değişiyor!';
-                }
-                
-                // Haberler listesini oluştur
                 let html = '';
-                data.news.forEach((item, index) => {
+                data.news.forEach((news, index) => {
                     html += `
-                        <div class="news-item">
-                            <div class="news-item-number">${index + 1}</div>
-                            <div class="news-item-content">
-                                <h3 class="news-item-title">${item.title}</h3>
-                                <div class="news-item-meta">
-                                    <span class="news-source">📡 ${item.source}</span>
-                                    <span class="news-date">📅 ${item.publishedAt}</span>
-                                </div>
-                                <a href="${item.url}" target="_blank" class="news-item-link">Haberi Oku →</a>
-                            </div>
-                        </div>
+                        <article class="news-card blog-card">
+                            <div class="news-card-number">${index + 1}</div>
+                            <h4>${news.title}</h4>
+                            <p class="news-card-meta">📡 ${news.source} • 📅 ${news.publishedAt}</p>
+                            <a href="${news.url}" target="_blank" class="blog-link">Haberi Oku →</a>
+                        </article>
                     `;
                 });
-                
-                if (newsList) newsList.innerHTML = html;
+                if (newsGrid) newsGrid.innerHTML = html;
             } else {
-                if (newsList) {
-                    newsList.innerHTML = '<p class="news-error">Haberler yüklenemedi. Lütfen daha sonra tekrar deneyin.</p>';
+                if (newsGrid) {
+                    newsGrid.innerHTML = '<div class="news-loading-card"><p>⚠️ Haberler yüklenemedi. Lütfen daha sonra tekrar deneyin.</p></div>';
                 }
             }
         })
         .catch(error => {
             console.error('Haber yükleme hatası:', error);
-            if (newsList) {
-                newsList.innerHTML = '<p class="news-error">⚠️ Haber API bağlantı hatası. Lütfen daha sonra tekrar deneyin.</p>';
+            if (newsGrid) {
+                newsGrid.innerHTML = '<div class="news-loading-card"><p>⚠️ Haber API bağlantı hatası.</p></div>';
             }
         });
 }
 
-// Modal dışına tıklanınca kapat
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('news-modal');
-    if (modal && e.target === modal) {
-        closeNewsModal();
+// Sayfa yüklendiğinde haberleri yükle
+document.addEventListener('DOMContentLoaded', function() {
+    const newsGrid = document.getElementById('news-grid');
+    if (newsGrid && !newsGrid.dataset.loaded) {
+        newsGrid.dataset.loaded = 'true';
+        loadNewsToGrid();
     }
 });
+
 

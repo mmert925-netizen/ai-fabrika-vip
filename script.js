@@ -889,7 +889,8 @@ function quickAction(type) {
         web: currentLang === "tr" ? "Web tasarımı yap restoran için landing page" : "Web design a landing page for a restaurant",
         fiyat: currentLang === "tr" ? "Fiyatlar ve paketler hakkında bilgi ver" : "Tell me about pricing and packages",
         yardim: currentLang === "tr" ? "Ne yapabilirsin? Hangi komutları kullanabilirim?" : "What can you do? What commands can I use?",
-        iletisim: currentLang === "tr" ? "İletişime nasıl geçebilirim?" : "How can I get in touch?"
+        iletisim: currentLang === "tr" ? "İletişime nasıl geçebilirim?" : "How can I get in touch?",
+        gündem: currentLang === "tr" ? "Günlük özet: Bugünün en önemli haberleri" : "Daily summary: Today's most important news"
     };
     sendMessage(msgs[type] || msgs.görsel);
 }
@@ -1034,6 +1035,29 @@ function sendMessage(customText) {
         return;
     }
 
+    // Günlük özet / Haberler
+    if (/gündem|günlük özet|haber|news summary|günü|today/i.test(userText)) {
+        fetch("/api/daily-news-summary", { method: "GET", headers: { "Content-Type": "application/json" } })
+            .then(res => res.json())
+            .then(data => {
+                typingEl.remove();
+                const summary = data.summary || data.error || (currentLang === "tr" ? "Haberler alınamadı." : "News could not be fetched.");
+                box.innerHTML += `<p class="chat-msg bot"><b>📰 Günlük Özet:</b> <span class="bot-reply-content">${parseMarkdown(summary)}</span></p>`;
+                chatHistory.push({ role: 'user', text: userText });
+                chatHistory.push({ role: 'model', text: summary });
+                if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
+                box.scrollTop = box.scrollHeight;
+                playBeep();
+            })
+            .catch(() => {
+                typingEl.remove();
+                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Haberleri alırken hata oluştu. Lütfen sonra tekrar dene." : "Error fetching news. Please try again later."}</p>`;
+                box.scrollTop = box.scrollHeight;
+                playBeep();
+            })
+            .finally(() => { if (input) { input.disabled = false; input.focus(); } });
+        return;
+    }
 
 
     // Normal sohbet (Gemini)

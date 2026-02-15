@@ -626,15 +626,17 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
         <section id="blog" class="blog-section footer-section">
             <h2 class="neon-text" data-tr="Blog & Haberler" data-en="Blog & News">Blog & Haberler</h2>
             
-            <!-- Teknoloji Haberleri Bölümü -->
-            <div class="news-section-header">
+            <!-- Teknoloji Haberleri Carousel -->
+            <div class="news-carousel-container">
                 <h3 data-tr="📰 Güncel Teknoloji Haberleri" data-en="📰 Latest Tech News">📰 Güncel Teknoloji Haberleri</h3>
-                <button class="news-refresh-btn" onclick="loadNewsToGrid()" data-tr="🔄 Yenile" data-en="🔄 Refresh">🔄 Yenile</button>
-            </div>
-            <div id="news-grid" class="blog-grid">
-                <div class="news-loading-card">
-                    <p>⏳ Haberler yükleniyor...</p>
+                <div class="news-carousel-wrapper">
+                    <div id="news-carousel" class="news-carousel">
+                        <div class="news-carousel-loading">⏳ Haberler yükleniyor...</div>
+                    </div>
+                    <button class="carousel-nav carousel-prev" onclick="scrollNewsCarousel(-1)" title="Önceki">◀</button>
+                    <button class="carousel-nav carousel-next" onclick="scrollNewsCarousel(1)" title="Sonraki">▶</button>
                 </div>
+                <button class="news-refresh-btn" onclick="loadNewsCarousel()" data-tr="🔄 Yenile" data-en="🔄 Refresh">🔄 Yenile</button>
             </div>
             
             <!-- Yazılar -->

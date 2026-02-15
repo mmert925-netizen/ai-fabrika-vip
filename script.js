@@ -2013,11 +2013,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-//// NEWS GRID FONKSİYONLARI
-function loadNewsToGrid() {
-    const newsGrid = document.getElementById('news-grid');
-    if (newsGrid) {
-        newsGrid.innerHTML = '<div class="news-loading-card"><p>⏳ Haberler yükleniyor...</p></div>';
+
+
+//// NEWS CAROUSEL FONKSİYONLARI
+function loadNewsCarousel() {
+    const carousel = document.getElementById('news-carousel');
+    if (carousel) {
+        carousel.innerHTML = '<div class="news-carousel-loading">⏳ Haberler yükleniyor...</div>';
     }
     
     fetch('/api/tech-news')
@@ -2027,35 +2029,46 @@ function loadNewsToGrid() {
                 let html = '';
                 data.news.forEach((news, index) => {
                     html += `
-                        <article class="news-card blog-card">
-                            <div class="news-card-number">${index + 1}</div>
-                            <h4>${news.title}</h4>
-                            <p class="news-card-meta">📡 ${news.source} • 📅 ${news.publishedAt}</p>
-                            <a href="${news.url}" target="_blank" class="blog-link">Haberi Oku →</a>
-                        </article>
+                        <div class="news-carousel-item">
+                            <div class="news-carousel-number">${index + 1}</div>
+                            <h4 class="news-carousel-title">${news.title}</h4>
+                            <div class="news-carousel-meta">
+                                <span>📡 ${news.source}</span>
+                                <span>📅 ${news.publishedAt}</span>
+                            </div>
+                            <a href="${news.url}" target="_blank" class="news-carousel-link">Haberi Oku →</a>
+                        </div>
                     `;
                 });
-                if (newsGrid) newsGrid.innerHTML = html;
+                if (carousel) carousel.innerHTML = html;
             } else {
-                if (newsGrid) {
-                    newsGrid.innerHTML = '<div class="news-loading-card"><p>⚠️ Haberler yüklenemedi. Lütfen daha sonra tekrar deneyin.</p></div>';
+                if (carousel) {
+                    carousel.innerHTML = '<div class="news-carousel-loading">⚠️ Haberler yüklenemedi. Lütfen daha sonra tekrar deneyin.</div>';
                 }
             }
         })
         .catch(error => {
             console.error('Haber yükleme hatası:', error);
-            if (newsGrid) {
-                newsGrid.innerHTML = '<div class="news-loading-card"><p>⚠️ Haber API bağlantı hatası.</p></div>';
+            if (carousel) {
+                carousel.innerHTML = '<div class="news-carousel-loading">⚠️ Haber API bağlantı hatası.</div>';
             }
         });
 }
 
+function scrollNewsCarousel(direction) {
+    const carousel = document.getElementById('news-carousel');
+    if (carousel) {
+        const scrollAmount = 320; // Haber kartı genişliği + gap
+        carousel.scrollLeft += scrollAmount * direction;
+    }
+}
+
 // Sayfa yüklendiğinde haberleri yükle
 document.addEventListener('DOMContentLoaded', function() {
-    const newsGrid = document.getElementById('news-grid');
-    if (newsGrid && !newsGrid.dataset.loaded) {
-        newsGrid.dataset.loaded = 'true';
-        loadNewsToGrid();
+    const carousel = document.getElementById('news-carousel');
+    if (carousel && !carousel.dataset.loaded) {
+        carousel.dataset.loaded = 'true';
+        loadNewsCarousel();
     }
 });
 

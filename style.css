@@ -1053,10 +1053,11 @@ body.neuro-sync-lab #live-stream {
     display: grid;
     grid-template-columns: repeat(3, minmax(280px, 1fr));
     gap: 2rem;
-    padding: 4rem 380px;
+    padding: 4rem 2rem;
     box-sizing: border-box;
     max-width: 1400px;
     margin: 0 auto;
+    justify-content: center;
 }
 .labs-section-title {
     grid-column: 1 / -1;

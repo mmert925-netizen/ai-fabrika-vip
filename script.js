@@ -887,7 +887,6 @@ function quickAction(type) {
         proje: currentLang === "tr" ? "Sergideki projeler hakkında bilgi ver" : "Tell me about the gallery projects",
         post: currentLang === "tr" ? "ÖMER.AI hakkında sosyal medya postu yaz" : "Write a social media post about ÖMER.AI",
         web: currentLang === "tr" ? "Web tasarımı yap restoran için landing page" : "Web design a landing page for a restaurant",
-        haber: currentLang === "tr" ? "Güncel haber özeti ver" : "Give me today's news summary",
         fiyat: currentLang === "tr" ? "Fiyatlar ve paketler hakkında bilgi ver" : "Tell me about pricing and packages",
         yardim: currentLang === "tr" ? "Ne yapabilirsin? Hangi komutları kullanabilirim?" : "What can you do? What commands can I use?",
         iletisim: currentLang === "tr" ? "İletişime nasıl geçebilirim?" : "How can I get in touch?"
@@ -1035,29 +1034,7 @@ function sendMessage(customText) {
         return;
     }
 
-    // Haber özeti
-    if (/haber|güncel|news|özet/i.test(userText)) {
-        fetchWithCache("/api/news-summary")
-            .then(res => res.json())
-            .then(data => {
-                typingEl.remove();
-                const summary = data.summary || data.error || (currentLang === "tr" ? "Haber çekilemedi." : "Could not fetch news.");
-                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> <span class="bot-reply-content">${parseMarkdown(summary)}</span></p>`;
-                chatHistory.push({ role: 'user', text: userText });
-                chatHistory.push({ role: 'model', text: summary });
-                if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
-                box.scrollTop = box.scrollHeight;
-                playBeep();
-            })
-            .catch(() => {
-                typingEl.remove();
-                box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${currentLang === "tr" ? "Haber servisi hatası." : "News service error."}</p>`;
-                box.scrollTop = box.scrollHeight;
-                playBeep();
-            })
-            .finally(() => { if (input) { input.disabled = false; input.focus(); } });
-        return;
-    }
+
 
     // Normal sohbet (Gemini)
     fetch("/api/chat", {

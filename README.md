@@ -65,10 +65,7 @@ omerai-fabrika/
 ├── api/                          # Vercel Serverless Functions
 │   ├── chat.js                   # Gemini sohbet API
 │   ├── generate-image.js         # Görsel üretim API
-│   ├── ai-news-bulletin.js       # Haber raporu
 │   └── ...
-├── Haber_Botu/                   # Haber özetleme bot
-│   └── main.py
 ├── Sosyal_Medya_Botu/            # Sosyal medya post üretimi
 │   └── main.py
 ├── Yazar_Botu/                   # Makale yazı üretimi (SEO)
@@ -86,11 +83,6 @@ omerai-fabrika/
 ## 🚀 Kullanım
 
 ### Python Bot'larını Çalıştırma
-
-**Haber Botu:**
-```bash
-python Haber_Botu/main.py
-```
 
 **Sosyal Medya Bot:**
 ```bash

@@ -745,6 +745,22 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
         <p data-tr="Bu site deneyiminizi iyileştirmek için çerez kullanır. Devam ederek çerez kullanımını kabul etmiş olursunuz." data-en="This site uses cookies to improve your experience. By continuing, you accept cookie usage.">Bu site deneyiminizi iyileştirmek için çerez kullanır. Devam ederek çerez kullanımını kabul etmiş olursunuz.</p>
         <button class="neon-button cookie-accept" onclick="acceptCookies()" data-tr="Kabul Et" data-en="Accept">Kabul Et</button>
     </div>
+    <div id="pwa-install-banner" class="pwa-install-banner" aria-live="polite" style="display: none;">
+        <div class="pwa-install-content">
+            <span class="pwa-install-icon">📱</span>
+            <div class="pwa-install-text">
+                <strong data-tr="ÖMER.AI'yı yükle" data-en="Install ÖMER.AI">ÖMER.AI'yı yükle</strong>
+                <span data-tr="Ana ekrana ekle, daha hızlı eriş." data-en="Add to home screen for faster access.">Ana ekrana ekle, daha hızlı eriş.</span>
+            </div>
+            <div class="pwa-install-actions">
+                <button id="pwa-install-btn" class="neon-button pwa-install-btn" data-tr="Yükle" data-en="Install">Yükle</button>
+                <button id="pwa-install-dismiss" class="pwa-dismiss-btn" aria-label="Kapat">×</button>
+            </div>
+        </div>
+        <div id="pwa-ios-hint" class="pwa-ios-hint" style="display: none;">
+            <span data-tr="Ana ekrana ekle: Paylaş → Ana Ekrana Ekle" data-en="Add to Home: Share → Add to Home Screen">Ana ekrana ekle: Paylaş → Ana Ekrana Ekle</span>
+        </div>
+    </div>
     <button id="back-to-top" class="back-to-top" onclick="scrollToTop()" title="Yukarı çık" aria-label="Yukarı çık">↑</button>
     <script>
       window.OMERAI_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;

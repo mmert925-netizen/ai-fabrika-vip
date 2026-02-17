@@ -2534,3 +2534,61 @@ footer .footer-section.blog-section .blog-card h4 {
         font-size: 1rem;
     }
 }
+
+/* PWA Install Banner */
+.pwa-install-banner {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    z-index: 9997;
+    max-width: 420px;
+    width: calc(100% - 2rem);
+    background: var(--card-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(34, 211, 238, 0.2);
+    padding: 1rem 1.25rem;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pwa-install-banner.pwa-visible {
+    transform: translateX(-50%) translateY(0);
+}
+.pwa-install-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.pwa-install-icon { font-size: 2rem; }
+.pwa-install-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.pwa-install-text strong { color: var(--accent-color); font-size: 1rem; }
+.pwa-install-text span { font-size: 0.85rem; opacity: 0.9; }
+.pwa-install-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.pwa-install-btn { padding: 0.5rem 1rem; font-size: 0.9rem; }
+.pwa-dismiss-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+    line-height: 1;
+    padding: 0.25rem;
+}
+.pwa-dismiss-btn:hover { opacity: 1; }
+.pwa-ios-hint {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(94, 234, 212, 0.3);
+    font-size: 0.8rem;
+    opacity: 0.85;
+}

@@ -1313,12 +1313,81 @@ function acceptCookies() {
     localStorage.setItem("omerai_cookies_accepted", "1");
     const banner = document.getElementById("cookie-banner");
     if (banner) banner.classList.add("hidden");
+    window.dispatchEvent(new CustomEvent("omerai-cookies-accepted"));
 }
 function initCookieBanner() {
     if (localStorage.getItem("omerai_cookies_accepted") === "1") {
         const banner = document.getElementById("cookie-banner");
         if (banner) banner.classList.add("hidden");
     }
+}
+
+// PWA Install Banner – Uygulamayı yükle
+const PWA_DISMISS_KEY = "omerai_pwa_dismiss";
+const PWA_DISMISS_DAYS = 7;
+
+function initPwaInstall() {
+    const banner = document.getElementById("pwa-install-banner");
+    const installBtn = document.getElementById("pwa-install-btn");
+    const dismissBtn = document.getElementById("pwa-install-dismiss");
+    const iosHint = document.getElementById("pwa-ios-hint");
+    if (!banner) return;
+
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    const dismissedAt = parseInt(localStorage.getItem(PWA_DISMISS_KEY) || "0", 10);
+    const shouldShowDismissed = dismissedAt && (Date.now() - dismissedAt) < PWA_DISMISS_DAYS * 24 * 60 * 60 * 1000;
+
+    if (isStandalone || shouldShowDismissed) return;
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    function showBanner() {
+        const cookieBanner = document.getElementById("cookie-banner");
+        if (cookieBanner && !cookieBanner.classList.contains("hidden")) return;
+        banner.style.display = "block";
+        requestAnimationFrame(() => banner.classList.add("pwa-visible"));
+        if (iosHint) iosHint.style.display = isIOS ? "block" : "none";
+        if (installBtn) installBtn.style.display = isIOS ? "none" : "inline-block";
+    }
+
+    function hideBanner() {
+        banner.classList.remove("pwa-visible");
+        setTimeout(() => { banner.style.display = "none"; }, 400);
+    }
+
+    function dismiss() {
+        localStorage.setItem(PWA_DISMISS_KEY, String(Date.now()));
+        hideBanner();
+    }
+
+    function scheduleShow() {
+        setTimeout(showBanner, 3000);
+    }
+    if (isIOS) {
+        scheduleShow();
+    } else {
+        window.addEventListener("beforeinstallprompt", function(e) {
+            e.preventDefault();
+            window._deferredInstallPrompt = e;
+            scheduleShow();
+        });
+    }
+    window.addEventListener("omerai-cookies-accepted", scheduleShow);
+
+    if (installBtn) {
+        installBtn.addEventListener("click", function() {
+            const prompt = window._deferredInstallPrompt;
+            if (prompt) {
+                prompt.prompt();
+                prompt.userChoice.then((choice) => {
+                    if (choice.outcome === "accepted") dismiss();
+                    window._deferredInstallPrompt = null;
+                });
+            }
+            hideBanner();
+        });
+    }
+    if (dismissBtn) dismissBtn.addEventListener("click", dismiss);
 }
 
 // Newsletter formu
@@ -1717,6 +1786,7 @@ document.addEventListener("DOMContentLoaded", function() {
     initScrollSpy();
     initBreadcrumb();
     initCookieBanner();
+    initPwaInstall();
     initNewsletterForm();
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(() => {});

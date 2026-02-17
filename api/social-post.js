@@ -9,8 +9,9 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Sadece POST desteklenir' });
 
-  const apiKey = process.env.gemini_api_key || process.env.GEMINI_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'GEMINI_API_KEY tanımlı değil' });
+  const { getGeminiApiKey } = await import('../utils/gemini-key.js');
+  const apiKey = getGeminiApiKey();
+  if (!apiKey) return res.status(500).json({ error: 'Gemini API anahtarı tanımlı değil' });
 
   const { topic } = req.body || {};
   const text = (topic || 'ÖMER.AI Fabrika').trim().slice(0, 500);

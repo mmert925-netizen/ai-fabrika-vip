@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Telegram yapılandırması eksik. Vercel Environment Variables kontrol edin.' });
   }
 
-  const { name, email, message } = req.body || {};
+  const { name, email, message, wizardData } = req.body || {};
   if (!name || typeof name !== 'string' || !name.trim()) {
     return res.status(400).json({ error: 'Ad alanı boş olamaz.' });
   }
@@ -30,8 +30,10 @@ export default async function handler(req, res) {
   const cleanName = name.trim().slice(0, 200);
   const cleanEmail = email.trim().slice(0, 200);
   const cleanMessage = message.trim().slice(0, 2000);
+  const wizardPart = (wizardData && typeof wizardData === 'string' && wizardData.trim())
+    ? `\n📋 *Sihirbaz:* ${wizardData.trim().slice(0, 500)}` : '';
 
-  const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${cleanName}\n📧 *E-posta:* ${cleanEmail}\n📝 *Mesaj:* ${cleanMessage}`;
+  const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${cleanName}\n📧 *E-posta:* ${cleanEmail}\n📝 *Mesaj:* ${cleanMessage}${wizardPart}`;
 
   try {
     const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

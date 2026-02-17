@@ -1,5 +1,5 @@
 const CACHE = 'omerai-v4';
-const ASSETS = ['/', '/index.html', '/style.css', '/script.js', '/manifest.json'];
+const ASSETS = ['/', '/index.html', '/style.css', '/script.js', '/manifest.json', '/img/proje1.jpg', '/img/proje1-400.webp', '/img/proje1-800.webp'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(

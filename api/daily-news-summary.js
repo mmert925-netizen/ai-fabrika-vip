@@ -1,6 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getGeminiApiKey } from '../utils/gemini-key.js';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+function getGenAI() {
+  const key = getGeminiApiKey();
+  return key ? new GoogleGenerativeAI(key) : null;
+}
 
 // Fallback haberler
 function getFallbackNews() {
@@ -34,6 +38,8 @@ function getFallbackNews() {
 
 async function generateSummary(newsItems) {
   try {
+    const genAI = getGenAI();
+    if (!genAI) return "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!";
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     
     const titles = newsItems.map(n => n.title).join("\n- ");

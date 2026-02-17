@@ -1,7 +1,9 @@
 /**
  * Vercel Serverless – Gemini ile AI sohbet
- * GEMINI_API_KEY Vercel Environment Variables'da tanımlı olmalı
+ * Ortam değişkeni: GEMINI_API_KEY | GOOGLE_AI_API_KEY | GOOGLE_GENERATIVE_AI_API_KEY
  */
+import { getGeminiApiKey } from '../utils/gemini-key.js';
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -10,9 +12,9 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Sadece POST desteklenir' });
 
-  const apiKey = process.env.gemini_api_key || process.env.GEMINI_API_KEY;
+  const apiKey = getGeminiApiKey();
   if (!apiKey) {
-    return res.status(500).json({ error: 'GEMINI_API_KEY tanımlı değil. Vercel > Environment Variables' });
+    return res.status(500).json({ error: 'Gemini API anahtarı tanımlı değil. Vercel > Environment Variables' });
   }
 
   const { message, history = [] } = req.body || {};

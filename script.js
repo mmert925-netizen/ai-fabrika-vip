@@ -16,7 +16,7 @@ function showToast(message, type = "info") {
 
 //// API CACHE – Sık kullanılan GET çağrılarını kısa süreli cacheme
 const API_CACHE = new Map();
-const CACHE_TTL_MS = 0; // Cache devre dışı
+const CACHE_TTL_MS = 2 * 60 * 1000; // 2 dakika
 function fetchWithCache(url, options = {}) {
     if (options.method && options.method !== "GET") return fetch(url, options);
     const cached = API_CACHE.get(url);
@@ -1783,23 +1783,16 @@ document.addEventListener("DOMContentLoaded", function() {
             submitBtn.disabled = true;
             submitBtn.textContent = submitBtn.getAttribute("data-loading-" + (currentLang || "tr")) || submitBtn.getAttribute("data-loading-tr") || "Mühürleniyor...";
 
-            const TELEGRAM_BOT_TOKEN = '8385745600:AAFRf0-qUiy8ooJfvzGcn_MpL77YXONGHis';
-            const TELEGRAM_CHAT_ID = '7076964315';
-            const wizardData = document.getElementById("wizard-data")?.value;
-            const wizardPart = wizardData ? `\n📋 *Sihirbaz:* ${wizardData}` : "";
-            const text = `🚀 *Yeni Web Mesajı!*\n\n👤 *Ad:* ${name.trim()}\n📧 *E-posta:* ${email.trim()}\n📝 *Mesaj:* ${(message || "-").trim()}${wizardPart}`;
+            const wizardData = document.getElementById("wizard-data")?.value || "";
 
-            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            fetch("/api/telegram", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: text,
-                    parse_mode: 'Markdown'
-                })
+                body: JSON.stringify({ name: name.trim(), email: email.trim(), message: (message || "-").trim(), wizardData })
             })
-            .then(response => {
-                if (response.ok) {
+            .then(res => res.json().then(data => ({ ok: res.ok, data })))
+            .then(({ ok, data }) => {
+                if (ok && data.success) {
                     addTokens(5);
                     trackEvent("conversion", "contact_form_submit", "telegram_success");
                     showToast("Mührün Telegram hattına fırlatıldı! 🚀 +5 Dijital Mühür kazandın!", "success");
@@ -1818,7 +1811,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (backBtn) backBtn.style.display = "none";
                     }
                 } else {
-                    showToast("Hata: Mesaj iletilemedi. Token veya ID kontrolü gerek.", "error");
+                    showToast(data?.error || "Hata: Mesaj iletilemedi.", "error");
                 }
             })
             .catch(error => {

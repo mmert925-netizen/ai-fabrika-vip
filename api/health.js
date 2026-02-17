@@ -31,7 +31,8 @@ export default async function handler(req, res) {
   }
 
   // 2. Imagen / Gemini API
-  const apiKey = process.env.gemini_api_key || process.env.GEMINI_API_KEY;
+  const { getGeminiApiKey } = await import('../utils/gemini-key.js');
+  const apiKey = getGeminiApiKey();
   if (apiKey) {
     const t0 = Date.now();
     try {

@@ -1,10 +1,19 @@
 /**
- * Haber API – tech-news + daily-news-summary tek endpoint
+ * Haber API – tek endpoint
  * GET ?summary=1 → AI özetli haberler
  * GET (veya ?summary=0) → ham haber listesi
+ * Her durumda JSON döner; script.js hata almaz.
  */
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getGeminiApiKey } from '../utils/gemini-key.js';
+function getGeminiKey() {
+  return (
+    (typeof process !== 'undefined' && process.env && (
+      process.env.GEMINI_API_KEY ||
+      process.env.gemini_api_key ||
+      process.env.GOOGLE_AI_API_KEY ||
+      process.env.GOOGLE_GENERATIVE_AI_API_KEY
+    )) || ''
+  ).trim();
+}
 
 function getFallbackNews() {
   return [
@@ -20,53 +29,84 @@ function getFallbackNews() {
 }
 
 async function generateSummary(newsItems) {
+  const key = getGeminiKey();
+  const fallback = "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!";
+  if (!key) return fallback;
   try {
-    const key = getGeminiApiKey();
-    if (!key) return "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!";
-    const genAI = new GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const titles = newsItems.map(n => n.title).join("\n- ");
-    const result = await model.generateContent(`Aşağıdaki haberlerden Türkçe'de kısa bir özet yap (3-4 cümle). Emoji ekle.\n\nHaberler:\n- ${titles}\n\nÖzet:`);
-    return (await result.response.text()) || "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!";
+    const titles = (newsItems || []).map(n => n && n.title).filter(Boolean).join("\n- ");
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: `Aşağıdaki haberlerden Türkçe'de kısa bir özet yap (3-4 cümle). Emoji ekle.\n\nHaberler:\n- ${titles}\n\nÖzet:` }] }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 512 }
+      })
+    });
+    if (!r.ok) return fallback;
+    const data = await r.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    return (text && String(text).trim()) || fallback;
   } catch (_) {
-    return "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!";
+    return fallback;
   }
 }
 
-export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+function sendJson(res, status, body) {
+  if (!res || typeof res.setHeader !== 'function') return;
+  res.setHeader("Content-Type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.status(status).json(body);
+}
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "GET") return res.status(405).json({ error: "Yalnızca GET" });
-
-  const wantSummary = req.query?.summary === '1';
-  const news = getFallbackNews();
+export default async function handler(req, res) {
+  const wantSummary = (req && req.query && req.query.summary) === '1';
 
   try {
+    if (req && req.method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      return res.status(200).end();
+    }
+    if (!req || req.method !== "GET") {
+      return sendJson(res, 405, { success: false, error: "Yalnızca GET" });
+    }
+
+    const news = getFallbackNews();
+
     if (wantSummary) {
       const summary = await generateSummary(news);
-      return res.status(200).json({
+      return sendJson(res, 200, {
         success: true,
         summary,
         headline_count: news.length,
         timestamp: new Date().toISOString(),
       });
     }
-    return res.status(200).json({
+
+    return sendJson(res, 200, {
       success: true,
       news,
       count: news.length,
       refreshed_at: new Date().toISOString(),
       source: "AI News Archive"
     });
-  } catch (error) {
-    console.error("news API error:", error);
-    return res.status(200).json({
+  } catch (err) {
+    console.error("news API error:", err);
+    const fallback = getFallbackNews();
+    if (wantSummary) {
+      return sendJson(res, 200, {
+        success: true,
+        summary: "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!",
+        error: String(err && err.message || "Unknown error")
+      });
+    }
+    return sendJson(res, 200, {
       success: true,
-      ...(wantSummary ? { summary: "🚀 Yapay Zeka alanında hızlı gelişmeler devam ediyor!", error: error.message } : { news: getFallbackNews(), source: "Fallback" }),
+      news: fallback,
+      count: fallback.length,
+      source: "Fallback"
     });
   }
 }

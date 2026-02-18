@@ -912,10 +912,52 @@ function isImageRequest(text) {
     return /çiz|görsel|resim|draw|image|generate|üret|mühürle/.test(t) && t.length > 5;
 }
 
+const DEFAULT_IMAGE_PROMPTS = {
+    tr: [
+        "neon ışıklı futuristik şehir manzarası, siberpunk tarzı, yağmur, yansımalar",
+        "yapay zeka robot portresi, detaylı devre desenleri, mavi neon, yüksek detay",
+        "dijital orman, biyolüminesan bitkiler, büyülü atmosfer, derinlik",
+        "gece vakti futuristik mekan, cam ve metal, ışık yansımaları, atmosferik",
+        "steampunk buhar makinesi, pirinç dişliler, detaylı çizim, viktoryen",
+        "karakter konsepti, anime tarzı, genç kahraman, dinamik poz",
+        "mimari vizyon, futuristik bina, cam cephe, gün batımı",
+        "doğa manzarası, dağ zirvesi, sis, epik atmosfer, 8K",
+        "soyut sanat, geometrik formlar, gradient renkler, modern",
+        "kitap kapağı illüstrasyonu, fantastik tema, ejderha, epik",
+        "ürün fotoğrafı, beyaz arka plan, profesyonel ışık, e-ticaret stili",
+        "siberpunk tarzı logo, neon yeşil ve mor, teknoloji firması, minimal"
+    ],
+    en: [
+        "futuristic neon cityscape, cyberpunk style, rain, reflections",
+        "AI robot portrait, detailed circuit patterns, blue neon, high detail",
+        "digital forest, bioluminescent plants, magical atmosphere, depth",
+        "futuristic interior at night, glass and metal, light reflections, atmospheric",
+        "steampunk steam engine, brass gears, detailed drawing, victorian",
+        "character concept, anime style, young hero, dynamic pose",
+        "architectural vision, futuristic building, glass facade, sunset",
+        "nature landscape, mountain peak, fog, epic atmosphere, 8K",
+        "abstract art, geometric shapes, gradient colors, modern",
+        "book cover illustration, fantasy theme, dragon, epic",
+        "product photography, white background, professional lighting, e-commerce style",
+        "cyberpunk style logo, neon green and purple, tech company, minimal"
+    ]
+};
+
 function extractImagePrompt(text) {
   let cleaned = text.replace(/(çiz|görsel|resim|draw|image|generate|üret|mühürle)[\s\w]*/gi, '').trim();
     cleaned = cleaned.replace(/^(bana|bir|for me|için|please)\s+/gi, '').trim();
-    return cleaned || text;
+    const result = cleaned || text;
+    const r = result.trim();
+    // Belirsiz istekler için rastgele varsayılan prompt
+    const isVague = r.length < 4 ||
+        /^(bana|bir|çiz|görsel|resim|draw|image|please|for me)$/i.test(r) ||
+        /^(bana\s+)?(bir\s+)?(görsel|resim|image)\s*(çiz|çizim|draw|üret)?$/i.test(r) ||
+        /^(draw|please)\s+(me\s+)?(an?\s+)?(image|picture|photo)/i.test(r);
+    if (isVague) {
+        const prompts = DEFAULT_IMAGE_PROMPTS[currentLang === "tr" ? "tr" : "en"];
+        return prompts[Math.floor(Math.random() * prompts.length)];
+    }
+    return result;
 }
 
 function isWebDesignRequest(text) {

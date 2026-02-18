@@ -28,7 +28,7 @@ if (!token) {
 
 const PROJECT = 'ai-fabrika-vip';
 const TEAM_SLUG = 'omers-projects-117ad19a';
-const toAdd = ['GEMINI_API_KEY', 'OPENAI_API_KEY', 'TELEGRAM_BOT_TOKEN', 'TELEGRAM_CHAT_ID', 'REPLICATE_API_TOKEN', 'RUNWAY_API_KEY'];
+const toAdd = ['GEMINI_API_KEY', 'OPENAI_API_KEY', 'TELEGRAM_BOT_TOKEN', 'TELEGRAM_CHAT_ID', 'REPLICATE_API_TOKEN', 'RUNWAY_API_KEY', 'SUPABASE_URL', 'SUPABASE_ANON_KEY'];
 
 const items = toAdd.filter((name) => vars[name]);
 if (!vars.RUNWAY_API_KEY && Object.keys(vars).some(k => /runway/i.test(k))) {

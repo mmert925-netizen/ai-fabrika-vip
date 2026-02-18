@@ -14,6 +14,78 @@ function showToast(message, type = "info") {
     toast.onclick = () => { clearTimeout(t); toast.classList.remove("toast-visible"); setTimeout(() => toast.remove(), 300); };
 }
 
+//// Supabase veri kalıcılığı – GALLERY_KEY, TOKEN_KEY, SERIAL_KEY, PORTAL_STORAGE_KEY aşağıda tanımlı
+const DEVICE_ID_KEY = "omerai_device_id";
+const SUPABASE_SYNC_KEY = "omerai_supabase_enabled";
+const GALLERY_KEY = "omerai_generated_gallery";
+const TOKEN_KEY = "omerai_tokens";
+const SERIAL_KEY = "omerai_seal_serial";
+const PORTAL_STORAGE_KEY = "omerai_portal_session";
+function getDeviceId() {
+    let id = localStorage.getItem(DEVICE_ID_KEY);
+    if (!id || id.length < 8) {
+        id = "d_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 12);
+        localStorage.setItem(DEVICE_ID_KEY, id);
+    }
+    return id;
+}
+let supabaseEnabled = false;
+async function initSupabaseSync() {
+    try {
+        const res = await fetch("/api/supabase-config");
+        const cfg = await res.json();
+        if (!cfg.configured) return;
+        supabaseEnabled = true;
+        localStorage.setItem(SUPABASE_SYNC_KEY, "1");
+        const syncRes = await fetch("/api/supabase-sync?device_id=" + encodeURIComponent(getDeviceId()));
+        if (!syncRes.ok) return;
+        const data = await syncRes.json();
+        if (data.gallery && data.gallery.length > 0) {
+            const g = data.gallery.map(i => ({ src: i.src, serialNo: i.serialNo, id: i.id }));
+            localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
+        }
+        if (data.preferences) {
+            const p = data.preferences;
+            if (p.tokens != null) localStorage.setItem(TOKEN_KEY, String(p.tokens));
+            if (p.theme) localStorage.setItem("theme", p.theme);
+            if (p.lang) { localStorage.setItem("lang", p.lang); currentLang = p.lang; }
+            if (p.seal_serial != null) localStorage.setItem(SERIAL_KEY, String(p.seal_serial));
+            if (p.portal_stage != null && p.portal_ts) {
+                localStorage.setItem(PORTAL_STORAGE_KEY, JSON.stringify({ stage: p.portal_stage, ts: p.portal_ts }));
+            }
+        }
+    } catch (_) { supabaseEnabled = false; localStorage.removeItem(SUPABASE_SYNC_KEY); }
+}
+function syncGalleryToSupabase() {
+    if (!supabaseEnabled) return;
+    const g = getSavedGallery();
+    fetch("/api/supabase-sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ device_id: getDeviceId(), action: "gallery", gallery: g.map(i => ({ src: i.src, serialNo: i.serialNo })) })
+    }).catch(() => {});
+}
+function syncPreferencesToSupabase() {
+    if (!supabaseEnabled) return;
+    const prefs = {
+        tokens: getTokens(),
+        theme: localStorage.getItem("theme") || "dark",
+        lang: currentLang || "tr",
+        seal_serial: parseInt(localStorage.getItem(SERIAL_KEY) || "4948", 10),
+        portal_stage: null,
+        portal_ts: null
+    };
+    try {
+        const s = JSON.parse(localStorage.getItem(PORTAL_STORAGE_KEY) || "{}");
+        if (s.stage) { prefs.portal_stage = s.stage; prefs.portal_ts = s.ts; }
+    } catch (_) {}
+    fetch("/api/supabase-sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ device_id: getDeviceId(), action: "preferences", preferences: prefs })
+    }).catch(() => {});
+}
+
 //// API CACHE – Sık kullanılan GET çağrılarını kısa süreli cacheme
 const API_CACHE = new Map();
 const CACHE_TTL_MS = 2 * 60 * 1000; // 2 dakika
@@ -506,7 +578,6 @@ function initNeuroSync() {
 }
 
 // ÖMER.AI Token / Dijital Mühür Sistemi
-const TOKEN_KEY = "omerai_tokens";
 const TOKEN_SESSION_KEY = "omerai_session_minutes";
 const TOKEN_SESSION_MAX = 5;
 
@@ -517,12 +588,14 @@ function addTokens(n) {
     const t = getTokens() + n;
     localStorage.setItem(TOKEN_KEY, String(Math.max(0, t)));
     updateTokenUI();
+    syncPreferencesToSupabase();
     return t;
 }
 function spendTokens(n) {
     const t = Math.max(0, getTokens() - n);
     localStorage.setItem(TOKEN_KEY, String(t));
     updateTokenUI();
+    syncPreferencesToSupabase();
     return t;
 }
 function updateTokenUI() {
@@ -1522,6 +1595,7 @@ function toggleTheme() {
     const targetTheme = currentTheme === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", targetTheme);
     localStorage.setItem("theme", targetTheme);
+    syncPreferencesToSupabase();
     initVanta();
 }
 
@@ -1529,6 +1603,7 @@ function toggleTheme() {
 function toggleLang() {
     currentLang = currentLang === "tr" ? "en" : "tr";
     localStorage.setItem("lang", currentLang);
+    syncPreferencesToSupabase();
     applyLang();
     updateTokenUI();
     document.getElementById("lang-toggle").textContent = currentLang === "tr" ? "🌐 EN" : "🌐 TR";
@@ -1550,14 +1625,13 @@ function applyLang() {
 }
 
 // Mühür Sertifikasyon Sistemi – Seri no + indirildiğinde profesyonel bant
-const SERIAL_KEY = "omerai_seal_serial";
 function getNextSerial() {
     let n = parseInt(localStorage.getItem(SERIAL_KEY) || "4948", 10);
     n++;
     localStorage.setItem(SERIAL_KEY, String(n));
+    syncPreferencesToSupabase();
     return n;
 }
-const PORTAL_STORAGE_KEY = "omerai_portal_session";
 function initPortalClient() {
     const loginEl = document.getElementById("portal-login");
     const dashboardEl = document.getElementById("portal-dashboard");
@@ -1578,6 +1652,7 @@ function initPortalClient() {
         });
         if (downloads) downloads.style.display = stage >= 4 ? "block" : "none";
         localStorage.setItem(PORTAL_STORAGE_KEY, JSON.stringify({ stage, ts: Date.now() }));
+        syncPreferencesToSupabase();
     }
 
     function closeDashboard() {
@@ -1695,8 +1770,7 @@ function createSealedImageDataUrl(dataUrl, serialNo) {
     });
 }
 
-// Görsel galeri kaydetme – üretilen görselleri localStorage'a ekle
-const GALLERY_KEY = "omerai_generated_gallery";
+// Görsel galeri kaydetme – üretilen görselleri localStorage'a ekle (Supabase sync ile)
 function getSavedGallery() {
     try { return JSON.parse(localStorage.getItem(GALLERY_KEY) || "[]"); } catch { return []; }
 }
@@ -1706,6 +1780,7 @@ function saveToGallery(src, serialNo) {
     localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
     renderGeneratedGallery();
     renderLiveStream();
+    syncGalleryToSupabase();
 }
 function removeFromGallery(index) {
     const g = getSavedGallery();
@@ -1713,6 +1788,7 @@ function removeFromGallery(index) {
     localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
     renderGeneratedGallery();
     renderLiveStream();
+    syncGalleryToSupabase();
 }
 
 function renderGeneratedGallery() {
@@ -1777,8 +1853,12 @@ function validateContactForm(name, email, message) {
     return errors;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     if (window.OMERAI_MOBILE) document.body.classList.add("mobile-view");
+    await initSupabaseSync();
+    if (typeof updateTokenUI === "function") updateTokenUI();
+    if (typeof renderGeneratedGallery === "function") renderGeneratedGallery();
+    if (typeof renderLiveStream === "function") renderLiveStream();
     const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
 

@@ -32,12 +32,12 @@ function getDeviceId() {
 let supabaseEnabled = false;
 async function initSupabaseSync() {
     try {
-        const res = await fetch("/api/supabase-config");
+        const res = await fetch("/api/supabase?config=1");
         const cfg = await res.json();
         if (!cfg.configured) return;
         supabaseEnabled = true;
         localStorage.setItem(SUPABASE_SYNC_KEY, "1");
-        const syncRes = await fetch("/api/supabase-sync?device_id=" + encodeURIComponent(getDeviceId()));
+        const syncRes = await fetch("/api/supabase?device_id=" + encodeURIComponent(getDeviceId()));
         if (!syncRes.ok) return;
         const data = await syncRes.json();
         if (data.gallery && data.gallery.length > 0) {
@@ -59,7 +59,7 @@ async function initSupabaseSync() {
 function syncGalleryToSupabase() {
     if (!supabaseEnabled) return;
     const g = getSavedGallery();
-    fetch("/api/supabase-sync", {
+    fetch("/api/supabase", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ device_id: getDeviceId(), action: "gallery", gallery: g.map(i => ({ src: i.src, serialNo: i.serialNo })) })
@@ -79,7 +79,7 @@ function syncPreferencesToSupabase() {
         const s = JSON.parse(localStorage.getItem(PORTAL_STORAGE_KEY) || "{}");
         if (s.stage) { prefs.portal_stage = s.stage; prefs.portal_ts = s.ts; }
     } catch (_) {}
-    fetch("/api/supabase-sync", {
+    fetch("/api/supabase", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ device_id: getDeviceId(), action: "preferences", preferences: prefs })
@@ -1164,7 +1164,7 @@ function sendMessage(customText) {
 
     // Günlük özet / Haberler
     if (/gündem|günlük özet|haber|news summary|günü|today/i.test(userText)) {
-        fetch("/api/daily-news-summary", { method: "GET", headers: { "Content-Type": "application/json" } })
+        fetch("/api/news?summary=1", { method: "GET", headers: { "Content-Type": "application/json" } })
             .then(res => res.json())
             .then(data => {
                 typingEl.remove();
@@ -2275,7 +2275,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     const maxAttempts = 60;
                     const pollInterval = 5000;
                     for (let i = 0; i < maxAttempts; i++) {
-                        const statusRes = await fetch(`/api/video-status?jobId=${encodeURIComponent(data.jobId)}&provider=${provider}`);
+                        const statusRes = await fetch(`/api/video?jobId=${encodeURIComponent(data.jobId)}&provider=${provider}`);
                         const statusData = await statusRes.json();
                         if (statusData.videoUrl) {
                             finalVideoUrl = statusData.videoUrl;
@@ -2406,7 +2406,7 @@ function loadNewsCarousel() {
         carousel.innerHTML = '<div class="news-carousel-loading">⏳ Haberler yükleniyor...</div>';
     }
     
-    fetch('/api/tech-news')
+    fetch('/api/news')
         .then(res => res.json())
         .then(data => {
             if (data.success && data.news) {

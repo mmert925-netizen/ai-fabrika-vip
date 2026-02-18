@@ -1,6 +1,7 @@
 /**
- * Video job durumu – Sora, Replicate, Runway için tek endpoint
- * GET /api/video-status?jobId=xxx&provider=sora|replicate|runway
+ * Video API – status + content tek endpoint
+ * GET ?jobId=xx&provider=sora|replicate|runway → durum (JSON)
+ * GET ?jobId=xx&content=1 → Sora video stream (binary)
  */
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,8 +10,30 @@ export default async function handler(req, res) {
 
   const jobId = req.query?.jobId;
   const provider = (req.query?.provider || 'sora').toLowerCase();
-  if (!jobId) {
-    return res.status(400).json({ error: 'jobId gerekli' });
+  const wantContent = req.query?.content === '1';
+
+  if (!jobId) return res.status(400).json({ error: 'jobId gerekli' });
+
+  if (wantContent) {
+    const apiKey = (process.env.SORA_API_KEY || process.env.OPENAI_API_KEY || '').trim();
+    if (!apiKey) return res.status(503).json({ error: 'API key yok' });
+    try {
+      const contentRes = await fetch(`https://api.openai.com/v1/videos/${jobId}/content`, {
+        headers: { 'Authorization': `Bearer ${apiKey}` }
+      });
+      if (!contentRes.ok) {
+        const err = await contentRes.text();
+        return res.status(contentRes.status).json({ error: err || 'Video alınamadı' });
+      }
+      const contentType = contentRes.headers.get('content-type') || 'video/mp4';
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      const buffer = await contentRes.arrayBuffer();
+      return res.send(Buffer.from(buffer));
+    } catch (err) {
+      console.error('video-content error:', err);
+      return res.status(500).json({ error: err.message || 'Sunucu hatası' });
+    }
   }
 
   try {
@@ -28,7 +51,7 @@ export default async function handler(req, res) {
       const status = job.status || 'unknown';
       const progress = job.progress ?? 0;
       if (status === 'completed') {
-        return res.status(200).json({ status: 'completed', progress: 100, videoUrl: `/api/video-content?jobId=${jobId}`, jobId });
+        return res.status(200).json({ status: 'completed', progress: 100, videoUrl: `/api/video?jobId=${jobId}&content=1`, jobId });
       }
       if (status === 'failed') {
         return res.status(200).json({ status: 'failed', progress: 0, error: job.error?.message || 'Video üretimi başarısız' });

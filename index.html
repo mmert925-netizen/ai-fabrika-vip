@@ -98,6 +98,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
             <li><a href="#video-lab" data-tr="Video Laboratuvarı" data-en="Video Lab">Video Laboratuvarı</a></li>
             <li><a href="#web-sablon-lab" data-tr="Web Şablon" data-en="Web Template">Web Şablon</a></li>
             <li><a href="#hizmetler" data-tr="Hizmetler" data-en="Services">Hizmetler</a></li>
+            <li><a href="#roadmap" data-tr="Roadmap" data-en="Roadmap">Roadmap</a></li>
             <li><a href="#fiyatlandirma" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a></li>
             <li><a href="#referanslar" data-tr="Referanslar" data-en="References">Referanslar</a></li>
             <li><a href="#testimonials" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a></li>
@@ -191,6 +192,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
         <div class="lab-header">
             <span class="lab-icon">🖼️</span>
             <h2 class="neon-text" data-tr="Imagen 4.0 Üretim Laboratuvarı" data-en="Imagen 4.0 Production Lab">Imagen 4.0 Üretim Laboratuvarı</h2>
+            <p class="lab-subdesc" data-tr="Stil seç, prompt yaz veya örneklerden birini tıkla. Detaylı açıklama = daha iyi sonuç." data-en="Pick a style, write a prompt or click an example. Detailed description = better result.">Stil seç, prompt yaz veya örneklerden birini tıkla. Detaylı açıklama = daha iyi sonuç.</p>
         </div>
         <div class="style-selector">
             <span data-tr="Stil:" data-en="Style:">Stil:</span>
@@ -210,12 +212,18 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
         <div class="demo-prompts" id="demo-prompts">
             <span class="demo-label" data-tr="Örnek promptlar – tıkla dene:" data-en="Sample prompts – click to try:">Örnek promptlar – tıkla dene:</span>
             <div class="demo-chips">
-                <button type="button" class="demo-chip" data-prompt="Neon ışıklarla aydınlanan futuristik şehir manzarası, siberpunk tarzı">🌃 Neon Şehir</button>
-                <button type="button" class="demo-chip" data-prompt="Yapay zeka robot portresi, detaylı devre desenleri, mavi neon">🤖 Robot Portresi</button>
-                <button type="button" class="demo-chip" data-prompt="Siberpunk tarzı logo, neon yeşil ve mor, teknoloji firması">⚡ Siberpunk Logo</button>
-                <button type="button" class="demo-chip" data-prompt="Gece vakti futuristik mekan, cam ve metal, ışık yansımaları">🏙️ Futuristik Mekan</button>
-                <button type="button" class="demo-chip" data-prompt="Dijital orman, biyolüminesan bitkiler, büyülü atmosfer">🌲 Dijital Orman</button>
-                <button type="button" class="demo-chip" data-prompt="Steampunk buhar makinesi, pirinç dişliler, detaylı çizim">⚙️ Steampunk Makine</button>
+                <button type="button" class="demo-chip" data-prompt="Neon ışıklarla aydınlanan futuristik şehir manzarası, siberpunk tarzı, yağmur, yansımalar">🌃 Neon Şehir</button>
+                <button type="button" class="demo-chip" data-prompt="Yapay zeka robot portresi, detaylı devre desenleri, mavi neon, yüksek detay">🤖 Robot Portresi</button>
+                <button type="button" class="demo-chip" data-prompt="Siberpunk tarzı logo, neon yeşil ve mor, teknoloji firması, minimal">⚡ Siberpunk Logo</button>
+                <button type="button" class="demo-chip" data-prompt="Gece vakti futuristik mekan, cam ve metal, ışık yansımaları, atmosferik">🏙️ Futuristik Mekan</button>
+                <button type="button" class="demo-chip" data-prompt="Dijital orman, biyolüminesan bitkiler, büyülü atmosfer, derinlik">🌲 Dijital Orman</button>
+                <button type="button" class="demo-chip" data-prompt="Steampunk buhar makinesi, pirinç dişliler, detaylı çizim, viktoryen">⚙️ Steampunk Makine</button>
+                <button type="button" class="demo-chip" data-prompt="Ürün fotoğrafı, beyaz arka plan, profesyonel ışık, e-ticaret stili">📦 Ürün Fotoğrafı</button>
+                <button type="button" class="demo-chip" data-prompt="Karakter konsepti, anime tarzı, genç kahraman, dinamik poz">🎭 Karakter Konsepti</button>
+                <button type="button" class="demo-chip" data-prompt="Mimari vizyon, futuristik bina, cam cephe, gün batımı">🏛️ Mimari Vizyon</button>
+                <button type="button" class="demo-chip" data-prompt="Doğa manzarası, dağ zirvesi, sis, epik atmosfer, 8K">⛰️ Dağ Manzarası</button>
+                <button type="button" class="demo-chip" data-prompt="Soyut sanat, geometrik formlar, gradient renkler, modern">🔷 Soyut Sanat</button>
+                <button type="button" class="demo-chip" data-prompt="Kitap kapağı illüstrasyonu, fantastik tema, ejderha, epik">📚 Kitap Kapağı</button>
             </div>
         </div>
         <div class="lab-form-container">
@@ -246,9 +254,10 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
     
     <div id="video-lab" class="lab-container video-lab lab-panel video-lab-premium">
         <div class="video-lab-header">
-            <div class="video-lab-badge" data-tr="Sora · Runway" data-en="Sora · Runway">Sora · Runway</div>
+            <div class="video-lab-badge" data-tr="Replicate · Sora · Runway" data-en="Replicate · Sora · Runway">Replicate · Sora · Runway</div>
             <h2 class="neon-text video-lab-title" data-tr="Video Üretim Laboratuvarı" data-en="Video Production Lab">Video Üretim Laboratuvarı</h2>
-            <p class="video-lab-desc" data-tr="Metinden videoya AI destekli üretim. Profesyonel kalitede kısa videolar." data-en="AI-powered text-to-video. Professional short-form content.">Metinden videoya AI destekli üretim. Profesyonel kalitede kısa videolar.</p>
+            <p class="video-lab-desc" data-tr="Metinden videoya AI destekli üretim. Sahne, hareket ve atmosferi tarif et – 1–2 dakikada hazır." data-en="AI-powered text-to-video. Describe scene, motion and mood – ready in 1–2 minutes.">Metinden videoya AI destekli üretim. Sahne, hareket ve atmosferi tarif et – 1–2 dakikada hazır.</p>
+            <p class="video-audio-note" data-tr="Not: Replicate videoları ses içermez. Sesli video için Sora veya Runway kullanın." data-en="Note: Replicate videos have no audio. Use Sora or Runway for sound.">Not: Replicate videoları ses içermez. Sesli video için Sora veya Runway kullanın.</p>
         </div>
 
         <div class="video-lab-settings">
@@ -261,6 +270,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
                 <div class="video-setting-row">
                     <label for="video-provider-select" data-tr="Sağlayıcı" data-en="Provider">Sağlayıcı</label>
                     <select id="video-provider-select" class="video-setting-select">
+                        <option value="replicate" selected>Replicate (ücretsiz)</option>
                         <option value="sora">OpenAI Sora</option>
                         <option value="runway">Runway ML</option>
                     </select>
@@ -295,35 +305,47 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
         </div>
 
         <div class="video-lab-prompts" id="video-demo-prompts">
-            <span class="demo-label" data-tr="Hızlı şablonlar" data-en="Quick templates">Hızlı şablonlar</span>
+            <span class="demo-label" data-tr="Hızlı şablonlar – tıkla dene" data-en="Quick templates – click to try">Hızlı şablonlar – tıkla dene</span>
             <div class="video-demo-grid">
-                <button type="button" class="video-demo-card video-demo" data-prompt="15s ürün tanıtımı, dinamik kurgu, synthwave müzik">
-                    <span class="video-demo-icon">🎞️</span>
-                    <span data-tr="Tanıtım" data-en="Promo">Tanıtım</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="A woman walking through a busy Tokyo street at night, neon lights, rain reflections">
+                    <span class="video-demo-icon">🌃</span>
+                    <span data-tr="Neon Şehir" data-en="Neon City">Neon Şehir</span>
                 </button>
-                <button type="button" class="video-demo-card video-demo" data-prompt="60s mini belgesel, anlatıcı sesi, doğal görüntüler">
-                    <span class="video-demo-icon">📽️</span>
-                    <span data-tr="Belgesel" data-en="Doc">Belgesel</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Coffee cup on wooden table, steam rising, morning light through window, soft focus">
+                    <span class="video-demo-icon">☕</span>
+                    <span data-tr="Kahve" data-en="Coffee">Kahve</span>
                 </button>
-                <button type="button" class="video-demo-card video-demo" data-prompt="10s Reels tarzı sosyal medya klibi, hızlı kesimler">
-                    <span class="video-demo-icon">🔊</span>
-                    <span data-tr="Sosyal" data-en="Social">Sosyal</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Child flying a red kite in grassy park, golden hour sunlight, camera pans up">
+                    <span class="video-demo-icon">🪁</span>
+                    <span data-tr="Uçurtma" data-en="Kite">Uçurtma</span>
                 </button>
-                <button type="button" class="video-demo-card video-demo" data-prompt="30s ürün lansmanı, yavaş kamera, epik müzik">
-                    <span class="video-demo-icon">🚀</span>
-                    <span data-tr="Lansman" data-en="Launch">Lansman</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Robot hand reaching toward camera, metallic surface, blue lighting">
+                    <span class="video-demo-icon">🤖</span>
+                    <span data-tr="Robot" data-en="Robot">Robot</span>
                 </button>
-                <button type="button" class="video-demo-card video-demo" data-prompt="20s eğitim klibi, ekran animasyonları, voice-over">
-                    <span class="video-demo-icon">📚</span>
-                    <span data-tr="Eğitim" data-en="Edu">Eğitim</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Ocean waves crashing on rocky shore, sunset, dramatic clouds">
+                    <span class="video-demo-icon">🌊</span>
+                    <span data-tr="Okyanus" data-en="Ocean">Okyanus</span>
                 </button>
-                <button type="button" class="video-demo-card video-demo" data-prompt="8s loopable arka plan video, ambient motion graphics">
-                    <span class="video-demo-icon">🔁</span>
-                    <span data-tr="Loop" data-en="Loop">Loop</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Abstract fluid motion, colorful particles, smooth loop">
+                    <span class="video-demo-icon">🎨</span>
+                    <span data-tr="Soyut" data-en="Abstract">Soyut</span>
                 </button>
-                <button type="button" class="video-demo-card video-demo" data-prompt="10s testimonial video, müşteri konuşması, sıcak ton">
-                    <span class="video-demo-icon">🗣️</span>
-                    <span data-tr="Testimonial" data-en="Testimonial">Testimonial</span>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Product on table, rotating slowly, studio lighting, clean background">
+                    <span class="video-demo-icon">📦</span>
+                    <span data-tr="Ürün" data-en="Product">Ürün</span>
+                </button>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Forest path, sunlight through trees, leaves falling, gentle wind">
+                    <span class="video-demo-icon">🌲</span>
+                    <span data-tr="Orman" data-en="Forest">Orman</span>
+                </button>
+                <button type="button" class="video-demo-card video-demo" data-prompt="City timelapse, day to night, traffic lights, building lights turning on">
+                    <span class="video-demo-icon">🌆</span>
+                    <span data-tr="Timelapse" data-en="Timelapse">Timelapse</span>
+                </button>
+                <button type="button" class="video-demo-card video-demo" data-prompt="Cute cat playing with yarn, cozy home, warm lighting">
+                    <span class="video-demo-icon">🐱</span>
+                    <span data-tr="Kedi" data-en="Cat">Kedi</span>
                 </button>
             </div>
         </div>
@@ -337,7 +359,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
             <div id="video-loading-indicator" class="video-loading-wrap" style="display: none;">
                 <div class="video-loading-skeleton"></div>
                 <div class="video-loading-bar"><div class="video-loading-fill"></div></div>
-                <span class="video-loading-label" data-tr="Video üretiliyor... Bu birkaç dakika sürebilir." data-en="Generating video... This may take a few minutes.">Video üretiliyor... Bu birkaç dakika sürebilir.</span>
+                <span class="video-loading-label video-loading-text" data-tr="Video üretiliyor... Bu birkaç dakika sürebilir." data-en="Generating video... This may take a few minutes.">Video üretiliyor... Bu birkaç dakika sürebilir.</span>
             </div>
         </div>
 
@@ -364,16 +386,22 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
         <div class="lab-header">
             <span class="lab-icon">🌐</span>
             <h2 class="neon-text" data-tr="Web Şablon Laboratuvarı" data-en="Web Template Lab">Web Şablon Laboratuvarı</h2>
+            <p class="lab-subdesc" data-tr="Sayfa tipi, stil ve içeriği tarif et – tek sayfalık HTML/CSS şablonu mühürlenir." data-en="Describe page type, style and content – single-page HTML/CSS template.">Sayfa tipi, stil ve içeriği tarif et – tek sayfalık HTML/CSS şablonu mühürlenir.</p>
         </div>
-        <p class="web-lab-desc" data-tr="İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler." data-en="Describe your desired page – AI generates a single-page HTML/CSS template.">İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler.</p>
+        <p class="web-lab-desc" data-tr="İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler. Mobil uyumlu, modern tasarım." data-en="Describe your desired page – AI generates a single-page HTML/CSS template. Mobile-friendly, modern design.">İstediğin web sayfasını tarif et – AI tek sayfalık HTML/CSS şablonu mühürler. Mobil uyumlu, modern tasarım.</p>
         <div class="demo-prompts" id="web-demo-prompts">
             <span class="demo-label" data-tr="Örnek şablonlar – tıkla dene:" data-en="Sample templates – click to try:">Örnek şablonlar – tıkla dene:</span>
             <div class="demo-chips">
-                <button type="button" class="demo-chip web-demo" data-prompt="Restoran için modern landing page, menü önizlemesi, rezervasyon butonu">🍽️ Restoran</button>
-                <button type="button" class="demo-chip web-demo" data-prompt="Siberpunk tarzı portfolyo, neon renkler, proje kartları">🎨 Portfolyo</button>
-                <button type="button" class="demo-chip web-demo" data-prompt="E-ticaret mağaza kartvizit sayfası, ürün grid, minimalist">🛒 Mağaza</button>
-                <button type="button" class="demo-chip web-demo" data-prompt="Yazılım firması için kurumsal landing, hizmetler, iletişim formu">💼 Kurumsal</button>
-                <button type="button" class="demo-chip web-demo" data-prompt="Kişisel blog ana sayfa, koyu tema, makale önizlemeleri">📝 Blog</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Restoran için modern landing page, menü önizlemesi, rezervasyon butonu, hero section">🍽️ Restoran</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Siberpunk tarzı portfolyo, neon renkler, proje kartları, hover efektleri">🎨 Portfolyo</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="E-ticaret mağaza kartvizit sayfası, ürün grid, minimalist, sepete ekle">🛒 Mağaza</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Yazılım firması için kurumsal landing, hizmetler, iletişim formu, CTA">💼 Kurumsal</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Kişisel blog ana sayfa, koyu tema, makale önizlemeleri, kategori">📝 Blog</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="SaaS ürün landing page, fiyatlandırma tablosu, özellikler, demo butonu">📊 SaaS</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Etkinlik tanıtım sayfası, tarih yer, kayıt formu, countdown">🎫 Etkinlik</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Freelancer hizmet sayfası, yetenekler, referanslar, iletişim">💻 Freelancer</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Fitness salonu landing, programlar, fiyatlar, üyelik formu">🏋️ Fitness</button>
+                <button type="button" class="demo-chip web-demo" data-prompt="Mobil uygulama tanıtım sayfası, özellikler, indirme linkleri">📱 App Landing</button>
             </div>
         </div>
         <div class="lab-form-container">
@@ -418,6 +446,84 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem
                 <i class="icon">🚀</i>
                 <h3 data-tr="Yazılım Otomasyonu" data-en="Software Automation">Yazılım Otomasyonu</h3>
                 <p data-tr="İş akışlarını hızlandıran, Telegram entegreli özel yazılım çözümleri üretiyoruz." data-en="We create custom software solutions with Telegram integration.">İş akışlarını hızlandıran, Telegram entegreli özel yazılım çözümleri üretiyoruz.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap" class="roadmap-section">
+        <h2 class="neon-text" data-tr="ÖMER.AI İleri Seviye Geliştirme Roadmap" data-en="ÖMER.AI Advanced Development Roadmap">ÖMER.AI İleri Seviye Geliştirme Roadmap</h2>
+        <div class="roadmap-grid">
+            <!-- 1. Stratejik Özellikler -->
+            <div class="roadmap-card roadmap-strategic">
+                <div class="roadmap-card-header">
+                    <span class="roadmap-icon">🧠</span>
+                    <h3 data-tr="Stratejik Özellikler" data-en="Strategic Features">Stratejik Özellikler</h3>
+                </div>
+                <div class="roadmap-subsection">
+                    <h4><span class="roadmap-sub-icon">🤖</span> <span data-tr="Gelişmiş AI Özellikleri" data-en="Advanced AI Features">Gelişmiş AI Özellikleri</span></h4>
+                    <div class="roadmap-sub-block">
+                        <strong data-tr="Multi-Modal AI Merkezi" data-en="Multi-Modal AI Center">Multi-Modal AI Merkezi</strong>
+                        <ul>
+                            <li data-tr="Sesli Komut Sistemi – Web Speech API ile sesli prompt girişi" data-en="Voice Command System – Voice prompt input with Web Speech API">Sesli Komut Sistemi – Web Speech API ile sesli prompt girişi</li>
+                            <li data-tr="Video Üretim Laboratuvarı – Sora/Runway entegrasyonu ile video üretimi" data-en="Video Production Lab – Video production with Sora/Runway integration">Video Üretim Laboratuvarı – Sora/Runway entegrasyonu ile video üretimi</li>
+                            <li data-tr="3D Model Üretimi – Meshy/Blender AI ile 3D içerik" data-en="3D Model Production – 3D content with Meshy/Blender AI">3D Model Üretimi – Meshy/Blender AI ile 3D içerik</li>
+                            <li data-tr="Kod Review AI – GitHub entegrasyonlu kod analiz botu" data-en="Code Review AI – Code analysis bot with GitHub integration">Kod Review AI – GitHub entegrasyonlu kod analiz botu</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-sub-block">
+                        <strong data-tr="AI Agent Sistemi" data-en="AI Agent System">AI Agent Sistemi</strong>
+                        <ul>
+                            <li data-tr="Personal AI Asistan – Her kullanıcı için özel AI asistan" data-en="Personal AI Assistant – Custom AI assistant for each user">Personal AI Asistan – Her kullanıcı için özel AI asistan</li>
+                            <li data-tr="Proje Yönetim AI – Otomatik proje planlama ve takip" data-en="Project Management AI – Automatic project planning and tracking">Proje Yönetim AI – Otomatik proje planlama ve takip</li>
+                            <li data-tr="Müşteri Hizmet AI – 24/7 destek chatbot'u" data-en="Customer Service AI – 24/7 support chatbot">Müşteri Hizmet AI – 24/7 destek chatbot'u</li>
+                            <li data-tr="Pazar Analiz AI – Sektör trend analizi" data-en="Market Analysis AI – Sector trend analysis">Pazar Analiz AI – Sektör trend analizi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 2. Enterprise Seviye Çözümler -->
+            <div class="roadmap-card roadmap-enterprise">
+                <div class="roadmap-card-header">
+                    <span class="roadmap-icon">🏢</span>
+                    <h3 data-tr="Enterprise Seviye Çözümler" data-en="Enterprise Level Solutions">Enterprise Seviye Çözümler</h3>
+                </div>
+                <div class="roadmap-subsection">
+                    <h4 data-tr="White-Label Platform" data-en="White-Label Platform">White-Label Platform</h4>
+                    <ul>
+                        <li data-tr="Franchise Sistemi – Başkalarının kendi AI fabrikasını kurması" data-en="Franchise System – Others building their own AI factory">Franchise Sistemi – Başkalarının kendi AI fabrikasını kurması</li>
+                        <li data-tr="API Marketplace – Geliştiriciler için AI API'leri" data-en="API Marketplace – AI APIs for developers">API Marketplace – Geliştiriciler için AI API'leri</li>
+                        <li data-tr="Enterprise Dashboard – Kurumsal müşteri yönetimi" data-en="Enterprise Dashboard – Corporate customer management">Enterprise Dashboard – Kurumsal müşteri yönetimi</li>
+                        <li data-tr="Custom AI Training – Özel model eğitimi" data-en="Custom AI Training – Custom model training">Custom AI Training – Özel model eğitimi</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 3. Blockchain Entegrasyonu -->
+            <div class="roadmap-card roadmap-blockchain">
+                <div class="roadmap-card-header">
+                    <span class="roadmap-icon">🔗</span>
+                    <h3 data-tr="Blockchain Entegrasyonu" data-en="Blockchain Integration">Blockchain Entegrasyonu</h3>
+                </div>
+                <ul>
+                    <li data-tr="NFT Minting – Üretilen eserlerin NFT'ye dönüştürülmesi" data-en="NFT Minting – Converting created works into NFTs">NFT Minting – Üretilen eserlerin NFT'ye dönüştürülmesi</li>
+                    <li data-tr="Smart Contract – Otomatik ödeme ve sözleşme sistemi" data-en="Smart Contract – Automatic payment and contract system">Smart Contract – Otomatik ödeme ve sözleşme sistemi</li>
+                    <li data-tr="Crypto Payment – Kripto para ödeme sistemi" data-en="Crypto Payment – Cryptocurrency payment system">Crypto Payment – Kripto para ödeme sistemi</li>
+                    <li data-tr="Decentralized AI – Merkeziyetsiz AI ağları" data-en="Decentralized AI – Decentralized AI networks">Decentralized AI – Merkeziyetsiz AI ağları</li>
+                </ul>
+            </div>
+            <!-- 4. Teknik İyileştirmeler -->
+            <div class="roadmap-card roadmap-technical">
+                <div class="roadmap-card-header">
+                    <span class="roadmap-icon">⚙️</span>
+                    <h3 data-tr="Teknik İyileştirmeler" data-en="Technical Improvements">Teknik İyileştirmeler</h3>
+                </div>
+                <div class="roadmap-subsection">
+                    <h4><span class="roadmap-sub-icon">📊</span> <span data-tr="Veri ve Analitik" data-en="Data and Analytics">Veri ve Analitik</span></h4>
+                    <ul>
+                        <li data-tr="Real-time Analytics – Canlı kullanım istatistikleri" data-en="Real-time Analytics – Live usage statistics">Real-time Analytics – Canlı kullanım istatistikleri</li>
+                        <li data-tr="AI Performance Dashboard – AI modellerinin performans takibi" data-en="AI Performance Dashboard – Performance tracking of AI models">AI Performance Dashboard – AI modellerinin performans takibi</li>
+                        <li data-tr="User Behavior Tracking – Heatmap ve session recording" data-en="User Behavior Tracking – Heatmap and session recording">User Behavior Tracking – Heatmap ve session recording</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>

@@ -1096,10 +1096,19 @@ body.neuro-sync-lab #live-stream {
 }
 .lab-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
+}
+.lab-subdesc {
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin: 0.25rem 0 0;
+    color: var(--text-color);
 }
 .lab-icon {
     font-size: 1.5rem;
@@ -1210,6 +1219,7 @@ body.neuro-sync-lab #live-stream {
     margin-bottom: 0.5rem;
 }
 .video-lab-title { font-size: 1.15rem !important; margin: 0 !important; }
+.video-audio-note { font-size: 0.8rem; opacity: 0.75; margin-top: 0.4rem; color: var(--accent-color); }
 .video-lab-desc {
     font-size: 0.82rem;
     color: var(--text-color);
@@ -1548,6 +1558,100 @@ body.neuro-sync-lab #live-stream {
 }
 
 .service-card:hover { transform: translateY(-6px); box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); }
+
+/* Roadmap – İleri Seviye Geliştirme */
+.roadmap-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(30, 58, 79, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+[data-theme="light"] .roadmap-section {
+    background: rgba(241, 245, 249, 0.4);
+}
+.roadmap-section .neon-text { text-align: center; display: block; margin-bottom: 2rem; }
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+}
+.roadmap-card {
+    background: rgba(30, 58, 79, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--accent-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: 0.3s;
+}
+[data-theme="light"] .roadmap-card {
+    background: rgba(255, 255, 255, 0.6);
+}
+.roadmap-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+}
+.roadmap-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+}
+.roadmap-icon { font-size: 1.5rem; }
+.roadmap-card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+}
+.roadmap-subsection { margin-top: 1rem; }
+.roadmap-subsection h4 {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin: 0 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.roadmap-sub-icon { font-size: 1rem; }
+.roadmap-sub-block { margin-bottom: 1rem; }
+.roadmap-sub-block strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 0.4rem;
+}
+.roadmap-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.roadmap-card li {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.9;
+    padding: 0.35rem 0 0.35rem 1.2rem;
+    position: relative;
+    line-height: 1.4;
+}
+.roadmap-card li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+@media (max-width: 900px) {
+    .roadmap-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .roadmap-section { padding: 3rem 1rem; }
+    .roadmap-card { padding: 1.25rem; }
+}
 
 .timeline { border-left: 3px solid var(--accent-color); margin-left: 20px; padding-left: 20px; margin-top: 30px; }
 .checkpoint { margin-bottom: 30px; position: relative; }
@@ -2278,6 +2382,7 @@ input:focus, textarea:focus {
     .slider-container { max-width: 100%; }
     .generated-gallery-grid { grid-template-columns: 1fr; max-width: 100%; }
     .services-section { padding: 40px 20px; }
+    .roadmap-section { padding: 3rem 2rem; }
     .pricing-section { padding: 3rem 2rem; }
     footer .footer-section { padding: 1rem 2rem; }
     .testimonials-section { padding: 4rem 2rem; }
@@ -2343,6 +2448,7 @@ input:focus, textarea:focus {
     .generated-gallery-item img { min-height: 300px; }
     .generated-gallery-grid { grid-template-columns: 1fr; }
     .services-section { padding: 40px 1rem; }
+    .roadmap-section { padding: 3rem 1rem; }
     .pricing-section { padding: 3rem 1rem; }
     .pricing-comparison-table { font-size: 0.78rem; }
     .pricing-comparison-table th, .pricing-comparison-table td { padding: 8px 10px; }

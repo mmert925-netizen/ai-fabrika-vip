@@ -2139,7 +2139,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (!response.ok) {
                     const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.error || 'Video üretilemedi');
+                    const err = new Error(errData.error || 'Video üretilemedi');
+                    err.code = errData.code;
+                    err.hint = errData.hint;
+                    throw err;
                 }
 
                 const data = await response.json();
@@ -2182,7 +2185,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             } catch (error) {
                 console.error('Video generation error:', error);
-                showToast(currentLang === 'tr' ? `Hata: ${error.message}` : `Error: ${error.message}`, 'error');
+                const msg = error.code === 'API_KEY_MISSING'
+                    ? (currentLang === 'tr' ? 'Video API henüz yapılandırılmamış. Vercel ayarlarından ekleyin.' : 'Video API not configured. Add keys in Vercel settings.')
+                    : (currentLang === 'tr' ? `Hata: ${error.message}` : `Error: ${error.message}`);
+                showToast(msg, 'error');
                 if (videoPlaceholder) videoPlaceholder.style.display = 'flex';
             } finally {
                 if (videoLoadingEl) videoLoadingEl.style.display = 'none';

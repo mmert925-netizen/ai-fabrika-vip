@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const results = { telegram: null, imagen: null, vercel: null };
+  const results = { telegram: null, imagen: null, video: null, vercel: null };
   const startTotal = Date.now();
 
   // 1. Telegram Bot
@@ -50,7 +50,15 @@ export default async function handler(req, res) {
     results.imagen = { status: 'unconfigured', latency: null, message: 'API key not set' };
   }
 
-  // 3. Vercel Server (bu endpoint'in kendisi = Vercel çalışıyor)
+  // 3. Video API (Sora/Runway) – tüm olası isimleri kontrol et
+  const soraKey = process.env.SORA_API_KEY || process.env.OPENAI_API_KEY
+    || process.env.sora_api_key || process.env.openai_api_key;
+  results.video = {
+    status: (soraKey && String(soraKey).trim()) ? 'configured' : 'unconfigured',
+    message: soraKey ? 'Key mevcut' : 'Key bulunamadı'
+  };
+
+  // 4. Vercel Server (bu endpoint'in kendisi = Vercel çalışıyor)
   results.vercel = {
     status: 'online',
     latency: Date.now() - startTotal,

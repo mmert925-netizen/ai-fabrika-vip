@@ -24,11 +24,19 @@ export default async function handler(req, res) {
     let videoUrl = null;
     let mimeType = 'video/mp4';
 
-    // SORA API Entegrasyonu (Örnek)
+    // SORA API – tüm olası env var isimlerini dene
     if (provider === 'sora') {
-      const soraApiKey = process.env.SORA_API_KEY;
-      if (!soraApiKey) {
-        return res.status(500).json({ error: 'SORA_API_KEY tanımlı değil. Vercel Dashboard > Settings > Environment Variables' });
+      const soraApiKey = process.env.SORA_API_KEY
+        || process.env.OPENAI_API_KEY
+        || process.env.sora_api_key
+        || process.env.openai_api_key
+        || process.env.Sora_Api_Key;
+      if (!soraApiKey || !String(soraApiKey).trim()) {
+        return res.status(503).json({
+          error: 'Video API yapılandırılmamış.',
+          hint: 'Vercel: Settings > Environment Variables > SORA_API_KEY veya OPENAI_API_KEY ekleyin, ardından Redeploy yapın.',
+          code: 'API_KEY_MISSING'
+        });
       }
 
       const soraResponse = await fetch('https://api.sora.com/v1/videos/generations', {
@@ -60,7 +68,11 @@ export default async function handler(req, res) {
     else if (provider === 'runway') {
       const runwayApiKey = process.env.RUNWAY_API_KEY;
       if (!runwayApiKey) {
-        return res.status(500).json({ error: 'RUNWAY_API_KEY tanımlı değil. Vercel Dashboard > Settings > Environment Variables' });
+        return res.status(503).json({
+          error: 'Runway API yapılandırılmamış.',
+          hint: 'Vercel: Settings > Environment Variables > RUNWAY_API_KEY ekleyin, Redeploy yapın.',
+          code: 'API_KEY_MISSING'
+        });
       }
 
       const runwayResponse = await fetch('https://api.runwayml.com/v1/video_generations', {

@@ -1079,9 +1079,10 @@ function sendMessage(customText) {
                     const serialNo = getNextSerial();
                     createSealedImageDataUrl(dataUrl, serialNo).then(sealedUrl => {
                         box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> İşte mühürlediğim görsel (Seri No: #${serialNo}):</p><div class="chat-image-wrapper"><img src="${sealedUrl}" alt="ÖMER.AI mühürlü" class="chat-generated-img" onclick="showGeneratedImage(this.src)"></div>`;
-                        saveToGallery(sealedUrl, serialNo);
                         box.scrollTop = box.scrollHeight;
                         playBeep();
+                        fetch("/api/upload-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image: sealedUrl, device_id: getDeviceId(), serial_no: serialNo }) })
+                            .then(r => r.json()).then(d => { if (d.url) saveToGallery(d.url, serialNo); }).catch(() => {});
                     });
                 } else {
                     box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${data.error || (currentLang === "tr" ? "Görsel üretilemedi." : "Image generation failed.")}</p>`;
@@ -2119,10 +2120,20 @@ document.addEventListener("DOMContentLoaded", async function() {
                         addGalleryBtn.style.display = "inline-block";
                         addGalleryBtn.onclick = () => {
                             createSealedImageDataUrl(dataUrl, serialNo).then(sealedUrl => {
-                                saveToGallery(sealedUrl, serialNo);
-                                addGalleryBtn.style.display = "none";
-                                if (downloadBtn) downloadBtn.style.display = "none";
-                                showToast(currentLang === "tr" ? "Mühürlü görsel galeriye eklendi!" : "Sealed image added to gallery!", "success");
+                                fetch("/api/upload-image", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ image: sealedUrl, device_id: getDeviceId(), serial_no: serialNo })
+                                }).then(r => r.json()).then(data => {
+                                    if (data.url) {
+                                        saveToGallery(data.url, serialNo);
+                                        addGalleryBtn.style.display = "none";
+                                        if (downloadBtn) downloadBtn.style.display = "none";
+                                        showToast(currentLang === "tr" ? "Mühürlü görsel galeriye eklendi!" : "Sealed image added to gallery!", "success");
+                                    } else {
+                                        showToast(data.error || (currentLang === "tr" ? "Yükleme başarısız." : "Upload failed."), "error");
+                                    }
+                                }).catch(() => showToast(currentLang === "tr" ? "Yükleme başarısız." : "Upload failed.", "error"));
                             });
                         };
                     }

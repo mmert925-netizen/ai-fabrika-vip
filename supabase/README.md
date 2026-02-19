@@ -11,6 +11,10 @@ Veri kalıcılığı için [Supabase](https://supabase.com) entegrasyonu.
 
 **SQL Editor**'da `schema.sql` dosyasının içeriğini çalıştırın.
 
+## 2b. Storage Bucket (Görsel Galerisi)
+
+Base64 görseller Storage'a yüklenir. **Storage** → **New bucket** → `omerai-gallery` (public). Detay: `storage-setup.md`
+
 ## 3. Vercel Environment Variables
 
 Vercel → Proje → **Settings** → **Environment Variables**:

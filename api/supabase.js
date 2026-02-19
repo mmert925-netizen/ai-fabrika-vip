@@ -3,8 +3,28 @@
  * GET ?config=1 → public config (URL, anon key)
  * GET ?device_id=xxx → gallery + preferences
  * POST → sync (body: device_id, action, gallery|preferences)
+ *
+ * Base64 görseller otomatik olarak Supabase Storage'a yüklenir, tabloya URL yazılır.
  */
 import { getSupabase, isSupabaseConfigured } from '../utils/supabase.js';
+
+const STORAGE_BUCKET = 'omerai-gallery';
+
+async function uploadBase64ToStorage(supabase, deviceId, dataUrl, serialNo, index) {
+  const match = dataUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+  if (!match) return dataUrl;
+  const [, ext, base64] = match;
+  const contentType = `image/${ext === 'jpeg' ? 'jpeg' : ext}`;
+  const buffer = Buffer.from(base64, 'base64');
+  const path = `${deviceId}/${Date.now()}_${serialNo || index}.${ext === 'jpeg' ? 'jpg' : 'png'}`;
+  const { data, error } = await supabase.storage.from(STORAGE_BUCKET).upload(path, buffer, {
+    contentType,
+    upsert: true
+  });
+  if (error) throw new Error(`Storage upload hatası: ${error.message}`);
+  const { data: urlData } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+  return urlData.publicUrl;
+}
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -70,7 +90,16 @@ export default async function handler(req, res) {
         console.log('Supabase kayıt işlemi başlıyor...');
         await supabase.from('omerai_gallery').delete().eq('device_id', deviceId);
         if (gallery.length > 0) {
-          const rows = gallery.map(g => ({ device_id: deviceId, src: g.src || '', serial_no: g.serialNo ?? 0 }));
+          const rows = [];
+          for (let i = 0; i < gallery.length; i++) {
+            const g = gallery[i];
+            let src = g.src || '';
+            if (src.startsWith('data:image')) {
+              src = await uploadBase64ToStorage(supabase, deviceId, src, g.serialNo ?? 0, i);
+              console.log('Görsel Storage\'a yüklendi, URL:', src);
+            }
+            rows.push({ device_id: deviceId, src, serial_no: g.serialNo ?? 0 });
+          }
           const { error } = await supabase.from('omerai_gallery').insert(rows);
           if (error) {
             console.log('KAYIT HATASI:', error.message);

@@ -76,7 +76,13 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     if (!isSupabaseConfigured()) {
-      return res.status(503).json({ error: 'Supabase yapılandırılmamış', configured: false });
+      const hasUrl = !!(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL);
+      const hasKey = !!(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY);
+      return res.status(503).json({
+        error: 'Supabase yapılandırılmamış',
+        configured: false,
+        hint: !hasUrl ? 'SUPABASE_URL eksik' : !hasKey ? 'SUPABASE_SERVICE_ROLE_KEY veya SUPABASE_ANON_KEY eksik' : 'Env var yok. Production URL dene: ai-fabrika-vip.vercel.app'
+      });
     }
     const { action, gallery, preferences, image, device_id, serial_no } = req.body || {};
     if (action === 'upload_image') {

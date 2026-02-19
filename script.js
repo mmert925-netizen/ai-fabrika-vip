@@ -2166,14 +2166,16 @@ document.addEventListener("DOMContentLoaded", async function() {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
                                     body: JSON.stringify({ action: "upload_image", image: compressed, device_id: getDeviceId(), serial_no: serialNo })
-                                }).then(r => r.json()).then(data => {
-                                    if (data.url) {
+                                }).then(r => r.json().catch(() => ({})).then(data => ({ data, status: r.status }))).then(({ data, status }) => {
+                                    if (data && data.url) {
                                         saveToGallery(data.url, serialNo);
                                         addGalleryBtn.style.display = "none";
                                         if (downloadBtn) downloadBtn.style.display = "none";
                                         showToast(currentLang === "tr" ? "Mühürlü görsel galeriye eklendi!" : "Sealed image added to gallery!", "success");
                                     } else {
-                                        showToast(data.error || (currentLang === "tr" ? "Yükleme başarısız." : "Upload failed."), "error");
+                                        const msg = (data && data.hint) ? data.hint : (data && data.error) || (currentLang === "tr" ? "Yükleme başarısız." : "Upload failed.");
+                                        if (status === 503) showToast((currentLang === "tr" ? "503: " : "503: ") + msg + (currentLang === "tr" ? " → ai-fabrika-vip.vercel.app dene" : " → try ai-fabrika-vip.vercel.app"), "error");
+                                        else showToast(msg, "error");
                                     }
                                 }).catch(() => showToast(currentLang === "tr" ? "Yükleme başarısız." : "Upload failed.", "error"));
                             }).catch(() => showToast(currentLang === "tr" ? "Sıkıştırma hatası." : "Compress failed.", "error"));

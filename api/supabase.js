@@ -67,16 +67,22 @@ export default async function handler(req, res) {
       const supabase = getSupabase();
       if (action === 'gallery') {
         if (!Array.isArray(gallery)) return res.status(400).json({ error: 'gallery array gerekli' });
+        console.log('Supabase kayıt işlemi başlıyor...');
         await supabase.from('omerai_gallery').delete().eq('device_id', deviceId);
         if (gallery.length > 0) {
           const rows = gallery.map(g => ({ device_id: deviceId, src: g.src || '', serial_no: g.serialNo ?? 0 }));
           const { error } = await supabase.from('omerai_gallery').insert(rows);
-          if (error) throw error;
+          if (error) {
+            console.log('KAYIT HATASI:', error.message);
+            throw error;
+          }
+          console.log('TABLOYA YAZILDI!');
         }
         return res.status(200).json({ ok: true });
       }
       if (action === 'preferences') {
         if (!preferences || typeof preferences !== 'object') return res.status(400).json({ error: 'preferences object gerekli' });
+        console.log('Supabase kayıt işlemi başlıyor...');
         const { error } = await supabase.from('omerai_preferences').upsert({
           device_id: deviceId,
           tokens: preferences.tokens ?? 0,
@@ -87,11 +93,16 @@ export default async function handler(req, res) {
           seal_serial: preferences.seal_serial ?? 4948,
           updated_at: new Date().toISOString()
         }, { onConflict: 'device_id' });
-        if (error) throw error;
+        if (error) {
+          console.log('KAYIT HATASI:', error.message);
+          throw error;
+        }
+        console.log('TABLOYA YAZILDI!');
         return res.status(200).json({ ok: true });
       }
       return res.status(400).json({ error: 'action: gallery veya preferences' });
     } catch (err) {
+      console.log('KAYIT HATASI:', err.message || err);
       console.error('supabase sync error:', err);
       return res.status(500).json({ error: err.message || 'Sunucu hatası' });
     }

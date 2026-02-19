@@ -63,6 +63,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Görsel üretilemedi. Model görsel üretimini desteklemiyor olabilir.' });
     }
 
+    console.log('Görsel URL alındı: [base64 - Gemini]');
     return res.status(200).json({ image: imageBase64, mimeType: 'image/png' });
   } catch (err) {
     console.error('generate-image error:', err);

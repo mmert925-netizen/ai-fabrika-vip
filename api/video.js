@@ -77,7 +77,10 @@ export default async function handler(req, res) {
         if (typeof output === 'string' && output.startsWith('http')) videoUrl = output;
         else if (output?.url) videoUrl = output.url;
         else if (Array.isArray(output) && output[0]) videoUrl = typeof output[0] === 'string' ? output[0] : output[0].url;
-        if (videoUrl) return res.status(200).json({ status: 'completed', progress: 100, videoUrl, jobId });
+        if (videoUrl) {
+          console.log('Görsel URL alındı:', videoUrl);
+          return res.status(200).json({ status: 'completed', progress: 100, videoUrl, jobId });
+        }
       }
       if (status === 'failed' || status === 'canceled') {
         return res.status(200).json({ status: 'failed', progress: 0, error: pred.error || 'Video üretimi başarısız' });

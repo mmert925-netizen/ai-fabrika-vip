@@ -59,11 +59,15 @@ async function initSupabaseSync() {
 function syncGalleryToSupabase() {
     if (!supabaseEnabled) return;
     const g = getSavedGallery();
+    console.log("Supabase kayıt işlemi başlıyor...");
     fetch("/api/supabase", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ device_id: getDeviceId(), action: "gallery", gallery: g.map(i => ({ src: i.src, serialNo: i.serialNo })) })
-    }).catch(() => {});
+    }).then(res => {
+        if (res.ok) console.log("TABLOYA YAZILDI!");
+        else res.json().then(d => console.log("KAYIT HATASI:", d?.error || res.statusText)).catch(() => console.log("KAYIT HATASI:", res.statusText));
+    }).catch(e => console.log("KAYIT HATASI:", e.message));
 }
 function syncPreferencesToSupabase() {
     if (!supabaseEnabled) return;
@@ -2088,6 +2092,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 if (loadingEl) loadingEl.style.display = "none";
                 if (typeof window.gpuLoadCoolDown === "function") window.gpuLoadCoolDown();
                 if (ok && data.image) {
+                    console.log("Görsel URL alındı: [base64 - client]");
                     trackEvent("conversion", "generate_image_success", "image_created");
                     if (useHD) spendTokens(2);
                     const dataUrl = "data:image/png;base64," + data.image;

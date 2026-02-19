@@ -1798,22 +1798,25 @@ function createSealedImageDataUrl(dataUrl, serialNo) {
 }
 
 // Görsel galeri kaydetme – üretilen görselleri localStorage'a ekle (Supabase sync ile)
+const GALLERY_MAX_ITEMS = 15;
 function getSavedGallery() {
     try {
         const raw = JSON.parse(localStorage.getItem(GALLERY_KEY) || "[]");
-        return raw.filter(item => item && item.src && !item.src.startsWith("data:"));
+        return raw.filter(item => item && item.src && !item.src.startsWith("data:")).slice(-GALLERY_MAX_ITEMS);
     } catch { return []; }
 }
 function saveToGallery(src, serialNo) {
     if (src && src.startsWith("data:")) return;
     const g = getSavedGallery();
     g.push({ src, serialNo: serialNo || 0, id: Date.now() });
+    const toSave = g.slice(-GALLERY_MAX_ITEMS);
     try {
-        localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
+        localStorage.removeItem(GALLERY_KEY);
+        localStorage.setItem(GALLERY_KEY, JSON.stringify(toSave));
     } catch (e) {
         if (e.name === "QuotaExceededError") {
             localStorage.removeItem(GALLERY_KEY);
-            localStorage.setItem(GALLERY_KEY, JSON.stringify([{ src, serialNo: serialNo || 0, id: Date.now() }]));
+            try { localStorage.setItem(GALLERY_KEY, JSON.stringify([{ src, serialNo: serialNo || 0, id: Date.now() }])); } catch (_) {}
         }
     }
     renderGeneratedGallery();
@@ -1823,6 +1826,7 @@ function saveToGallery(src, serialNo) {
 function removeFromGallery(index) {
     const g = getSavedGallery();
     g.splice(index, 1);
+    localStorage.removeItem(GALLERY_KEY);
     localStorage.setItem(GALLERY_KEY, JSON.stringify(g));
     renderGeneratedGallery();
     renderLiveStream();
@@ -1897,7 +1901,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         const raw = JSON.parse(localStorage.getItem(GALLERY_KEY) || "[]");
         const hasBase64 = Array.isArray(raw) && raw.some(item => item && item.src && item.src.startsWith("data:"));
         if (hasBase64) {
-            const cleaned = raw.filter(item => item && item.src && !item.src.startsWith("data:"));
+            const cleaned = raw.filter(item => item && item.src && !item.src.startsWith("data:")).slice(-GALLERY_MAX_ITEMS);
+            localStorage.removeItem(GALLERY_KEY);
             localStorage.setItem(GALLERY_KEY, JSON.stringify(cleaned));
         }
     } catch (_) {}

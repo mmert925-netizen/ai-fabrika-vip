@@ -1081,8 +1081,10 @@ function sendMessage(customText) {
                         box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> İşte mühürlediğim görsel (Seri No: #${serialNo}):</p><div class="chat-image-wrapper"><img src="${sealedUrl}" alt="ÖMER.AI mühürlü" class="chat-generated-img" onclick="showGeneratedImage(this.src)"></div>`;
                         box.scrollTop = box.scrollHeight;
                         playBeep();
-                        fetch("/api/upload-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image: sealedUrl, device_id: getDeviceId(), serial_no: serialNo }) })
-                            .then(r => r.json()).then(d => { if (d.url) saveToGallery(d.url, serialNo); }).catch(() => {});
+                        compressForUpload(sealedUrl, 1024).then(compressed =>
+                            fetch("/api/supabase", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "upload_image", image: compressed, device_id: getDeviceId(), serial_no: serialNo }) })
+                                .then(r => r.json()).then(d => { if (d.url) saveToGallery(d.url, serialNo); }).catch(() => {})
+                        ).catch(() => {});
                     });
                 } else {
                     box.innerHTML += `<p class="chat-msg bot"><b>🤖 Asistan:</b> ${data.error || (currentLang === "tr" ? "Görsel üretilemedi." : "Image generation failed.")}</p>`;
@@ -1731,6 +1733,26 @@ export default function omeraiModule() {
     });
 }
 
+function compressForUpload(dataUrl, maxSize) {
+    maxSize = maxSize || 1024;
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            let w = img.width, h = img.height;
+            if (w > maxSize || h > maxSize) {
+                if (w > h) { h = Math.round(h * maxSize / w); w = maxSize; }
+                else { w = Math.round(w * maxSize / h); h = maxSize; }
+            }
+            const c = document.createElement("canvas");
+            c.width = w; c.height = h;
+            const ctx = c.getContext("2d");
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(c.toDataURL("image/jpeg", 0.82));
+        };
+        img.onerror = () => reject(new Error("Compress failed"));
+        img.src = dataUrl;
+    });
+}
 function createSealedImageDataUrl(dataUrl, serialNo) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -2139,10 +2161,11 @@ document.addEventListener("DOMContentLoaded", async function() {
                         addGalleryBtn.style.display = "inline-block";
                         addGalleryBtn.onclick = () => {
                             createSealedImageDataUrl(dataUrl, serialNo).then(sealedUrl => {
-                                fetch("/api/upload-image", {
+                                compressForUpload(sealedUrl, 1024).then(compressed => {
+                                fetch("/api/supabase", {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ image: sealedUrl, device_id: getDeviceId(), serial_no: serialNo })
+                                    body: JSON.stringify({ action: "upload_image", image: compressed, device_id: getDeviceId(), serial_no: serialNo })
                                 }).then(r => r.json()).then(data => {
                                     if (data.url) {
                                         saveToGallery(data.url, serialNo);
@@ -2153,6 +2176,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                                         showToast(data.error || (currentLang === "tr" ? "Yükleme başarısız." : "Upload failed."), "error");
                                     }
                                 }).catch(() => showToast(currentLang === "tr" ? "Yükleme başarısız." : "Upload failed.", "error"));
+                            }).catch(() => showToast(currentLang === "tr" ? "Sıkıştırma hatası." : "Compress failed.", "error"));
                             });
                         };
                     }

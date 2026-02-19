@@ -78,11 +78,36 @@ export default async function handler(req, res) {
     if (!isSupabaseConfigured()) {
       return res.status(503).json({ error: 'Supabase yapılandırılmamış', configured: false });
     }
+    const { action, gallery, preferences, image, device_id, serial_no } = req.body || {};
+    if (action === 'upload_image') {
+      const dataUrl = typeof image === 'string' ? image : '';
+      if (!dataUrl || !dataUrl.startsWith('data:image/')) {
+        return res.status(400).json({ error: 'image (data URL) gerekli' });
+      }
+      const match = dataUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+      if (!match) return res.status(400).json({ error: 'Geçersiz base64 format' });
+      const [, ext, base64] = match;
+      const buffer = Buffer.from(base64, 'base64');
+      const deviceId = (device_id || 'anon').toString().slice(0, 64);
+      const path = `${deviceId}/${Date.now()}_${serial_no || 0}.${ext === 'jpeg' ? 'jpg' : 'png'}`;
+      try {
+        const supabase = getSupabase();
+        const { error } = await supabase.storage.from(STORAGE_BUCKET).upload(path, buffer, {
+          contentType: `image/${ext === 'jpeg' ? 'jpeg' : ext}`,
+          upsert: true
+        });
+        if (error) throw new Error(error.message);
+        const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+        return res.status(200).json({ url: data.publicUrl });
+      } catch (err) {
+        console.error('upload_image error:', err);
+        return res.status(500).json({ error: err.message || 'Yükleme hatası' });
+      }
+    }
     const deviceId = (req.body?.device_id || '').trim();
     if (!deviceId || deviceId.length < 8) {
       return res.status(400).json({ error: 'device_id gerekli (min 8 karakter)' });
     }
-    const { action, gallery, preferences } = req.body || {};
     try {
       const supabase = getSupabase();
       if (action === 'gallery') {

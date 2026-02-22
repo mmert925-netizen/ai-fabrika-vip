@@ -51,7 +51,11 @@ export default async function handler(req, res) {
       if (!repRes.ok) {
         const err = await repRes.json().catch(() => ({}));
         const msg = err.detail || err.error || repRes.statusText;
-        return res.status(repRes.status).json({ error: `Replicate API Hatası: ${msg}` });
+        const isQuota = /free time limit|quota|billing/i.test(String(msg));
+        const hint = isQuota
+          ? 'Ücretsiz kota doldu. Devam için replicate.com/account/billing adresinden ödeme ekleyin.'
+          : `Replicate API Hatası: ${msg}`;
+        return res.status(repRes.status).json({ error: hint, code: isQuota ? 'QUOTA_EXCEEDED' : undefined });
       }
       const repData = await repRes.json();
       jobId = repData.id;

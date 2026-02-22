@@ -29,7 +29,8 @@ export default async function handler(req, res) {
 
     // Replicate API – Minimax video-01 (ücretsiz deneme)
     if (provider === 'replicate') {
-      const token = (process.env.REPLICATE_API_TOKEN || '').trim();
+      let token = (process.env.REPLICATE_API_TOKEN || process.env.REPLICATE_API_KEY || '').trim();
+      token = token.replace(/^["']|["']$/g, ''); // Tırnak kopyalama hatası
       if (!token) {
         return res.status(503).json({
           error: 'Replicate API yapılandırılmamış.',
@@ -37,6 +38,8 @@ export default async function handler(req, res) {
           code: 'API_KEY_MISSING'
         });
       }
+      // Replicate token: r8_ ile başlar, ~40 karakter
+      const tokenValidFormat = token.startsWith('r8_') && token.length >= 35 && token.length <= 50;
       const repRes = await fetch('https://api.replicate.com/v1/predictions', {
         method: 'POST',
         headers: {
@@ -52,9 +55,19 @@ export default async function handler(req, res) {
         const err = await repRes.json().catch(() => ({}));
         const msg = err.detail || err.error || repRes.statusText;
         const isQuota = /free time limit|quota|billing/i.test(String(msg));
-        const hint = isQuota
-          ? 'Ücretsiz kota doldu. Devam için replicate.com/account/billing adresinden ödeme ekleyin.'
-          : `Replicate API Hatası: ${msg}`;
+        const isAuth = repRes.status === 401 || /invalid.*token|authentication|valid.*token/i.test(String(msg));
+        let hint;
+        if (isQuota) {
+          hint = 'Ücretsiz kota doldu. Devam için replicate.com/account/billing adresinden ödeme ekleyin.';
+        } else if (isAuth) {
+          if (!tokenValidFormat) {
+            hint = 'Token formatı hatalı. Replicate token "r8_" ile başlamalı (~40 karakter). replicate.com/account/api-tokens → Yeni token oluştur. Vercel\'de REPLICATE_API_TOKEN ekle (boşluk yok), Redeploy yap.';
+          } else {
+            hint = 'Token geçersiz veya devre dışı. replicate.com/account/api-tokens → Yeni token oluştur. Vercel\'de REPLICATE_API_TOKEN güncelle, Redeploy yap.';
+          }
+        } else {
+          hint = `Replicate API Hatası: ${msg}`;
+        }
         return res.status(repRes.status).json({ error: hint, code: isQuota ? 'QUOTA_EXCEEDED' : undefined });
       }
       const repData = await repRes.json();
@@ -115,6 +128,7 @@ export default async function handler(req, res) {
     // Runway API – text_to_video (api.dev.runwayml.com, v2024-11-06)
     else if (provider === 'runway') {
       const runwayApiKey = (process.env.RUNWAY_API_KEY || process.env.RUNWAYML_API_SECRET || '').trim();
+      const keyValidFormat = runwayApiKey.startsWith('key_') && /^key_[0-9a-f]{128}$/i.test(runwayApiKey);
       if (!runwayApiKey) {
         return res.status(503).json({
           error: 'Runway API yapılandırılmamış.',
@@ -146,9 +160,16 @@ export default async function handler(req, res) {
         const err = await runwayResponse.json().catch(() => ({}));
         const msg = err.message || err.error || runwayResponse.statusText;
         const isAuth = runwayResponse.status === 401 || /unauthorized|invalid.*key/i.test(String(msg));
-        const hint = isAuth
-          ? 'Runway API anahtarı geçersiz. dev.runwayml.com → Organization → API Keys\'ten anahtar alın. Vercel\'de Redeploy yapın.'
-          : `Runway API Hatası: ${msg}`;
+        let hint;
+        if (isAuth) {
+          if (!keyValidFormat) {
+            hint = 'Anahtar "key_" ile başlamalı, 128 hex karakter. Boşluk olmamalı. Vercel\'de RUNWAYML_API_SECRET kullan, Redeploy yap.';
+          } else {
+            hint = 'Anahtar geçersiz veya devre dışı. dev.runwayml.com → API Keys\'te kontrol et. Billing\'de kredi var mı? Redeploy yaptın mı?';
+          }
+        } else {
+          hint = `Runway API Hatası: ${msg}`;
+        }
         return res.status(runwayResponse.status).json({ error: hint });
       }
 

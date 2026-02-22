@@ -127,20 +127,23 @@ export default async function handler(req, res) {
     }
     
     // Runway API – text_to_video (api.dev.runwayml.com, v2024-11-06)
+    // ÖNEMLİ: En az $10 bakiye gerekli. dev.runwayml.com → Billing
     else if (provider === 'runway') {
-      const runwayApiKey = (process.env.RUNWAY_API_KEY || process.env.RUNWAYML_API_SECRET || '').trim();
+      const runwayApiKey = (process.env.RUNWAYML_API_SECRET || process.env.RUNWAY_API_KEY || '').trim();
       const keyValidFormat = runwayApiKey.startsWith('key_') && /^key_[0-9a-f]{128}$/i.test(runwayApiKey);
       if (!runwayApiKey) {
         return res.status(503).json({
           error: 'Runway API yapılandırılmamış.',
-          hint: 'Vercel: RUNWAY_API_KEY ekleyin. Anahtar: dev.runwayml.com → API Keys. Redeploy gerekli.',
+          hint: 'Vercel: RUNWAYML_API_SECRET ekleyin. dev.runwayml.com → API Keys. En az $10 bakiye gerekli.',
           code: 'API_KEY_MISSING'
         });
       }
 
       const ratioMap = { '16:9': '1280:720', '9:16': '720:1280' };
       const runwayRatio = ratioMap[aspect_ratio] || '1280:720';
-      const runwayDuration = Math.min(Math.max(2, Math.round(duration)), 10);
+      // veo3.1_fast sadece 4, 6, 8 saniye kabul ediyor
+      const validDurations = [4, 6, 8];
+      const runwayDuration = validDurations.reduce((a, b) => Math.abs(b - duration) < Math.abs(a - duration) ? b : a);
 
       const runwayResponse = await fetch('https://api.dev.runwayml.com/v1/text_to_video', {
         method: 'POST',
@@ -167,7 +170,7 @@ export default async function handler(req, res) {
           if (!keyValidFormat) {
             hint = `Anahtar formatı hatalı. ${diag} key_ + 128 hex karakter olmalı.`;
           } else {
-            hint = `Runway anahtarı reddedildi. ${diag} dev.runwayml.com → API Keys, Billing kontrol et.`;
+            hint = `Runway anahtarı reddedildi. ${diag} dev.runwayml.com → Billing: En az $10 eklemen lazım! API Keys\'ten yeni key al, Vercel\'de RUNWAYML_API_SECRET olarak ekle.`;
           }
         } else {
           hint = `Runway API Hatası: ${msg}`;

@@ -2,7 +2,7 @@
  * Vercel Serverless – Replicate / Sora / Runway ile video üretimi
  * Replicate: REPLICATE_API_TOKEN (ücretsiz deneme)
  * Sora: SORA_API_KEY veya OPENAI_API_KEY
- * Runway: RUNWAY_API_KEY
+ * Runway: RUNWAY_API_KEY veya RUNWAYML_API_SECRET
  */
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -112,39 +112,57 @@ export default async function handler(req, res) {
       videoUrl = soraData.video_url;
     }
     
-    // Runway API Entegrasyonu (Alternatif)
+    // Runway API – text_to_video (api.dev.runwayml.com, v2024-11-06)
     else if (provider === 'runway') {
-      const runwayApiKey = process.env.RUNWAY_API_KEY;
+      const runwayApiKey = (process.env.RUNWAY_API_KEY || process.env.RUNWAYML_API_SECRET || '').trim();
       if (!runwayApiKey) {
         return res.status(503).json({
           error: 'Runway API yapılandırılmamış.',
-          hint: 'Vercel: Settings > Environment Variables > RUNWAY_API_KEY ekleyin, Redeploy yapın.',
+          hint: 'Vercel: RUNWAY_API_KEY veya RUNWAYML_API_SECRET ekleyin. Anahtar: app.runwayml.com → Settings → API',
           code: 'API_KEY_MISSING'
         });
       }
 
-      const runwayResponse = await fetch('https://api.runwayml.com/v1/video_generations', {
+      const ratioMap = { '16:9': '1280:720', '9:16': '720:1280' };
+      const runwayRatio = ratioMap[aspect_ratio] || '1280:720';
+      const runwayDuration = Math.min(Math.max(2, Math.round(duration)), 10);
+
+      const runwayResponse = await fetch('https://api.dev.runwayml.com/v1/text_to_video', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${runwayApiKey}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Runway-Version': '2024-11-06'
         },
         body: JSON.stringify({
-          text_prompt: cleanPrompt,
-          watermarked: false,
-          duration: Math.min(duration, 30), // Runway limiti
-          ratio: aspect_ratio || '16:9'
+          model: 'veo3.1_fast',
+          promptText: cleanPrompt,
+          ratio: runwayRatio,
+          duration: runwayDuration
         })
       });
 
       if (!runwayResponse.ok) {
         const err = await runwayResponse.json().catch(() => ({}));
-        const msg = err.error?.message || runwayResponse.statusText;
-        return res.status(runwayResponse.status).json({ error: `Runway API Hatası: ${msg}` });
+        const msg = err.message || err.error || runwayResponse.statusText;
+        const isAuth = runwayResponse.status === 401 || /unauthorized|invalid.*key/i.test(String(msg));
+        const hint = isAuth
+          ? 'Runway API anahtarı geçersiz. app.runwayml.com → Settings → API Keys\'ten yeni anahtar alın.'
+          : `Runway API Hatası: ${msg}`;
+        return res.status(runwayResponse.status).json({ error: hint });
       }
 
       const runwayData = await runwayResponse.json();
-      videoUrl = runwayData.output_url;
+      jobId = runwayData.id;
+      if (!jobId) return res.status(500).json({ error: 'Runway task oluşturulamadı.' });
+      return res.status(200).json({
+        jobId,
+        status: 'processing',
+        provider: 'runway',
+        prompt: cleanPrompt,
+        duration: runwayDuration,
+        resolution
+      });
     }
 
     if (!videoUrl) {
